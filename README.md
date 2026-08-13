@@ -21,7 +21,12 @@ MIUI-and-MiBox-Lite/
 ├── MIUI14-App清单.txt             # MIUI 14 内置 App 包名清单
 ├── 小米13内置App清单.txt           # 小米 13 内置 App 包名清单
 ├── 小米平板5内置App清单.txt         # 小米平板 5 内置 App 包名清单
-└── HyperOS-App清单.txt            # HyperOS 内置 App 包名清单
+├── HyperOS-App清单.txt            # HyperOS 内置 App 包名清单
+│
+├── xiaomi-apk-cleanup.html        # 内置 APK 清理命令网页（交互式）
+├── xiaomi-apk-cleanup.css         # 页面样式
+├── xiaomi-apk-cleanup.js          # 页面交互逻辑
+└── apk-data.js                    # 各机型推荐精简包名数据
 ```
 
 ## 文件说明
@@ -35,6 +40,10 @@ MIUI-and-MiBox-Lite/
 | `小米13内置App清单.txt` | 小米 13 出厂内置 App 包名清单 |
 | `小米平板5内置App清单.txt` | 小米平板 5 出厂内置 App 包名清单 |
 | `HyperOS-App清单.txt` | HyperOS（澎湃 OS）内置 App 包名清单 |
+| `xiaomi-apk-cleanup.html` | 内置 APK 清理命令交互页面（含设备分类、命令生成、一键复制） |
+| `xiaomi-apk-cleanup.css` | 页面样式 |
+| `xiaomi-apk-cleanup.js` | 页面交互逻辑（渲染清单、生成 adb 命令） |
+| `apk-data.js` | 各机型推荐精简包名数据与用途说明 |
 
 各 `*.txt` 清单文件以纯文本逐行存储 Android 应用包名（`packageName`），
 可直接复制包名填入精简命令或脚本中执行。
@@ -62,6 +71,18 @@ MIUI-and-MiBox-Lite/
 ```bat
 MIUI-lite-for-Letv-X600.bat
 ```
+
+### 使用清理命令网页（推荐）
+
+直接用浏览器打开 `xiaomi-apk-cleanup.html`（无需服务器）：
+
+1. 选择设备类型：**手机 / 平板 / 电视盒**。
+2. 选择操作模式：**禁用（推荐·可恢复）** 或 **卸载（移除·谨慎）**。
+3. 展开类别，勾选要清理的应用（含中文用途说明）。
+4. 可粘贴任一 `*.txt` 清单内容到「自定义包名」文本框（自动按行解析）。
+5. 点击 **复制全部命令**，粘贴到已连接设备的终端执行。
+
+> 页面为纯静态前端，所有数据来自 `apk-data.js`，不会上传任何信息。
 
 脚本会自动循环对清单中的每个包名执行禁用命令。
 

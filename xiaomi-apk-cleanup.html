@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小米安卓设备内置 APK 清理命令</title>
+  <link rel="stylesheet" href="xiaomi-apk-cleanup.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1>小米安卓设备内置 APK 清理命令</h1>
+    <p class="subtitle">按机型分类 · 推荐精简清单 · 一键生成 adb 命令</p>
+    <p class="version">版本 v1.1.0</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>1. 选择设备类型</h2>
+      <div class="device-tabs" id="deviceTabs">
+        <label class="tab"><input type="radio" name="device" value="phone" checked /><span>手机</span></label>
+        <label class="tab"><input type="radio" name="device" value="pad" /><span>平板</span></label>
+        <label class="tab"><input type="radio" name="device" value="tv" /><span>电视盒</span></label>
+      </div>
+
+      <h2>2. 选择操作模式</h2>
+      <div class="mode-tabs" id="modeTabs">
+        <label class="tab"><input type="radio" name="mode" value="disable" checked /><span>禁用（推荐·可恢复）</span></label>
+        <label class="tab"><input type="radio" name="mode" value="uninstall" /><span>卸载（移除·谨慎）</span></label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3. 勾选要清理的应用</h2>
+      <div id="categoryList" class="category-list"></div>
+    </section>
+
+    <section class="card">
+      <h2>4. 自定义包名（可选）</h2>
+      <p class="hint">可粘贴任一清单文件（如 <code>小米13内置App清单.txt</code>）内容，系统自动按行解析包名。</p>
+      <textarea id="customPkgs" rows="6" placeholder="每行一个包名，例如：&#10;com.miui.analytics&#10;com.xiaomi.gamecenter"></textarea>
+    </section>
+
+    <section class="card">
+      <h2>5. 生成的命令</h2>
+      <div class="toolbar">
+        <button id="copyBtn" class="btn primary">复制全部命令</button>
+        <button id="selectAllBtn" class="btn">全选</button>
+        <button id="clearBtn" class="btn">清空勾选</button>
+      </div>
+      <pre id="output" class="output">// 勾选上方应用后将在此生成 adb 命令</pre>
+    </section>
+
+    <section class="card warning">
+      <h2>风险提示</h2>
+      <ul>
+        <li>操作前请备份设备数据，并对设备做一次完整备份。</li>
+        <li>优先使用「禁用」模式，应用停止运行但保留在系统，可一键 <code>pm enable</code> 恢复。</li>
+        <li>包名含 <code>system</code> / <code>framework</code> / <code>telephony</code> / <code>settings</code> 的核心组件切勿精简，可能变砖。</li>
+        <li>不同机型/系统版本包名不同，执行前请先用 <code>adb shell pm list packages &lt;包名&gt;</code> 核对。</li>
+        <li>电视盒精简后若丢失桌面（Launcher），用 <code>pm enable &lt;包名&gt;</code> 重新启用。</li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      <p>免责声明：本页面仅供学习与技术研究使用。因使用其中命令导致的设备损坏、数据丢失等后果，作者与贡献者不承担任何责任。</p>
+      <p>配套仓库：<a href="https://github.com/sutchan/Xiaomi-MIUI-14-Liter">Xiaomi-MIUI-14-Liter</a></p>
+    </footer>
+  </main>
+
+  <script src="apk-data.js"></script>
+  <script src="xiaomi-apk-cleanup.js"></script>
+</body>
+</html>
