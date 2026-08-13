@@ -1,4 +1,14 @@
 @ECHO OFF
+REM ============================================================
+REM 乐视 X600 盒子 MIUI 精简脚本
+REM 版本：v1.0.0
+REM 适用：乐视电视盒 X600（搭载 MIUI TV 系统）
+REM 作用：循环对内置 App 包名执行 enable（恢复可用状态）。
+REM 用法：设备开启 USB 调试并 connect 后，双击运行本脚本。
+REM 注意：脚本使用 `pm enable`，用于在被精简后恢复应用可用状态；
+REM       如需精简请改用 `pm disable-user --user 0 <包名>`。
+REM 风险：请勿禁用系统桌面（Launcher），否则盒子将无界面。
+REM ============================================================
 ECHO MIUI V7 Lite for Letv X600 
 ECHO Building in 2016.4.30
 ECHO by Sut
