@@ -3,8 +3,22 @@
 小米设备内置应用精简工具集（原名 MIUI & MiBox Lite）。收集了多款小米手机、平板、电视盒子的内置 App 包名清单，
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
-> 仓库路径：`e:/Github/MiAppClean`
-> 版本：`v1.6.12`
+> 仓库地址：[github.com/sutchan/MiAppClean](https://github.com/sutchan/MiAppClean)
+> 版本：`v1.6.13`
+
+## 目录
+
+- [目录结构](#目录结构)
+- [文件说明](#文件说明)
+- [在线使用（腾讯云 EdgeOne）](#在线使用腾讯云-edgeone)
+- [使用方法](#使用方法)
+- [推荐 ADB 工具](#推荐-adb-工具)
+- [命令说明](#命令说明)
+- [风险提示](#风险提示)
+- [版本记录](#版本记录)
+- [贡献指南](#贡献指南)
+- [本地忽略建议](#本地忽略建议)
+- [免责声明](#免责声明)
 
 ## 目录结构
 
@@ -13,32 +27,35 @@ MiAppClean/
 ├── README.md                       # 本文件（项目说明）
 ├── VERSION                         # 项目版本号（单一来源）
 ├── CHANGELOG.md                    # 版本变更记录
-├── CONTRIBUTING.md                 # 贡献指南（数据格式/编码/版本/CI 规范）
 ├── index.html                      # ★ 站点首页（EO 托管根，直接承载精简工具）
+├── theme.js                        # 站点主题切换（读取 URL 主题参数）
+├── apk-data.js                     # ★ 各机型推荐精简包名数据（单一数据源，原型与脚本共用）
 ├── .github/workflows/ci.yml        # CI：提交/PR 时校验版本一致性与数据完整性
 ├── .github/workflows/deploy.yml     # CD：推送 master/main 时自动部署到腾讯云 EdgeOne
 │
-├── CODE_OF_CONDUCT.md             # 行为准则（Contributor Covenant v2.1）
 ├── CONTRIBUTING.md                # 贡献指南（数据/编码/版本/CI 规范）
-├── LICENSE                        # MIT 许可证
-├── SECURITY.md                    # 安全政策（漏洞私密举报流程）
-├── SUPPORT.md                     # 支持渠道与自助排查指引
 │
-├── xiaomi-apk-cleanup.bat             # 统一精简脚本（合并手机/平板/电视盒命令，交互菜单）
-├── xiaomi-apk-cleanup.py              # 跨平台精简脚本（Python，复用 apk-data.js 数据源）
-├── 精简小米手机MIUI及电视盒app命令.md   # 通用精简命令模板（手机 + 盒子）
-├── MIUI-lite-for-Letv-X600.bat         # 乐视 X600 盒子 ROM 精简脚本（历史/参考）
+├── scripts/                       # 精简脚本（统一入口）
+│   ├── xiaomi-apk-cleanup.bat         #   统一精简脚本（合并手机/平板/电视盒命令，交互菜单）
+│   ├── xiaomi-apk-cleanup.py          #   跨平台精简脚本（Python，复用 ../apk-data.js 数据源）
+│   └── MIUI-lite-for-Letv-X600.bat    #   乐视 X600 盒子 ROM 精简脚本（历史/参考）
 │
-├── 小米MIUI应用列表.md             # 通用 MIUI 内置 App 包名清单
-├── MIUI14-App清单.md             # MIUI 14 内置 App 包名清单
-├── 小米13内置App清单.md           # 小米 13 内置 App 包名清单
-├── 小米平板5内置App清单.md         # 小米平板 5 内置 App 包名清单
-├── HyperOS-App清单.md            # HyperOS 内置 App 包名清单
-│
-├── apk-data.js                    # ★ 各机型推荐精简包名数据（单一数据源，原型与脚本共用）
+├── docs/                          # 文档与清单（被脚本/README 引用）
+│   ├── commands.md                    #   通用精简命令模板（手机 + 盒子）
+│   ├── lists/                         #   各机型内置 App 包名清单（apk-data.js 衍生展示）
+│   │   ├── xiaomi-miui-app-list.md        #   通用 MIUI 内置 App 包名清单
+│   │   ├── miui14-app-list.md             #   MIUI 14 内置 App 包名清单
+│   │   ├── xiaomi-13-app-list.md          #   小米 13 内置 App 包名清单
+│   │   ├── xiaomi-pad5-app-list.md        #   小米平板 5 内置 App 包名清单
+│   │   └── hyperos-app-list.md            #   HyperOS 内置 App 包名清单
+│   └── governance/                     #   开源治理文件
+│       ├── CODE_OF_CONDUCT.md              #   行为准则（Contributor Covenant v2.1）
+│       ├── LICENSE                        #   MIT 许可证
+│       ├── SECURITY.md                    #   安全政策（漏洞私密举报流程）
+│       └── SUPPORT.md                     #   支持渠道与自助排查指引
 │
 └── prototype/                     # 高保真原型 + 设计规范（纯 HTML，零依赖）
-    ├── index.html                 #   原型门户（入口）
+    ├── index.html                 #   原型门户（入口，仅供本地查阅）
     ├── design-system/             #   设计系统（tokens.css 设计令牌单一来源）
     ├── components/                #   组件库（基础/复合/业务组件）
     ├── interaction/               #   交互标准（模式/反馈/错误/空状态）
@@ -51,34 +68,35 @@ MiAppClean/
 
 | 文件 | 用途 |
 | --- | --- |
-| `xiaomi-apk-cleanup.bat` | 统一精简批处理脚本（合并多设备命令，交互选择设备/模式，连接设备后执行） |
-| `xiaomi-apk-cleanup.py` | 跨平台精简脚本（Python，解析 apk-data.js 单一数据源，macOS/Linux/Windows 通用） |
-| `精简小米手机MIUI及电视盒app命令.md` | 通用精简命令模板，含手机与电视盒两类设备命令示例 |
-| `MIUI-lite-for-Letv-X600.bat` | 乐视 X600 盒子 ROM 精简脚本（历史参考，删除 ROM 目录） |
-| `小米MIUI应用列表.md` | 通用 MIUI 系统内置 App 包名清单（待精简候选） |
-| `MIUI14-App清单.md` | MIUI 14 系统内置 App 包名清单 |
-| `小米13内置App清单.md` | 小米 13 出厂内置 App 包名清单 |
-| `小米平板5内置App清单.md` | 小米平板 5 出厂内置 App 包名清单 |
-| `HyperOS-App清单.md` | HyperOS（澎湃 OS）内置 App 包名清单 |
-| `apk-data.js` | ★ **权威单一数据源**：各机型推荐精简包名与风险等级（safe/caution/danger）。前端原型（`prototype/app/`）、`xiaomi-apk-cleanup.py` 均直接消费它；请勿在多处维护包名副本 |
+| `scripts/xiaomi-apk-cleanup.bat` | 统一精简批处理脚本（合并多设备命令，交互选择设备/模式，连接设备后执行） |
+| `scripts/xiaomi-apk-cleanup.py` | 跨平台精简脚本（Python，解析 `apk-data.js` 单一数据源，macOS/Linux/Windows 通用） |
+| `docs/commands.md` | 通用精简命令模板，含手机与电视盒两类设备命令示例 |
+| `scripts/MIUI-lite-for-Letv-X600.bat` | 乐视 X600 盒子 ROM 精简脚本（历史参考，删除 ROM 目录） |
+| `docs/lists/xiaomi-miui-app-list.md` | 通用 MIUI 系统内置 App 包名清单（待精简候选） |
+| `docs/lists/miui14-app-list.md` | MIUI 14 系统内置 App 包名清单 |
+| `docs/lists/xiaomi-13-app-list.md` | 小米 13 出厂内置 App 包名清单 |
+| `docs/lists/xiaomi-pad5-app-list.md` | 小米平板 5 出厂内置 App 包名清单 |
+| `docs/lists/hyperos-app-list.md` | HyperOS（澎湃 OS）内置 App 包名清单 |
+| `apk-data.js` | ★ **权威单一数据源**：各机型推荐精简包名与风险等级（safe/caution/danger）。前端原型（`prototype/app/`）、`scripts/xiaomi-apk-cleanup.py` 均直接消费它；请勿在多处维护包名副本 |
+| `docs/governance/` | 开源治理文件：`CODE_OF_CONDUCT.md`（行为准则）、`LICENSE`（MIT）、`SECURITY.md`（安全政策）、`SUPPORT.md`（支持渠道） |
 | `prototype/` | 高保真原型 + 设计规范（纯 HTML，零依赖）：`index.html` 门户、`design-system/` 设计系统、`components/` 组件库、`interaction/` 交互标准、`app/` 可交互应用原型、`README.md` 原型说明 |
 | `prototype/archive/` | 历史归档：v1.3.0 旧版网页原型（`xiaomi-apk-cleanup.html/.css/.js` 与增强模块 `xiaomi-apk-cleanup.extra.js`），仅供回溯，不再维护 |
-| `CODE_OF_CONDUCT.md` | 行为准则，明确社区可接受行为与举报方式（GitHub About 区自动识别） |
 | `CONTRIBUTING.md` | 贡献指南：项目结构、数据规范、编码与版本管理要求 |
-| `LICENSE` | MIT 许可证（Copyright © 2026 MiAppClean） |
-| `SECURITY.md` | 安全政策：支持版本与漏洞私密举报流程 |
-| `SUPPORT.md` | 支持渠道（Issues / Discussions）与常见问题自助排查 |
 
 > **数据源关系**：`apk-data.js` 为唯一权威来源。三个可执行入口定位如下——
 > - `prototype/app/index.html`：浏览器原型，直接读取 `apk-data.js`（适合查看/生成命令）。
-> - `xiaomi-apk-cleanup.py`：跨平台脚本，直接读取 `apk-data.js`（数据源驱动，推荐）。
-> - `xiaomi-apk-cleanup.bat`：Windows 便捷入口，**内嵌 apk-data.js 的安全包子集离线镜像**，适用于无 Python/Node 环境；更新 `apk-data.js` 后需手动同步其内置清单。
+> - `scripts/xiaomi-apk-cleanup.py`：跨平台脚本，直接读取 `apk-data.js`（数据源驱动，推荐）。
+> - `scripts/xiaomi-apk-cleanup.bat`：Windows 便捷入口，**内嵌 apk-data.js 的安全包子集离线镜像**，适用于无 Python/Node 环境；更新 `apk-data.js` 后需手动同步其内置清单。
 > 各 `*.md` 清单为 `apk-data.js` 的**衍生展示**（人工可读 + 粘贴源），非独立数据源。
 
 各清单文件以 Markdown 列表逐行存储 Android 应用包名（`packageName`），
 可直接复制包名填入精简命令或脚本中执行。
 
 ## 在线使用（腾讯云 EdgeOne）
+
+> 区分两个入口：
+> - **线上工具**：仓库根 `index.html`（部署后即为站点），是可直接使用的精简工具。
+> - **本地原型**：`prototype/index.html` 为仓库内独立静态原型，仅供本地查阅与开发参考，不作为线上入口。
 
 本项目为纯静态前端，已配置 GitHub Actions 自动部署到腾讯云 EdgeOne Pages，
 推送 `master`/`main` 即上线，访问站点首页 `index.html` 即可**直接在线使用精简工具**
@@ -119,21 +137,21 @@ python3 -m http.server 8080
 
 ### 手机 / 平板精简
 
-参考 `精简小米手机MIUI及电视盒app命令.md` 中的「手机」部分，
+参考 `docs/commands.md` 中的「手机」部分，
 将清单中的包名逐个填入卸载/禁用命令执行。
 
 ### 电视盒精简
 
-参考 `精简小米手机MIUI及电视盒app命令.md` 中的「电视盒」部分，
-或使用 `MIUI-lite-for-Letv-X600.bat`（仅适用于乐视 X600 盒子）。
+参考 `docs/commands.md` 中的「电视盒」部分，
+或使用 `scripts/MIUI-lite-for-Letv-X600.bat`（仅适用于乐视 X600 盒子）。
 
 ### 运行统一精简脚本（推荐）
 
-`xiaomi-apk-cleanup.bat` 合并了手机 / 平板 / 电视盒的精简命令，
+`scripts/xiaomi-apk-cleanup.bat` 合并了手机 / 平板 / 电视盒的精简命令，
 连接设备后双击运行，按菜单选择设备类型与操作模式即可：
 
 ```bat
-xiaomi-apk-cleanup.bat
+scripts\xiaomi-apk-cleanup.bat
 ```
 
 脚本内置与 `apk-data.js` 一致的推荐精简包名，逐条执行 `adb` 命令；
@@ -141,12 +159,12 @@ xiaomi-apk-cleanup.bat
 
 ### 运行跨平台脚本（macOS / Linux / Windows）
 
-`xiaomi-apk-cleanup.py` 复用 `apk-data.js` 作为唯一数据源，无需手工同步包名：
+`scripts/xiaomi-apk-cleanup.py` 复用 `apk-data.js` 作为唯一数据源，无需手工同步包名：
 
 ```bash
-python3 xiaomi-apk-cleanup.py        # 交互式精简
-python3 xiaomi-apk-cleanup.py check  # 预检：仅输出设备上真实存在的推荐包
-python3 xiaomi-apk-cleanup.py backup # 备份：导出当前已安装包快照用于恢复
+python3 scripts/xiaomi-apk-cleanup.py        # 交互式精简
+python3 scripts/xiaomi-apk-cleanup.py check  # 预检：仅输出设备上真实存在的推荐包
+python3 scripts/xiaomi-apk-cleanup.py backup # 备份：导出当前已安装包快照用于恢复
 ```
 
 脚本自动校验 `adb` 可用性、`danger` 级核心组件自动跳过；
@@ -155,7 +173,7 @@ python3 xiaomi-apk-cleanup.py backup # 备份：导出当前已安装包快照�
 ### 直接运行脚本（仅 X600）
 
 ```bat
-MIUI-lite-for-Letv-X600.bat
+scripts\MIUI-lite-for-Letv-X600.bat
 ```
 
 > 注意：该脚本为历史 ROM 精简脚本，直接删除 ROM 目录文件，
@@ -206,7 +224,7 @@ MIUI-lite-for-Letv-X600.bat
 
 > 提示：图形工具与本项目脚本并不冲突——可先用本项目 `prototype` 原型或脚本
 > 生成命令、确认包名，再在图形工具中执行或批量管理；精简前务必用
-> `xiaomi-apk-cleanup.py backup` 或上述备份工具留存快照。
+> `scripts/xiaomi-apk-cleanup.py backup` 或上述备份工具留存快照。
 
 ## 命令说明
 
@@ -214,7 +232,6 @@ MIUI-lite-for-Letv-X600.bat
 | --- | --- | --- |
 | `pm uninstall --user 0 <包名>` | 为当前用户卸载（移除）预装应用 | 需恢复出厂或重刷 |
 | `pm disable-user --user 0 <包名>` | 禁用应用（仍在系统中） | 可 `enable` 恢复 |
-| `pm disable-user --user 0 com.miui....` | 同上，针对 MIUI 系统应用 | 可恢复 |
 
 > 更安全的做法是优先使用 `disable-user` 而非 `uninstall`：
 > 禁用后应用不再运行、不占后台，但保留在系统分区，出问题可一键恢复。
@@ -242,8 +259,7 @@ MIUI-lite-for-Letv-X600.bat
 
 ## 本地忽略建议
 
-仓库根目录的 `.gitignore` 若未能生效（部分环境文件受保护），建议手动加入以下规则，
-避免将设备隐私快照与本地配置纳入版本库：
+仓库已提供 `.gitignore`。以下为补充建议，避免将设备隐私快照与本地配置纳入版本库：
 
 ```gitignore
 *.code-workspace

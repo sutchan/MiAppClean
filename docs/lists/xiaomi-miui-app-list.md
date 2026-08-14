@@ -1,13 +1,13 @@
 
-# MIUI 14 内置 App 包名清单
+# 小米 MIUI 通用内置 App 包名清单
 
-> 适用：搭载 MIUI 14 的小米手机 / 平板（如小米 12 / 13 系列出厂系统）
+> 适用：MIUI 12 / 12.5 / 13 等通用机型的出厂预装应用
 
 > 说明：以下每行一个 Android 应用包名（packageName），为精简/禁用候选清单。
 
 >       执行精简前请先用 `adb shell pm list packages <包名>` 核对是否真实存在。
 
-> 关联脚本：精简小米手机MIUI及电视盒app命令.md
+> 关联脚本：[../commands.md](../commands.md)
 
 ---
 
@@ -36,6 +36,7 @@
 - `android.overlay.common`
 - `android.overlay.target`
 - `android.qvaoverlay.common`
+- `com.android.adservices.api`
 - `com.android.apps.tag`
 - `com.android.backupconfirm`
 - `com.android.bips`
@@ -190,6 +191,7 @@
 - `com.miui.audioeffect`
 - `com.miui.audiomonitor`
 - `com.miui.backup`
+- `com.miui.bugreport`
 - `com.miui.carlink`
 - `com.miui.catcherpatch`
 - `com.miui.cit`
@@ -245,12 +247,12 @@
 - `com.miui.systemui.devices.overlay`
 - `com.miui.systemui.overlay.devices.android`
 - `com.miui.touchassistant`
-- `com.miui.translation.kingsoft`
 - `com.miui.translation.xmcloud`
 - `com.miui.translationservice`
 - `com.miui.tsmclient`
 - `com.miui.uireporter`
 - `com.miui.video`
+- `com.miui.vipservice`
 - `com.miui.voiceassist`
 - `com.miui.voiceassistoverlay`
 - `com.miui.voicetrigger`
@@ -318,12 +320,14 @@
 - `com.xiaomi.finddevice`
 - `com.xiaomi.gamecenter.sdk.service`
 - `com.xiaomi.gnss.polaris`
+- `com.xiaomi.joyose`
 - `com.xiaomi.location.fused`
 - `com.xiaomi.macro`
 - `com.xiaomi.market`
 - `com.xiaomi.metoknlp`
 - `com.xiaomi.mi_connect_service`
 - `com.xiaomi.micloud.sdk`
+- `com.xiaomi.mircs`
 - `com.xiaomi.mirror`
 - `com.xiaomi.misettings`
 - `com.xiaomi.mtb`
@@ -332,6 +336,7 @@
 - `com.xiaomi.payment`
 - `com.xiaomi.security.onetrack`
 - `com.xiaomi.simactivate.service`
+- `com.xiaomi.ugd`
 - `com.xiaomi.xmsf`
 - `com.xiaomi.xmsfkeeper`
 - `miui.systemui.plugin`

@@ -2,6 +2,35 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.6.13] - 2026-08-14
+
+### 文档
+- 优化 `README.md`：
+  - 新增目录锚点（TOC），提升长文档导航体验。
+  - 移除头部本地绝对路径（`e:/Github/MiAppClean`），改为仓库链接。
+  - 目录结构图去重 `CONTRIBUTING.md`，补充 `theme.js`，理顺分组。
+  - 在线使用章节开头澄清根 `index.html`（线上工具）与 `prototype/`（本地原型）的区别。
+  - 删除命令说明表中冗余的 `com.miui....` 重复行。
+  - 精简「本地忽略建议」段落，说明仓库已有 `.gitignore` 并改为补充建议。
+- 全仓库展示版本（README、bat 标题/头注释、py 头注释/打印、apk-data.js、
+  index.html、prototype 各页面）统一刷新至 `v1.6.13`。
+
+### 样式
+- 精简清单列表由单列改为双列网格（`render.js` 列表项包入 `.pkg-grid`，
+  `app.css` 用 `grid-template-columns: 1fr 1fr` + 1px 间隙分隔线），
+  窄屏（≤640px）自动回退单列，提升信息密度与可读性。
+
+### 结构
+- 收纳根目录散落文件，减少根目录条目：
+  - 新增 `scripts/`：`xiaomi-apk-cleanup.bat` / `xiaomi-apk-cleanup.py` /
+    `MIUI-lite-for-Letv-X600.bat` 统一入口（`.py` 数据源路径改为 `../apk-data.js`）。
+  - 新增 `docs/`：`commands.md`（命令模板）、`lists/`（5 个机型包名清单，
+    改为英文 kebab-case 命名）、`governance/`（CODE_OF_CONDUCT / LICENSE /
+    SECURITY / SUPPORT 治理文件）。
+  - `index.html`、`apk-data.js`、`prototype/`、`README.md`、`CHANGELOG.md`、
+    `CONTRIBUTING.md`、`VERSION` 等站点根与契约文件保持原位（部署绝对路径依赖）。
+- 同步更新 `ci.yml` 版本校验路径、`README.md` 与 `CONTRIBUTING.md` 全部引用链接。
+
 ## [1.6.12] - 2026-08-14
 
 ### 新增

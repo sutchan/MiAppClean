@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # 小米安卓设备内置 APK 精简统一脚本（跨平台版）
-# 路径: xiaomi-apk-cleanup.py  v1.6.12
-# 作用：交互选择设备类型与操作模式，复用 apk-data.js 数据源逐条执行 adb 命令。
+# 路径: scripts/xiaomi-apk-cleanup.py  v1.6.13
+# 作用：交互选择设备类型与操作模式，复用 ../apk-data.js 数据源逐条执行 adb 命令。
 # 适用：小米手机 / 平板 / 电视盒（含乐视 X600 等搭载 MIUI TV 的盒子）
 # 依赖：Python 3.8+；已安装 ADB 并加入 PATH；设备开启 USB 调试且已连接。
 # 用法：
-#   python3 xiaomi-apk-cleanup.py            # 交互式精简
-#   python3 xiaomi-apk-cleanup.py check      # 预检：仅输出设备上真实存在的推荐包
-#   python3 xiaomi-apk-cleanup.py backup     # 备份：导出当前已安装包快照用于恢复
+#   python3 scripts/xiaomi-apk-cleanup.py            # 交互式精简
+#   python3 scripts/xiaomi-apk-cleanup.py check      # 预检：仅输出设备上真实存在的推荐包
+#   python3 scripts/xiaomi-apk-cleanup.py backup     # 备份：导出当前已安装包快照用于恢复
 # 安全：默认「禁用」模式（可 pm enable 恢复）；danger 级核心组件自动跳过。
 import os
 import re
@@ -18,7 +18,7 @@ import sys
 from datetime import datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DATA_JS = os.path.join(HERE, "apk-data.js")
+DATA_JS = os.path.join(HERE, "..", "apk-data.js")
 
 DEVICE_LABELS = {"phone": "手机", "pad": "平板（复用手机）", "tv": "电视盒"}
 MODE_LABELS = {"disable": "禁用（推荐·可恢复）", "uninstall": "卸载（移除·谨慎）"}
@@ -67,7 +67,7 @@ def cmd_clean():
     if shutil.which("adb") is None:
         sys.exit("[错误] 未检测到 adb，请先安装 Android Platform-Tools 并加入 PATH。")
     print("=" * 40)
-    print("小米 APK 精简工具 v1.6.12")
+    print("小米 APK 精简工具 v1.6.13")
     print("=" * 40)
     os.system("adb devices")
 
@@ -144,9 +144,9 @@ def main():
         cmd_clean()
     else:
         print("未知子命令。用法：")
-        print("  python3 xiaomi-apk-cleanup.py            # 交互精简")
-        print("  python3 xiaomi-apk-cleanup.py check      # 预检存在性")
-        print("  python3 xiaomi-apk-cleanup.py backup     # 导出快照")
+        print("  python3 scripts/xiaomi-apk-cleanup.py            # 交互精简")
+        print("  python3 scripts/xiaomi-apk-cleanup.py check      # 预检存在性")
+        print("  python3 scripts/xiaomi-apk-cleanup.py backup     # 导出快照")
         sys.exit(1)
 
 

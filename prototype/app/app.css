@@ -1,5 +1,5 @@
 /* MiAppClean 应用原型样式（高保真可交互）
- * 路径: prototype/app/app.css  v1.6.12
+ * 路径: prototype/app/app.css  v1.6.13
  * 基于设计令牌 tokens.css，对齐组件库 components.css 的实现。
  */
 @import url("../design-system/tokens.css");
@@ -73,7 +73,8 @@ body {
 .cat .count { margin-left: auto; font-size: var(--fs-xs); color: var(--color-text-3); font-weight: var(--fw-regular); }
 
 /* ===== 包名行 ===== */
-.pkg { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); border-top: 1px solid var(--color-border); }
+.pkg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--color-border); }
+.pkg { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); border-top: none; background: var(--color-surface); }
 .pkg input { width: 18px; height: 18px; accent-color: var(--color-primary); cursor: pointer; flex: none; }
 .pkg .name { font-family: var(--font-mono); font-size: var(--fs-sm); }
 .pkg .desc { color: var(--color-text-2); font-size: var(--fs-sm); margin-left: auto; text-align: right; }
@@ -135,6 +136,7 @@ footer.legal .ver-line #ver { color: var(--color-text-2); }
 @media (max-width: 640px) {
   .wrap { padding: var(--sp-5) var(--sp-4) var(--sp-12); }
   .hero { padding: var(--sp-6) var(--sp-2) var(--sp-4); }
+  .pkg-grid { grid-template-columns: 1fr; }
   .pkg .desc { display: none; }
   .segmented span { padding: 8px 12px; font-size: var(--fs-sm); }
 }

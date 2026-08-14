@@ -29,15 +29,15 @@ jobs:
           # 校验前端原型 html 展示版本（应用原型入口）
           grep -q "v$VERSION" prototype/app/index.html || { echo "prototype/app/index.html 版本号未更新"; exit 1; }
           # 校验 bat 脚本窗口标题版本
-          grep -q "v$VERSION" xiaomi-apk-cleanup.bat || { echo "xiaomi-apk-cleanup.bat 标题版本号未更新"; exit 1; }
+          grep -q "v$VERSION" scripts/xiaomi-apk-cleanup.bat || { echo "scripts/xiaomi-apk-cleanup.bat 标题版本号未更新"; exit 1; }
           # 校验 apk-data.js 头注释版本
           grep -q "v$VERSION" apk-data.js || { echo "apk-data.js 头注释版本未更新"; exit 1; }
           # 校验站点首页版本
           grep -q "v$VERSION" index.html || { echo "index.html 版本号未更新"; exit 1; }
           # 校验 Python 脚本头注释与运行打印版本
-          grep -q "v$VERSION" xiaomi-apk-cleanup.py || { echo "xiaomi-apk-cleanup.py 版本未更新"; exit 1; }
+          grep -q "v$VERSION" scripts/xiaomi-apk-cleanup.py || { echo "scripts/xiaomi-apk-cleanup.py 版本未更新"; exit 1; }
           # 校验精简命令模板版本
-          grep -q "v$VERSION" 精简小米手机MIUI及电视盒app命令.md || { echo "精简命令模板版本未更新"; exit 1; }
+          grep -q "v$VERSION" docs/commands.md || { echo "docs/commands.md 版本未更新"; exit 1; }
           # 校验原型 README 与 app 入口版本
           grep -q "v$VERSION" prototype/README.md || { echo "prototype/README.md 版本未更新"; exit 1; }
 
@@ -46,7 +46,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import re
-          src = open("apk-data.js", encoding="utf-8").read()
+          src = open("apk-data.js", encoding="utf-8").read()  # 数据源仍在仓库根
           m = re.search(r"const APP_DATA\s*=\s*(\{.*?\n\});", src, re.S)
           if not m:
               raise SystemExit("无法解析 APP_DATA")
@@ -64,4 +64,4 @@ jobs:
           PY
 
       - name: 语法检查 Python 脚本
-        run: python3 -m py_compile xiaomi-apk-cleanup.py && echo "py 语法 OK"
+        run: python3 -m py_compile scripts/xiaomi-apk-cleanup.py && echo "py 语法 OK"

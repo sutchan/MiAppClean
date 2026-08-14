@@ -1,5 +1,5 @@
 // MiAppClean 分类渲染模块（按设备/搜索过滤渲染可勾选应用列表）
-// 路径: prototype/app/render.js  v1.6.12
+// 路径: prototype/app/render.js  v1.6.13
 // 单一数据源：APP_DATA 由调用方传入，勾选状态由 checkedPkgs 集合维护。
 // 用法：先于 app.js 引入；对外暴露 window.MiRender。
 (function () {
@@ -32,6 +32,10 @@
       summary.innerHTML = `${group.cat}<span class="count">${items.length}</span>`;
       details.appendChild(summary);
 
+      // 列表项容器：CSS Grid 两列布局（窄屏回退单列）
+      const grid = document.createElement("div");
+      grid.className = "pkg-grid";
+
       items.forEach((it) => {
         const risk = it.risk || "safe";
         const row = document.createElement("label");
@@ -52,9 +56,10 @@
         desc.className = "desc";
         desc.textContent = it.desc;
         row.append(cb, name, tag, desc);
-        details.appendChild(row);
+        grid.appendChild(row);
         totalShown++;
       });
+      details.appendChild(grid);
       catListEl.appendChild(details);
     });
 

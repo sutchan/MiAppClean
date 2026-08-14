@@ -1,5 +1,5 @@
 // MiAppClean 设置模块（主题 / 默认模式 / 勾选记忆 / 提示开关）
-// 路径: prototype/app/settings.js  v1.6.12
+// 路径: prototype/app/settings.js  v1.6.13
 // 单一数据源：视觉令牌见 ../design-system/tokens.css；主题持久化复用 theme.js 的 STORE_KEY。
 // 用法：先于 app.js 引入；对外暴露 window.MiSettings。
 (function () {
