@@ -1,5 +1,5 @@
 
-> HyperOS（澎湃 OS）内置 App 包名清单
+# HyperOS（澎湃 OS）内置 App 包名清单
 
 > 适用：升级 / 出厂搭载 Xiaomi HyperOS 的小米手机、平板、电视盒
 
@@ -7,7 +7,7 @@
 
 >       执行精简前请先用 `adb shell pm list packages <包名>` 核对是否真实存在。
 
-> 关联脚本：精简小米手机MIUI及电视盒app命令.txt
+> 关联脚本：精简小米手机MIUI及电视盒app命令.md
 
 ---
 

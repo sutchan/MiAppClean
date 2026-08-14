@@ -6,9 +6,9 @@
   <title>复合组件 · MiAppClean 组件库</title>
   <link rel="stylesheet" href="components.css" />
 </head>
-<body style="padding:var(--sp-8)">
-  <h1 style="font-size:var(--fs-2xl);letter-spacing:var(--ls-tight);margin:0 0 var(--sp-2)">复合组件 Composite</h1>
-  <p style="color:var(--color-text-2);margin:0 0 var(--sp-8)">由基础组件组合而成，承载局部交互：折叠面板、对话框、抽屉、Toast、命令输出块。</p>
+<body class="doc-page">
+  <h1 class="doc-h1">复合组件 Composite</h1>
+  <p class="doc-lead">由基础组件组合而成，承载局部交互：折叠面板、对话框、抽屉、Toast、命令输出块。</p>
 
   <div class="comp-stage">
     <div class="comp-block">
@@ -25,7 +25,7 @@
 
     <div class="comp-block">
       <h4>Dialog 对话框</h4>
-      <button class="btn btn-secondary" onclick="document.getElementById('dlg').style.display='flex'">打开对话框</button>
+      <button class="btn btn-secondary" aria-haspopup="dialog" onclick="document.getElementById('dlg').style.display='flex'">打开对话框</button>
       <div class="dialog-backdrop" id="dlg" style="display:none" onclick="if(event.target===this)this.style.display='none'">
         <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t">
           <h3 id="dlg-t">确认执行精简？</h3>
@@ -41,9 +41,9 @@
 
     <div class="comp-block">
       <h4>Drawer 抽屉</h4>
-      <button class="btn btn-secondary" onclick="document.getElementById('drw').style.display='block'">打开抽屉</button>
+      <button class="btn btn-secondary" aria-haspopup="dialog" onclick="document.getElementById('drw').style.display='block'">打开抽屉</button>
       <div class="drawer-backdrop" id="drw" style="display:none" onclick="this.style.display='none'"></div>
-      <div class="drawer" id="drw-p" style="display:none" onclick="event.stopPropagation()">
+      <div class="drawer" id="drw-p" role="dialog" aria-modal="true" aria-label="操作详情" style="display:none" onclick="event.stopPropagation()">
         <h3 style="margin:0 0 var(--sp-4)">操作详情</h3>
         <p class="card-desc">抽屉从右侧滑入，承载较多内容（如完整命令预览、设置项）。点击遮罩关闭。</p>
         <button class="btn btn-primary" style="margin-top:var(--sp-4)" onclick="document.getElementById('drw').style.display='none';document.getElementById('drw-p').style.display='none'">关闭</button>

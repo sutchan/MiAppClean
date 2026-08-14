@@ -1,5 +1,5 @@
 /* MiAppClean 应用原型样式（高保真可交互）
- * 路径: prototype/app/app.css  v1.6.2
+ * 路径: prototype/app/app.css  v1.6.7
  * 基于设计令牌 tokens.css，对齐组件库 components.css 的实现。
  */
 @import url("../design-system/tokens.css");
@@ -111,7 +111,7 @@ body {
 /* ===== 风险卡片（提示）===== */
 .notice { display: flex; gap: var(--sp-3); padding: var(--sp-4); border-radius: var(--radius-md); border: 1px solid var(--color-warning-border); background: var(--color-warning-soft); color: var(--color-warning-text); font-size: var(--fs-sm); margin-bottom: var(--sp-5); }
 .notice ul { margin: 0; padding-left: 20px; }
-.notice code { background: rgba(0,0,0,.06); padding: 1px 5px; border-radius: 4px; font-family: var(--font-mono); }
+.notice code { background: var(--color-surface-3, rgba(0,0,0,.06)); padding: 1px 5px; border-radius: var(--radius-sm); font-family: var(--font-mono); }
 
 /* 空状态 */
 .empty { text-align: center; padding: var(--sp-10); border: 1px dashed var(--color-border); border-radius: var(--radius-md); color: var(--color-text-2); }

@@ -6,18 +6,18 @@
   <title>基础组件 · MiAppClean 组件库</title>
   <link rel="stylesheet" href="components.css" />
 </head>
-<body style="padding:var(--sp-8)">
-  <h1 style="font-size:var(--fs-2xl);letter-spacing:var(--ls-tight);margin:0 0 var(--sp-2)">基础组件 Base</h1>
-  <p style="color:var(--color-text-2);margin:0 0 var(--sp-8)">原子级元素：按钮、输入、文本域、选择、徽章、复选、分段控件。组件库第一层。</p>
+<body class="doc-page">
+  <h1 class="doc-h1">基础组件 Base</h1>
+  <p class="doc-lead">原子级元素：按钮、输入、文本域、选择、徽章、复选、分段控件。组件库第一层。</p>
 
   <div class="comp-stage">
     <div class="comp-block">
       <h4>Button 按钮</h4>
       <div class="comp-row">
-        <button class="btn btn-primary">主要操作</button>
-        <button class="btn btn-secondary">次要</button>
-        <button class="btn btn-ghost">幽灵</button>
-        <button class="btn btn-danger">危险</button>
+        <button class="btn btn-primary" aria-label="主要操作">主要操作</button>
+        <button class="btn btn-secondary" aria-label="次要操作">次要</button>
+        <button class="btn btn-ghost" aria-label="幽灵操作">幽灵</button>
+        <button class="btn btn-danger" aria-label="危险操作">危险</button>
       </div>
       <div class="comp-row">
         <button class="btn btn-primary btn-sm">小号</button>
@@ -30,16 +30,16 @@
     <div class="comp-block">
       <h4>Input / Textarea / Select</h4>
       <div class="field" style="margin-bottom:var(--sp-3)">
-        <label>包名输入</label>
-        <input class="input" placeholder="com.miui.analytics" />
+        <label for="demo-pkg">包名输入</label>
+        <input class="input" id="demo-pkg" placeholder="com.miui.analytics" />
       </div>
       <div class="field" style="margin-bottom:var(--sp-3)">
-        <label>错误态</label>
-        <input class="input input-error" value="com.miui.." />
+        <label for="demo-err">错误态</label>
+        <input class="input input-error" id="demo-err" value="com.miui.." aria-invalid="true" />
       </div>
       <div class="field">
-        <label>自定义包名（多行）</label>
-        <textarea class="textarea" placeholder="每行一个包名"></textarea>
+        <label for="demo-multi">自定义包名（多行）</label>
+        <textarea class="textarea" id="demo-multi" placeholder="每行一个包名"></textarea>
       </div>
     </div>
 
@@ -60,15 +60,15 @@
     <div class="comp-block">
       <h4>Checkbox 复选</h4>
       <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
-        <label class="check"><input type="checkbox" checked /> 勾选应用</label>
-        <label class="check"><input type="checkbox" /> 未勾选</label>
-        <label class="check"><input type="checkbox" disabled /> 禁用态</label>
+        <label class="check"><input type="checkbox" checked aria-label="勾选应用" /> 勾选应用</label>
+        <label class="check"><input type="checkbox" aria-label="未勾选" /> 未勾选</label>
+        <label class="check"><input type="checkbox" disabled aria-label="禁用态" /> 禁用态</label>
       </div>
     </div>
 
     <div class="comp-block">
       <h4>Segmented 分段控件</h4>
-      <div class="segmented">
+      <div class="segmented" role="radiogroup" aria-label="设备类型示例">
         <label><input type="radio" name="demo-seg" checked /><span>手机</span></label>
         <label><input type="radio" name="demo-seg" /><span>平板</span></label>
         <label><input type="radio" name="demo-seg" /><span>电视盒</span></label>

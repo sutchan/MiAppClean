@@ -1,5 +1,5 @@
 /* MiAppClean 组件库样式（可在原型与最终界面复用）
- * 路径: prototype/components/components.css  v1.6.2
+ * 路径: prototype/components/components.css  v1.6.7
  * 依赖 tokens.css 设计令牌。提供基础/复合/业务组件的可视化实现。
  */
 @import url("../design-system/tokens.css");
@@ -14,6 +14,13 @@ body {
   background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
 }
+
+/* 组件演示页通用布局类（替代内联 style，统一引用令牌） */
+.doc-page { padding: var(--sp-8); }
+.doc-h1 { font-size: var(--fs-2xl); letter-spacing: var(--ls-tight); margin: 0 0 var(--sp-2); }
+.doc-lead { color: var(--color-text-2); margin: 0 0 var(--sp-8); }
+.showcase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--sp-4); }
+.card-link { display: block; }
 
 /* 组件展示栅格 */
 .comp-stage { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--sp-6); align-items: start; }
@@ -39,7 +46,7 @@ body {
 .btn-secondary:hover { background: var(--color-surface-2); }
 .btn-ghost { background: transparent; color: var(--color-text-2); }
 .btn-ghost:hover { background: var(--color-surface-2); color: var(--color-text); }
-.btn-danger { background: var(--color-danger); color: #fff; }
+.btn-danger { background: var(--color-danger); color: var(--color-text-invert); }
 .btn-danger:hover { filter: brightness(.94); }
 .btn-sm { padding: 6px 12px; font-size: var(--fs-sm); min-height: 32px; }
 .btn-lg { padding: 12px 22px; font-size: var(--fs-md); }

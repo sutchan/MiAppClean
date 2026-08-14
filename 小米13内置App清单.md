@@ -1,5 +1,5 @@
 
-> 小米 13 内置 App 包名清单
+# 小米 13 内置 App 包名清单
 
 > 适用：Xiaomi 13（葫芦岛 / 12GB+256GB 等）出厂 MIUI 14 / HyperOS 系统
 
@@ -7,7 +7,7 @@
 
 >       执行精简前请先用 `adb shell pm list packages <包名>` 核对是否真实存在。
 
-> 关联脚本：精简小米手机MIUI及电视盒app命令.txt
+> 关联脚本：精简小米手机MIUI及电视盒app命令.md
 
 ---
 

@@ -1,5 +1,5 @@
 /* MiAppClean 设计系统文档页共享样式
- * 路径: prototype/design-system/doc.css  v1.6.2
+ * 路径: prototype/design-system/doc.css  v1.6.7
  * 仅用于原型站内的规范展示页，应用原型另用 app.css。
  */
 @import url("tokens.css");
@@ -134,6 +134,9 @@ a:hover { text-decoration: underline; }
 }
 
 .doc-footer { margin-top: var(--sp-16); padding-top: var(--sp-6); border-top: 1px solid var(--color-border); color: var(--color-text-3); font-size: var(--fs-sm); }
+
+/* 代码块（替代内联 style，统一引用令牌） */
+.token-code { font-family: var(--font-mono); color: var(--color-text); background: var(--color-surface-2); padding: var(--sp-4); border-radius: var(--radius-md); border: 1px solid var(--color-border); white-space: pre-wrap; }
 
 /* 响应式：窄屏收起导航 */
 @media (max-width: 880px) {

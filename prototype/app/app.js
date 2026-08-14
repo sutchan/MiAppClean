@@ -1,6 +1,6 @@
 // MiAppClean 应用原型交互逻辑
 // 复用根目录 apk-data.js 的 APP_DATA 作为单一数据源（真实数据）
-// 路径: prototype/app/app.js  v1.6.2
+// 路径: prototype/app/app.js  v1.6.7
 
 (function () {
   "use strict";
@@ -10,6 +10,15 @@
   const output = $("#output");
   const custom = $("#custom");
   const stat = $("#stat");
+
+  // 数据由 apk-data.js 以 window.APP_DATA 暴露；缺失时给出友好提示而非白屏
+  const APP_DATA = window.APP_DATA;
+  if (!APP_DATA || typeof APP_DATA !== "object") {
+    const tip = "数据源 apk-data.js 未加载，请通过本地 HTTP 服务打开本原型。";
+    if (catList) catList.innerHTML = '<p class="empty">' + tip + "</p>";
+    if (stat) stat.textContent = "数据加载失败";
+    return;
+  }
 
   // 预扫描所有设备清单，建立 包名 -> risk 映射，供生成命令时判定风险
   const RISK_MAP = {};

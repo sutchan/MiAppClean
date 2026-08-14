@@ -2,6 +2,42 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.6.7] - 2026-08-14
+
+### 变更
+- 将全部 6 个 `.txt` 清单/命令模板转换为 Markdown 格式，提升可读性与渲染效果：
+  - 5 个 App 包名清单：`小米MIUI应用列表` / `MIUI14-App清单` / `小米13内置App清单` /
+    `小米平板5内置App清单` / `HyperOS-App清单` 转为 `.md`，注释行转为引用块、
+    分隔线与 H1 标题，包名列表转为无序代码列表。
+  - 命令模板 `精简小米手机MIUI及电视盒app命令.md` 由 `.txt` 转换而来，按分类组织代码块
+    （命令示例、目录位置、风险与恢复说明），统一头版本为 v1.6.7。
+  - 原 `.txt` 文件全部删除，项目根目录不再保留纯文本清单。
+- 同步更新所有引用上述文件名的文档与代码：README（目录结构、文件说明表、正文引用）、
+  CONTRIBUTING（结构图）、`prototype/archive/xiaomi-apk-cleanup.html`（粘贴提示）、
+  以及各清单 `.md` 内的关联脚本引用。
+- 版本单一来源同步至 v1.6.7：VERSION、README、prototype/README.md、
+  `prototype/app/index.html` 展示版本。
+- 原型设计令牌单一来源与可访问性清理（审查后续修复）：
+  - 消除组件库/应用中的硬编码色值：`.btn-danger` 的 `#fff` 改为 `--color-text-invert`，
+    `.notice code` 的 `rgba(0,0,0,.06)` 改为 `--color-surface-3` + `--radius-sm`。
+  - 抽取重复内联布局为令牌类：组件演示页新增 `.doc-page`/`.doc-h1`/`.doc-lead`/`.showcase-grid`/
+    `.card-link`，设计系统页新增 `.token-code`，替换各 `index.html`/`base.html`/`business.html`/
+    `composite.html` 的内联 `style`。
+  - 增强可访问性（WCAG AA）：分段控件加 `role="radiogroup"` 与 `aria-label`，按钮/复选/
+    包名行补 `aria-label`，输入绑定 `label for` 与 `aria-invalid`，抽屉补 `aria-modal`。
+
+## [1.6.6] - 2026-08-14
+
+### 修复
+- 修复应用原型 `prototype/app/index.html` 在 `file://` 下数据无法读取导致白屏的问题：
+  在 `apk-data.js` 末尾显式暴露 `window.APP_DATA`，并在 `app.js` 中对数据源做空值守卫，
+  缺失时显示友好提示而非崩溃。
+- 统一原型各文件头注释与展示版本号至 v1.6.6：根 `index.html` footer 由 v1.0.0 更正为
+  当前版本，修正 `app.js` / `app.css` / `tokens.css` / `components.css` / `doc.css` 残留的
+  v1.6.2 头注释。
+- 为 `prototype/archive/xiaomi-apk-cleanup.html` 增加「已废弃」标注并指向现行原型
+  `prototype/app/index.html`，避免误用历史版本。
+
 ## [1.6.4] - 2026-08-14
 
 ### 修复

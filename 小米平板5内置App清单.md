@@ -1,5 +1,5 @@
 
-> 小米平板 5 内置 App 包名清单
+# 小米平板 5 内置 App 包名清单
 
 > 适用：Xiaomi Pad 5 / 5 Pro 出厂 MIUI 12.5 / 13 系统
 
@@ -7,7 +7,7 @@
 
 >       执行精简前请先用 `adb shell pm list packages <包名>` 核对是否真实存在。
 
-> 关联脚本：精简小米手机MIUI及电视盒app命令.txt
+> 关联脚本：精简小米手机MIUI及电视盒app命令.md
 
 ---
 

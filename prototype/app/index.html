@@ -9,7 +9,7 @@
 <body>
   <header class="topbar">
     <div class="brand"><span class="dot"></span>Mi<span>App</span>Clean</div>
-    <span class="ver" id="ver">v1.6.3</span>
+    <span class="ver" id="ver">v1.6.7</span>
   </header>
 
   <div class="hero">
@@ -27,7 +27,7 @@
     <section class="step">
       <div class="step-head"><span class="step-num">1</span><h2>选择设备类型</h2></div>
       <div class="panel">
-        <div class="segmented" id="deviceSeg">
+        <div class="segmented" id="deviceSeg" role="radiogroup" aria-label="设备类型">
           <label><input type="radio" name="device" value="phone" checked /><span>📱 手机</span></label>
           <label><input type="radio" name="device" value="pad" /><span>📟 平板</span></label>
           <label><input type="radio" name="device" value="tv" /><span>📺 电视盒</span></label>
@@ -40,7 +40,7 @@
     <section class="step">
       <div class="step-head"><span class="step-num">2</span><h2>选择操作模式</h2></div>
       <div class="panel">
-        <div class="segmented" id="modeSeg">
+        <div class="segmented" id="modeSeg" role="radiogroup" aria-label="操作模式">
           <label><input type="radio" name="mode" value="disable" checked /><span>禁用（推荐·可恢复）</span></label>
           <label><input type="radio" name="mode" value="uninstall" /><span>卸载（移除·谨慎）</span></label>
         </div>
