@@ -1,5 +1,5 @@
 // MiAppClean 设置模块（主题 / 默认模式 / 勾选记忆 / 提示开关）
-// 路径: prototype/app/settings.js  v1.9.0
+// 路径: prototype/app/settings.js  v1.10.0
 // 单一数据源：视觉令牌见 ../design-system/tokens.css；主题持久化复用 theme.js 的 STORE_KEY。
 // 用法：先于 app.js 引入；对外暴露 window.MiSettings。
 (function () {
@@ -10,6 +10,7 @@
   var MEM_KEY = "miac-remember-checks";
   var TOAST_KEY = "miac-copy-toast";
   var CHECKED_KEY = "miac-checked-pkgs";
+  var LANG_KEY = "miac-lang";        // 界面语言：zh-CN | en-US（与 i18n.js 共享）
 
   function read(key, fallback) {
     try {
@@ -24,7 +25,8 @@
   var DEFAULTS = {
     mode: "disable",     // 默认操作模式：disable | uninstall
     remember: "on",      // 记忆上次勾选：on | off
-    toast: "on"          // 复制成功后提示：on | off
+    toast: "on",         // 复制成功后提示：on | off
+    lang: "zh-CN"        // 界面语言：zh-CN | en-US
   };
 
   function get(key) {
@@ -32,6 +34,7 @@
     if (key === "mode") return read(MODE_KEY, DEFAULTS.mode);
     if (key === "remember") return read(MEM_KEY, DEFAULTS.remember);
     if (key === "toast") return read(TOAST_KEY, DEFAULTS.toast);
+    if (key === "lang") return read(LANG_KEY, "zh-CN");
     return undefined;
   }
   function set(key, val) {
@@ -39,6 +42,7 @@
     else if (key === "mode") write(MODE_KEY, val);
     else if (key === "remember") write(MEM_KEY, val);
     else if (key === "toast") write(TOAST_KEY, val);
+    else if (key === "lang") write(LANG_KEY, val);
   }
 
   // 记忆勾选集合（仅在 remember=on 时生效）
@@ -94,6 +98,13 @@
         '<label class="settings-row settings-switch">' +
           '<span class="settings-label">复制成功后提示</span>' +
           '<input id="setToast" type="checkbox" />' +
+        '</label>' +
+        '<label class="settings-row">' +
+          '<span class="settings-label" data-i18n="settings.lang">界面语言</span>' +
+          '<select id="setLang" class="select">' +
+            '<option value="zh-CN">简体中文</option>' +
+            '<option value="en-US">English</option>' +
+          '</select>' +
         '</label>' +
       '</div>';
 

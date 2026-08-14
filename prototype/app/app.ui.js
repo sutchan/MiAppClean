@@ -1,4 +1,4 @@
-tj// MiAppClean 应用原型 · 交互与 UI 层
+// MiAppClean 应用原型 · 交互与 UI 层
 // 依赖：app.state.js（window.MiState）、render.js（window.MiRender）、
 //       generate.js（window.MiGen）、settings.js（window.MiSettings）
 // 路径: prototype/app/app.ui.js  v1.9.1
@@ -77,26 +77,25 @@ tj// MiAppClean 应用原型 · 交互与 UI 层
     if (banner) banner.classList.toggle("hidden", getMode() !== "uninstall");
   }
 
+  // 国际化文案取用：优先 MiI18n，未加载时回退原文
+  const I = (key) => (window.MiI18n ? window.MiI18n.t(key) : key);
+
   async function copyAll() {
     if (!output.textContent.startsWith("adb")) {
-      toast("暂无可复制的命令");
+      toast(I("toast.nothing"));
       return;
     }
     // 含卸载命令时，复制前强制弹窗二次确认（最危险操作）
     if (output.textContent.includes("pm uninstall")) {
-      const ok = window.confirm(
-        "⚠️ 警告：当前命令包含「卸载（uninstall）」，会真正移除系统应用且不可恢复，\n" +
-        "可能导致无法开机、失去 OTA 能力或功能异常。\n\n" +
-        "是否仍要复制这些命令？\n（建议优先使用「禁用」模式，可随时 pm enable 恢复）"
-      );
+      const ok = window.confirm(I("confirm.uninstallCopy"));
       if (!ok) {
-        toast("已取消复制（高危操作）");
+        toast(I("toast.cancelDanger"));
         return;
       }
     }
     try {
       await navigator.clipboard.writeText(output.textContent);
-      toast("已复制全部命令 ✓");
+      toast(I("toast.copied"));
     } catch (e) {
       // 降级方案：选中文本
       const range = document.createRange();
@@ -104,7 +103,7 @@ tj// MiAppClean 应用原型 · 交互与 UI 层
       const sel = window.getSelection();
       sel.removeAllRanges();
       sel.addRange(range);
-      toast("已选中命令，请按 Ctrl/Cmd+C 复制");
+      toast(I("toast.copyFallback"));
     }
   }
 
@@ -113,7 +112,7 @@ tj// MiAppClean 应用原型 · 交互与 UI 层
       if (!c.disabled) { c.checked = true; checkedPkgs.add(c.value); }
     });
     generate();
-    toast("已全选推荐项（危险组件已排除）");
+    toast(I("toast.selectAll"));
   }
 
   function clearAll() {
@@ -128,7 +127,7 @@ tj// MiAppClean 应用原型 · 交互与 UI 层
     document.querySelectorAll(".pkg-check").forEach((c) => { c.checked = false; checkedPkgs.delete(c.value); });
     if (window.MiSettings) window.MiSettings.saveChecked([]);
     generate();
-    toast("已取消全部已选项");
+    toast(I("toast.deselect"));
   }
 
   // 事件绑定
@@ -138,14 +137,10 @@ tj// MiAppClean 应用原型 · 交互与 UI 层
   document.querySelectorAll('input[name="mode"]').forEach((r) =>
     r.addEventListener("change", () => {
       // 切换到「卸载」模式时强制弹窗警告，取消则回退到「禁用」
-      if (getMode() === "uninstall" && !window.confirm(
-        "⚠️ 危险操作确认：卸载（uninstall）会真正移除系统应用，不可恢复！\n" +
-        "可能导致设备无法开机、失去 OTA 更新能力或系统功能异常。\n\n" +
-        "确定要切换到卸载模式吗？\n（建议优先使用「禁用」模式，可随时 pm enable 恢复）"
-      )) {
+      if (getMode() === "uninstall" && !window.confirm(I("confirm.switchUninstall"))) {
         const disable = document.querySelector('input[name="mode"][value="disable"]');
         if (disable) disable.checked = true;
-        toast("已取消卸载模式，保持「禁用」");
+        toast(I("toast.keepDisable"));
       }
       toggleUninstallWarn();
       generate();
@@ -187,7 +182,7 @@ tj// MiAppClean 应用原型 · 交互与 UI 层
     });
   }
 
-  // 响应设置面板变更：默认模式 / 记忆开关
+  // 响应设置面板变更：默认模式 / 记忆开关 / 语言
   window.addEventListener("settingchange", (e) => {
     const d = e.detail || {};
     if (d.mode) {
@@ -202,12 +197,19 @@ tj// MiAppClean 应用原型 · 交互与 UI 层
     }
   });
 
+  // 语言切换后：刷新已渲染列表（含风险标签）与命令输出，保持语言一致
+  window.addEventListener("langchange", () => {
+    renderCategories();
+    generate();
+  });
+
   // 初始化
   if (window.MiSettings) {
     const mode = window.MiSettings.get("mode");
     const radio = document.querySelector(`input[name="mode"][value="${mode}"]`);
     if (radio) radio.checked = true;
   }
+  if (window.MiI18n) window.MiI18n.apply(); // 应用界面文案（中英）
   setRiskFilter("all"); // 默认全部，并标记 active 态
   renderCategories();
   generate();
@@ -217,5 +219,16 @@ tj// MiAppClean 应用原型 · 交互与 UI 层
   const themeBtn = $("#themeBtn");
   if (themeBtn && typeof cycleTheme === "function") {
     themeBtn.addEventListener("click", () => cycleTheme());
+  }
+
+  // 语言切换按钮：在 supports 语言间循环切换
+  const langBtn = $("#langBtn");
+  if (langBtn && window.MiI18n) {
+    const next = () => (window.MiI18n.getLang() === "zh-CN" ? "en-US" : "zh-CN");
+    langBtn.addEventListener("click", () => {
+      window.MiI18n.setLang(next());
+      langBtn.textContent = window.MiI18n.getLang() === "zh-CN" ? "EN" : "中";
+    });
+    langBtn.textContent = window.MiI18n.getLang() === "zh-CN" ? "EN" : "中";
   }
 })();

@@ -27,6 +27,11 @@
   <meta name="twitter:description" content="按机型分类、风险分级、一键生成 adb 命令的小米预装应用精简工具。" />
   <meta name="twitter:image" content="https://mi-app-clean.pages.dev/og-cover.png" />
 
+  <!-- 图标：SVG 主色 logo，暗色模式使用浅色描边变体 -->
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+  <link rel="apple-touch-icon" href="/assets/logo.svg" />
+
   <link rel="stylesheet" href="/prototype/app/app.css" />
   <!-- 主题切换：同步执行避免首屏闪烁（数据源见 /prototype/design-system/tokens.css） -->
   <script src="/prototype/theme.js"></script>
@@ -86,7 +91,10 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="brand"><span class="dot"></span>Mi<span>App</span>Clean</div>
+    <div class="brand">
+      <img class="brand-logo" src="/assets/logo.svg" alt="" width="22" height="22" aria-hidden="true" />
+      <span>Mi<span>App</span>Clean</span>
+    </div>
     <div class="topbar-actions">
       <button type="button" id="settingsBtn" class="icon-btn" aria-label="打开设置" aria-haspopup="dialog" aria-expanded="false">⚙</button>
     </div>
