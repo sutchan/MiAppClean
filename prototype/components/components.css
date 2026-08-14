@@ -1,5 +1,5 @@
 /* MiAppClean 组件库样式（可在原型与最终界面复用）
- * 路径: prototype/components/components.css  v1.7.1
+ * 路径: prototype/components/components.css  v1.8.1
  * 依赖 tokens.css 设计令牌。提供基础/复合/业务组件的可视化实现。
  */
 @import url("../design-system/tokens.css");
@@ -117,6 +117,22 @@ body {
 /* ===== 提示 Toast ===== */
 .toast { position: fixed; left: 50%; bottom: var(--sp-6); transform: translateX(-50%); background: var(--color-text); color: var(--color-bg); padding: 10px 16px; border-radius: var(--radius-md); font-size: var(--fs-sm); box-shadow: var(--shadow-md); z-index: var(--z-toast); animation: toastIn var(--dur-base) var(--ease-decelerate); }
 @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+/* ===== 搜索栏 SearchBar ===== */
+.search-row { margin-bottom: var(--sp-3); }
+.input { width: 100%; box-sizing: border-box; padding: 9px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text); font-size: var(--fs-sm); font-family: inherit; }
+.input:focus { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+
+/* ===== 设置面板 SettingsPanel（对话框变体） ===== */
+.settings-backdrop { position: fixed; inset: 0; background: var(--overlay); display: flex; align-items: center; justify-content: center; padding: var(--sp-4); z-index: var(--z-modal); }
+.settings-panel { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); max-width: 420px; width: 100%; padding: var(--sp-5); }
+.settings-panel h3 { margin: 0 0 var(--sp-4); font-size: var(--fs-lg); display: flex; align-items: center; justify-content: space-between; }
+.settings-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); padding: var(--sp-3) 0; border-bottom: 1px solid var(--color-border); }
+.settings-row:last-child { border-bottom: none; }
+.settings-row .label { font-size: var(--fs-sm); color: var(--color-text); }
+
+/* ===== 空状态 EmptyState ===== */
+.empty { text-align: center; padding: var(--sp-8); border: 1px dashed var(--color-border); border-radius: var(--radius-lg); color: var(--color-text-3); }
 
 /* ===== 业务：包名行 ===== */
 .pkg-row { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-2) 0; border-bottom: 1px solid var(--color-border); }

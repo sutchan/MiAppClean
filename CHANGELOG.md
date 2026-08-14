@@ -2,6 +2,29 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.8.1] - 2026-08-14
+
+### 改善
+- 组件库 `prototype/components/business.html` 增补 app 真实业务组件：RiskFilter（风险筛选）、
+  SearchBar（搜索栏）、SettingsPanel（设置面板）、Toast（轻提示）、EmptyState（空状态），
+  使组件库成为应用原型 UI 的镜像；`components.css` 同步补充对应样式。
+- 设计系统 `color.html` 新增「无障碍对比度」小节：基于真实 token 色值核算关键组合的
+  WCAG 2.1 AA 对比度（Text 16:1 / Text-2 7.4:1 / Text-3 2.6:1 / Primary 2.9:1 / Primary-text 5:1），
+  并标注 Text-3 与橙底白字的使用约束。
+- 交互标准页 `interaction/index.html` 反馈区新增「加载态 Loading」规范卡片，明确即时操作
+  用按钮禁用态 + Toast、长任务须显示持续态或进度。
+- 版本单一来源同步至 v1.8.1。
+
+### 修复
+- 统一全仓库版本展示至 v1.8.1，修复 README 与 apk-data.js 版本滞后导致 CI 版本校验失败的问题。
+- 修复 `scripts/xiaomi-apk-cleanup.py` 的 `check` 命令依赖 shell `grep` 的跨平台缺陷，
+  改为纯 Python 解析 `pm list packages` 输出并整行精确匹配，避免 Windows 下失败与子串误判。
+- 修复应用原型顶栏主题按钮（🌓）无响应问题：在 `prototype/theme.js` 暴露全局 `cycleTheme`，
+  三态循环 浅色/深色/跟随系统。
+- 原型渲染为分类与包名行生成语义化 id（`cat-<i>`、`pkg-<pkg>`）便于锚点与自动化测试；
+  搜索框增加轻量防抖、按钮绑定增加防御性空检查以提升鲁棒性。
+- 同步治理文档（SECURITY/SUPPORT/CODE_OF_CONDUCT）版本至 v1.8.1，并更新 SECURITY 支持版本表为 v1.8.x。
+
 ## [1.8.0] - 2026-08-14
 
 ### 新增
@@ -19,6 +42,16 @@
 ### 样式
 - `prototype/app/app.css`：新增 `.seo-content` 视觉弱化处理样式（非 display:none，
   保留爬虫与屏幕阅读器可读），版本单一来源同步至 v1.8.0。
+
+### 修复
+- 统一原型全站版本号：修正此前 app 系列（v1.8.0）与门户/设计系统/组件库/交互页
+  （v1.7.1）及 `VERSION`（v1.7.0）之间的版本漂移，全部对齐至 v1.8.0
+  （设计系统/组件库规范文档自身的 v1.0.0 文档版本语义保留不动）。
+
+### 改善
+- 应用原型 `prototype/app/index.html` 顶栏新增主题切换按钮（🌓），调用 `theme.js`
+  的 `cycleTheme()` 三态循环（浅色/深色/跟随系统），与门户、设计系统页主题体验一致；
+  此前 app 仅能跟随系统、无手动切换入口。
 
 ## [1.7.1] - 2026-08-14
 

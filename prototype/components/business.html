@@ -77,6 +77,54 @@
       </details>
       <p class="comp-note">标题显示类别名与数量，点击展开/收起</p>
     </div>
+
+    <div class="comp-block" style="grid-column:1/-1">
+      <h4>RiskFilter 风险筛选</h4>
+      <div class="segmented" role="radiogroup" aria-label="风险筛选">
+        <label><input type="radio" name="risk" checked /><span>全部</span></label>
+        <label><input type="radio" name="risk" /><span>安全</span></label>
+        <label><input type="radio" name="risk" /><span>谨慎</span></label>
+        <label><input type="radio" name="risk" /><span>危险</span></label>
+      </div>
+      <p class="comp-note">按 risk 维度过滤列表；默认「全部」并标记 active</p>
+    </div>
+
+    <div class="comp-block" style="grid-column:1/-1">
+      <h4>SearchBar 搜索栏</h4>
+      <div class="search-row">
+        <input class="input" type="search" placeholder="搜索包名或描述…" aria-label="搜索应用" />
+      </div>
+      <p class="comp-note">实时过滤（包名/描述，大小写不敏感）；无匹配时显示 EmptyState</p>
+    </div>
+
+    <div class="comp-block" style="grid-column:1/-1">
+      <h4>SettingsPanel 设置面板</h4>
+      <div class="settings-panel">
+        <h3>设置 <button type="button" class="icon-btn" aria-label="关闭设置">✕</button></h3>
+        <div class="settings-row"><span class="label">默认操作模式</span>
+          <select class="select"><option>禁用（推荐·可恢复）</option><option>卸载（移除·谨慎）</option></select>
+        </div>
+        <div class="settings-row"><span class="label">记忆勾选</span><input type="checkbox" checked aria-label="记忆勾选" /></div>
+        <div class="settings-row"><span class="label">提示与文案</span><input type="checkbox" checked aria-label="提示与文案" /></div>
+      </div>
+      <p class="comp-note">对话框变体；设置项以 settingchange 事件驱动联动</p>
+    </div>
+
+    <div class="comp-block" style="grid-column:1/-1">
+      <h4>Toast 轻提示</h4>
+      <div class="card" style="text-align:center;padding:var(--sp-6)">
+        <span class="badge badge-primary">已复制全部命令 ✓</span>
+        <p class="comp-note" style="margin-top:var(--sp-4)">非阻断反馈，2s 自动消失；用于复制成功等即时状态</p>
+      </div>
+    </div>
+
+    <div class="comp-block" style="grid-column:1/-1">
+      <h4>EmptyState 空状态</h4>
+      <div class="empty">
+        <p>未找到匹配的包名，请调整关键词或清空筛选。</p>
+      </div>
+      <p class="comp-note">搜索无结果或零勾选时提示；说明「是什么/怎么做」并给主操作</p>
+    </div>
   </div>
 </body>
 </html>

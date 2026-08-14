@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # 小米安卓设备内置 APK 精简统一脚本（跨平台版）
-# 路径: scripts/xiaomi-apk-cleanup.py  v1.8.0
+# 路径: scripts/xiaomi-apk-cleanup.py  v1.8.1
 # 作用：交互选择设备类型与操作模式，复用 ../apk-data.js 数据源逐条执行 adb 命令。
 # 适用：小米手机 / 平板 / 电视盒（含乐视 X600 等搭载 MIUI TV 的盒子）
 # 依赖：Python 3.8+；已安装 ADB 并加入 PATH；设备开启 USB 调试且已连接。
@@ -67,7 +67,7 @@ def cmd_clean():
     if shutil.which("adb") is None:
         sys.exit("[错误] 未检测到 adb，请先安装 Android Platform-Tools 并加入 PATH。")
     print("=" * 40)
-    print("小米 APK 精简工具 v1.8.0")
+    print("小米 APK 精简工具 v1.8.1")
     print("=" * 40)
     os.system("adb devices")
 
@@ -107,11 +107,22 @@ def cmd_check():
     pkgs = collect_pkgs(data, device)
     print(f"\n预检设备「{DEVICE_LABELS[device]}」的推荐包是否存在...")
     found, missing = [], []
+    try:
+        # 一次性拉取设备已安装包列表，避免逐包调用 adb 且规避 Windows 无 grep 的失败
+        raw = adb("shell pm list packages")
+        installed = {
+            ln.strip()[len("package:"):].strip()
+            for ln in raw.splitlines()
+            if ln.strip().startswith("package:")
+        }
+    except Exception as e:  # 设备未连接或无响应
+        print(f"[警告] 读取设备包列表失败：{e}")
+        installed = set()
     for pkg, risk, desc in pkgs:
         if risk == "danger":
             continue
-        # 精确匹配包名：pm list packages 为前缀匹配，需用 grep -x 锁定整行
-        exists = pkg in adb(f"shell pm list packages {pkg} | grep -x {pkg}")
+        # 精确整行匹配，避免子串误判
+        exists = pkg in installed
         (found if exists else missing).append((pkg, risk))
     print(f"\n✅ 存在（{len(found)}）：")
     for p, r in found:

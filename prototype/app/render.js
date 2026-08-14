@@ -1,5 +1,5 @@
 // MiAppClean 分类渲染模块（按设备/搜索过滤渲染可勾选应用列表）
-// 路径: prototype/app/render.js  v1.8.0
+// 路径: prototype/app/render.js  v1.8.1
 // 单一数据源：APP_DATA 由调用方传入，勾选状态由 checkedPkgs 集合维护。
 // 用法：先于 app.js 引入；对外暴露 window.MiRender。
 (function () {
@@ -16,7 +16,7 @@
     catListEl.innerHTML = "";
     let totalShown = 0;
 
-    list.forEach((group) => {
+    list.forEach((group, gi) => {
       // 按包名或描述过滤（大小写不敏感）
       let items = q
         ? group.items.filter(
@@ -33,6 +33,8 @@
 
       const details = document.createElement("details");
       details.className = "cat";
+      details.id = `cat-${gi}`; // 语义化锚点：按分类索引稳定定位
+      details.setAttribute("data-cat", group.cat);
       details.open = true;
       const summary = document.createElement("summary");
       summary.innerHTML = `${group.cat}<span class="count">${items.length}</span>`;
@@ -46,6 +48,9 @@
         const risk = it.risk || "safe";
         const row = document.createElement("label");
         row.className = `pkg risk-${risk}`;
+        row.id = `pkg-${it.pkg}`; // 语义化 id：以包名定位行，便于测试与锚点
+        row.setAttribute("data-pkg", it.pkg);
+        row.setAttribute("data-risk", risk);
         const cb = document.createElement("input");
         cb.type = "checkbox";
         cb.className = "pkg-check";

@@ -4,7 +4,7 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库地址：[github.com/sutchan/MiAppClean](https://github.com/sutchan/MiAppClean)
-> 版本：`v1.8.0`
+> 版本：`v1.8.1`
 
 ## 目录
 

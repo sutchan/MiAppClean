@@ -1,6 +1,6 @@
 // MiAppClean 应用原型交互逻辑
 // 复用根目录 apk-data.js 的 APP_DATA 作为单一数据源（真实数据）
-// 路径: prototype/app/app.js  v1.8.0
+// 路径: prototype/app/app.js  v1.8.1
 
 (function () {
   "use strict";
@@ -154,10 +154,18 @@
     generate();
   });
   custom.addEventListener("input", generate);
-  if (search) search.addEventListener("input", renderCategories);
-  $("#copyBtn").addEventListener("click", copyAll);
-  $("#selectAllBtn").addEventListener("click", selectAll);
-  $("#clearBtn").addEventListener("click", clearAll);
+  if (search) {
+    // 轻量防抖：避免快速输入时高频重渲染
+    let t;
+    search.addEventListener("input", () => {
+      clearTimeout(t);
+      t = setTimeout(renderCategories, 120);
+    });
+  }
+  const bind = (id, fn) => { const el = $(id); if (el) el.addEventListener("click", fn); };
+  bind("#copyBtn", copyAll);
+  bind("#selectAllBtn", selectAll);
+  bind("#clearBtn", clearAll);
 
   // 风险图例筛选：事件委托，点击切换 safe / caution / danger / all
   const riskLegend = document.querySelector(".risk-legend");
@@ -194,4 +202,10 @@
   setRiskFilter("all"); // 默认全部，并标记 active 态
   renderCategories();
   generate();
+
+  // 主题切换：复用 theme.js 的三态循环（浅色/深色/跟随系统）
+  const themeBtn = $("#themeBtn");
+  if (themeBtn && typeof cycleTheme === "function") {
+    themeBtn.addEventListener("click", () => cycleTheme());
+  }
 })();
