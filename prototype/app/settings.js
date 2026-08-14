@@ -1,5 +1,5 @@
 // MiAppClean 设置模块（主题 / 默认模式 / 勾选记忆 / 提示开关）
-// 路径: prototype/app/settings.js  v1.7.0
+// 路径: prototype/app/settings.js  v1.7.1
 // 单一数据源：视觉令牌见 ../design-system/tokens.css；主题持久化复用 theme.js 的 STORE_KEY。
 // 用法：先于 app.js 引入；对外暴露 window.MiSettings。
 (function () {
@@ -107,16 +107,14 @@
     panel.querySelector("#setRemember").checked = get("remember") === "on";
     panel.querySelector("#setToast").checked = get("toast") === "on";
 
-    // 事件：主题联动 theme.js
+    // 事件：主题切换（入口即设置面板「外观主题」下拉；顶栏不再单独按钮）
     panel.querySelector("#setTheme").addEventListener("change", function (e) {
       set("theme", e.target.value);
-      var evt = new CustomEvent("themechange", { detail: { theme: e.target.value } });
-      window.dispatchEvent(evt);
-      // 直接驱动 theme.js 已注入的切换逻辑
-      document.documentElement.setAttribute("data-theme",
-        e.target.value === "auto" ? null : e.target.value);
-      if (e.target.value === "auto") document.documentElement.removeAttribute("data-theme");
-      syncThemeToggle();
+      // 写入持久化键（与 theme.js 共享），并直接施加到 <html> 立即生效
+      var root = document.documentElement;
+      if (e.target.value === "auto") root.removeAttribute("data-theme");
+      else root.setAttribute("data-theme", e.target.value);
+      window.dispatchEvent(new CustomEvent("themechange", { detail: { theme: e.target.value } }));
     });
     panel.querySelector("#setMode").addEventListener("change", function (e) {
       set("mode", e.target.value);
@@ -137,18 +135,6 @@
     document.addEventListener("keydown", function onEsc(e) {
       if (e.key === "Escape" && panelEl) { close(); document.removeEventListener("keydown", onEsc); }
     });
-  }
-
-  function syncThemeToggle() {
-    // theme.js 注入的按钮文案为 labels 映射，这里通过自定义事件让 theme.js 重新渲染
-    // 由于 theme.js 未暴露内部 render，直接重设 text 以反映当前值
-    var btn = document.querySelector(".theme-toggle");
-    if (!btn) return;
-    var labels = { light: "☀ 浅色", dark: "🌙 深色", auto: "🖥 跟随" };
-    var c = get("theme");
-    btn.textContent = labels[c];
-    btn.setAttribute("aria-pressed", c === "dark" ? "true" : "false");
-    btn.title = "当前：" + labels[c] + "（点击循环切换）";
   }
 
   function openPanel() {
