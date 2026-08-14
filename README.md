@@ -4,7 +4,7 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库路径：`e:/Github/MiAppClean`
-> 版本：`v1.6.8`
+> 版本：`v1.6.9`
 
 ## 目录结构
 
@@ -14,7 +14,9 @@ MiAppClean/
 ├── VERSION                         # 项目版本号（单一来源）
 ├── CHANGELOG.md                    # 版本变更记录
 ├── CONTRIBUTING.md                 # 贡献指南（数据格式/编码/版本/CI 规范）
+├── index.html                      # ★ 站点入口（EO 托管首页，落地页）
 ├── .github/workflows/ci.yml        # CI：提交/PR 时校验版本一致性与数据完整性
+├── .github/workflows/deploy.yml     # CD：推送 master/main 时自动部署到腾讯云 EdgeOne
 │
 ├── xiaomi-apk-cleanup.bat             # 统一精简脚本（合并手机/平板/电视盒命令，交互菜单）
 ├── xiaomi-apk-cleanup.py              # 跨平台精简脚本（Python，复用 apk-data.js 数据源）
@@ -64,6 +66,34 @@ MiAppClean/
 
 各清单文件以 Markdown 列表逐行存储 Android 应用包名（`packageName`），
 可直接复制包名填入精简命令或脚本中执行。
+
+## 在线使用（腾讯云 EdgeOne）
+
+本项目为纯静态前端，已配置 GitHub Actions 自动部署到腾讯云 EdgeOne Pages，
+推送 `master`/`main` 即上线，访问站点的首页即可直接在线使用精简工具。
+
+- **站点首页**：`index.html`（落地页，引导进入工具）
+- **工具入口**：`prototype/app/index.html`（核心交互原型）
+- **数据源**：根目录 `apk-data.js`，以 `/apk-data.js` 绝对路径被前端加载，
+  部署时以**仓库根作为托管根**，保持「单一数据源」不被复制。
+
+### 自行部署
+
+1. 在腾讯云 EdgeOne 控制台「个人中心 → API 密钥」创建 API Token。
+2. 在仓库 `Settings → Secrets → Actions` 新增密钥 `EDGEONE_API_TOKEN`，值为上一步 Token。
+3. 推送代码到 `master`（或手动在 Actions 运行 `Deploy to EdgeOne`）。
+4. 部署完成后在 EdgeOne 控制台获得预览/生产域名；如需自定义域名，在控制台绑定并开启加速。
+
+> 部署工作流见 `.github/workflows/deploy.yml`，托管目录为仓库根 `.`，
+> 零构建、零运行时依赖。
+
+### 本地预览
+
+```bash
+# 以仓库根为站点根启动本地静态服务（保证 /apk-data.js 可访问）
+python3 -m http.server 8080
+# 浏览器打开 http://localhost:8080/
+```
 
 ## 使用方法
 

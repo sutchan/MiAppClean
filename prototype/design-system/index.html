@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>设计系统 · MiAppClean 原型</title>
   <link rel="stylesheet" href="doc.css" />
+  <script src="../theme.js"></script>
 </head>
 <body>
   <div class="doc">
@@ -66,6 +67,21 @@
         <pre class="token-code"><code>&lt;link rel="stylesheet" href="design-system/tokens.css" /&gt;
 &lt;link rel="stylesheet" href="design-system/doc.css" /&gt;</code></pre>
         <p>应用原型（app/）使用独立的 <code>app.css</code>，但同样基于上述令牌变量。</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>主题切换（深浅色）</h2>
+        <p>
+          设计令牌内置浅色（默认 <code>:root</code>）与深色两套值。原型右上方提供
+          <code>☀ 浅色 / 🌙 深色 / 🖥 跟随</code> 三态切换控件，由
+          <code>theme.js</code> 驱动：
+        </p>
+        <ul>
+          <li><strong>浅色 / 深色</strong>：显式写入 <code>html[data-theme]</code>，强制覆盖系统偏好，选择持久化于 <code>localStorage</code>。</li>
+          <li><strong>跟随</strong>：移除 <code>data-theme</code>，由 <code>@media (prefers-color-scheme)</code> 自动匹配系统；切换系统时实时响应。</li>
+          <li>首屏在 <code>&lt;head&gt;</code> 同步应用已存主题，避免深浅闪烁。</li>
+        </ul>
+        <div class="callout">新增页面只需在 <code>&lt;head&gt;</code> 引入 <code>theme.js</code> 即可获得切换能力，无需额外样式。</div>
       </div>
 
       <footer class="doc-footer">

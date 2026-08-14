@@ -2,6 +2,26 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.6.9] - 2026-08-14
+
+### 新增
+- 支持部署到腾讯云 EdgeOne Pages 在线使用：
+  - 新增站点入口 `index.html`（落地页，引导进入精简工具）。
+  - 新增 `.github/workflows/deploy.yml`，推送 `master`/`main` 时自动部署至 EdgeOne。
+  - 将 `prototype/app/index.html` 对数据源的引用改为绝对路径 `/apk-data.js`，
+    以仓库根为托管根，保持「apk-data.js 单一数据源」不被复制。
+  - 补充 `README.md` 在线使用与自行部署说明，以及本地预览命令。
+- 版本单一来源同步至 v1.6.9：VERSION、README、`index.html`、
+  `prototype/app/index.html`、`apk-data.js` 头注释。
+- 原型新增深浅色主题切换功能：
+  - `tokens.css` 将深色变量从 `@media (prefers-color-scheme)` 扩展为同时支持
+    `[data-theme="dark"]` 手动深色与 `:root:not([data-theme])` 跟随系统，
+    `[data-theme="light"]` 显式强制浅色。
+  - 新增 `prototype/theme.js`：三态切换控件（浅色/深色/跟随），`localStorage` 持久化，
+    首屏同步应用避免闪烁，监听系统偏好（仅跟随模式）。
+  - 全部 13 个真实原型页面在 `<head>` 引入 `theme.js`；设计系统总览页补充主题切换说明。
+  - prototype 各文件头注释与门户 footer 统一至 v1.6.9。
+
 ## [1.6.8] - 2026-08-14
 
 ### 修复

@@ -1,0 +1,26 @@
+name: Deploy to EdgeOne
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 部署到腾讯云 EdgeOne Pages
+        uses: TencentCloud/edgeone-pages-action@v1
+        with:
+          # EdgeOne API Token（在 EO 控制台「个人中心 → API 密钥」创建，仓库 Secrets 配置 EDGEONE_API_TOKEN）
+          token: ${{ secrets.EDGEONE_API_TOKEN }}
+          # 部署目录：以仓库根作为站点根，保证 /apk-data.js 可被前端加载（单一数据源）
+          directory: ./
+          # 部署后自动生产一个只读预览环境（默认）。如需绑定自定义域名请在 EO 控制台配置。
+          # install: "npm install"   # 本项目零依赖，无需构建

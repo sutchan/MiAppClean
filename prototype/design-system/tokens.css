@@ -1,5 +1,5 @@
 /* MiAppClean 设计令牌（Design Tokens）
- * 路径: prototype/design-system/tokens.css  v1.6.7
+ * 路径: prototype/design-system/tokens.css  v1.6.9
  * 单一数据源：所有原型与界面代码统一引用本文件变量，确保视觉一致性。
  * 设计原则：极简（minimal）、克制、高对比、留白充足、移动优先。
  */
@@ -131,11 +131,14 @@
   --container-xl: 1120px;
 }
 
-/* 深色模式（系统偏好，原型可选启用）
- * 采用与浅色同构的极简深色，避免高饱和。
+/* 深色模式
+ * 支持两种触发：① 跟随系统（data-theme 未设置时）；② 手动强制（[data-theme="dark"]）。
+ * [data-theme="light"] 显式强制浅色：因下方 dark 作用域用 :not([data-theme]) 排除，
+ * 手动 light 不会命中任何 dark 块，自然回退到 :root 默认浅色，无需重复声明。
+ * 主题切换逻辑见 prototype/theme.js（localStorage 持久化 + 系统偏好监听）。
  */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --color-bg: #0f1115;
     --color-surface: #171a21;
     --color-surface-2: #1e222b;
@@ -173,4 +176,43 @@
     --shadow-lg: 0 12px 24px -6px rgba(0, 0, 0, 0.6);
     --overlay: rgba(0, 0, 0, 0.6);
   }
+}
+
+[data-theme="dark"] {
+  --color-bg: #0f1115;
+  --color-surface: #171a21;
+  --color-surface-2: #1e222b;
+  --color-surface-3: #262b36;
+  --color-border: #2a2e38;
+  --color-border-strong: #3a4150;
+
+  --color-text: #eef1f5;
+  --color-text-2: #b3b9c4;
+  --color-text-3: #7a828f;
+
+  --color-primary-soft: #2a1d0f;
+  --color-primary-border: #4a3216;
+  --color-primary-text: #ffb066;
+
+  --color-success-soft: #0f2918;
+  --color-success-border: #1d4a2e;
+  --color-success-text: #4ade80;
+
+  --color-warning-soft: #2a1f0a;
+  --color-warning-border: #4a3612;
+  --color-warning-text: #fbbf24;
+
+  --color-danger-soft: #2a1212;
+  --color-danger-border: #4a1f1f;
+  --color-danger-text: #f87171;
+
+  --color-info-soft: #0f1e33;
+  --color-info-border: #1d3a5a;
+  --color-info-text: #60a5fa;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 8px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 24px -6px rgba(0, 0, 0, 0.6);
+  --overlay: rgba(0, 0, 0, 0.6);
 }

@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MiAppClean · 应用原型</title>
   <link rel="stylesheet" href="app.css" />
+  <script src="../theme.js"></script>
 </head>
 <body>
   <header class="topbar">
     <div class="brand"><span class="dot"></span>Mi<span>App</span>Clean</div>
-    <span class="ver" id="ver">v1.6.8</span>
+    <span class="ver" id="ver">v1.6.9</span>
   </header>
 
   <div class="hero">
@@ -100,7 +101,8 @@
     </footer>
   </div>
 
-  <script src="../../apk-data.js"></script>
+  <!-- 数据源：部署到腾讯云 EO 时以仓库根作为托管根，使用绝对路径引用单一数据源 -->
+  <script src="/apk-data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
