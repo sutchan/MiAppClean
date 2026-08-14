@@ -143,3 +143,35 @@ textarea {
 
 .footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 24px; }
 .footer a { color: var(--accent); }
+
+/* 搜索与风险筛选栏 */
+.filter-bar { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.filter-bar input[type="search"] {
+  flex: 1;
+  min-width: 200px;
+  background: #11141a;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 13px;
+}
+.filter-bar select {
+  background: #11141a;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 13px;
+}
+
+/* 自定义清单风险预览 */
+.custom-preview { margin-top: 10px; display: flex; flex-direction: column; gap: 4px; max-height: 220px; overflow: auto; }
+.preview-row { display: flex; align-items: center; gap: 8px; padding: 3px 6px; border-radius: 6px; font-size: 13px; }
+.preview-row.risk-danger { background: #2a1414; }
+.preview-row.risk-caution { background: #2a230f; }
+.preview-name { font-family: ui-monospace, monospace; }
+.preview-sum { margin-top: 6px; color: var(--muted); font-size: 12px; }
+
+/* 工具栏分隔 */
+.toolbar-spacer { flex: 1; }

@@ -4,7 +4,7 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库路径：`e:/Github/MIUI-and-MiBox-Lite`
-> 版本：`v1.5.0`
+> 版本：`v1.6.2`
 
 ## 目录结构
 
@@ -25,10 +25,16 @@ MiAppClean/
 ├── 小米平板5内置App清单.txt         # 小米平板 5 内置 App 包名清单
 ├── HyperOS-App清单.txt            # HyperOS 内置 App 包名清单
 │
-├── xiaomi-apk-cleanup.html        # 内置 APK 清理命令网页（交互式）
-├── xiaomi-apk-cleanup.css         # 页面样式
-├── xiaomi-apk-cleanup.js          # 页面交互逻辑
-└── apk-data.js                    # 各机型推荐精简包名数据
+├── apk-data.js                    # ★ 各机型推荐精简包名数据（单一数据源，原型与脚本共用）
+│
+└── prototype/                     # 高保真原型 + 设计规范（纯 HTML，零依赖）
+    ├── index.html                 #   原型门户（入口）
+    ├── design-system/             #   设计系统（tokens.css 设计令牌单一来源）
+    ├── components/                #   组件库（基础/复合/业务组件）
+    ├── interaction/               #   交互标准（模式/反馈/错误/空状态）
+    ├── app/                       #   高保真可交互应用原型（真实数据）
+    ├── archive/                   #   历史归档（v1.3.0 旧版网页原型）
+    └── README.md                  #   原型说明
 ```
 
 ## 文件说明
@@ -44,10 +50,9 @@ MiAppClean/
 | `小米13内置App清单.txt` | 小米 13 出厂内置 App 包名清单 |
 | `小米平板5内置App清单.txt` | 小米平板 5 出厂内置 App 包名清单 |
 | `HyperOS-App清单.txt` | HyperOS（澎湃 OS）内置 App 包名清单 |
-| `xiaomi-apk-cleanup.html` | 内置 APK 清理命令交互页面（含设备分类、命令生成、一键复制） |
-| `xiaomi-apk-cleanup.css` | 页面样式 |
-| `xiaomi-apk-cleanup.js` | 页面交互逻辑（渲染清单、生成 adb 命令） |
-| `apk-data.js` | 各机型推荐精简包名数据与风险等级（safe/caution/danger），前端与脚本共用数据源 |
+| `apk-data.js` | ★ 各机型推荐精简包名数据与风险等级（safe/caution/danger），前端与脚本共用**单一数据源** |
+| `prototype/` | 高保真原型 + 设计规范（纯 HTML，零依赖）：`index.html` 门户、`design-system/` 设计系统、`components/` 组件库、`interaction/` 交互标准、`app/` 可交互应用原型、`README.md` 原型说明 |
+| `prototype/archive/` | 历史归档：v1.3.0 旧版网页原型（`xiaomi-apk-cleanup.html/.css/.js` 与增强模块 `xiaomi-apk-cleanup.extra.js`），仅供回溯，不再维护 |
 
 各 `*.txt` 清单文件以纯文本逐行存储 Android 应用包名（`packageName`），
 可直接复制包名填入精简命令或脚本中执行。
@@ -104,17 +109,20 @@ MIUI-lite-for-Letv-X600.bat
 > 注意：该脚本为历史 ROM 精简脚本，直接删除 ROM 目录文件，
 > 与上方"命令式禁用/卸载"思路不同，仅建议有 ROM 打包经验的用户使用。
 
-### 使用清理命令网页（推荐）
+### 使用高保真原型（推荐）
 
-直接用浏览器打开 `xiaomi-apk-cleanup.html`（无需服务器）：
+打开 `prototype/index.html` 进入原型门户，点击**应用原型**（`prototype/app/index.html`）：
 
-1. 选择设备类型：**手机 / 平板 / 电视盒**。
+1. 选择设备类型：**手机 / 平板 / 电视盒**（平板复用手机清单）。
 2. 选择操作模式：**禁用（推荐·可恢复）** 或 **卸载（移除·谨慎）**。
-3. 展开类别，勾选要清理的应用（含中文用途说明）。
-4. 可粘贴任一 `*.txt` 清单内容到「自定义包名」文本框（自动按行解析）。
-5. 点击 **复制全部命令**，粘贴到已连接设备的终端执行。
+3. 展开类别，勾选要清理的应用（含中文用途说明与风险标签）。
+4. 粘贴任一 `*.txt` 清单内容到「自定义包名」文本框（自动按行解析）。
+5. 点击 **复制全部命令**，粘贴到已连接设备的终端执行；或用 **全选推荐项** 快速选取。
+6. `danger` 级核心组件自动禁用勾选并在命令生成时跳过，规避变砖风险。
 
-> 页面为纯静态前端，所有数据来自 `apk-data.js`，不会上传任何信息。
+> 原型为纯静态前端，所有数据来自根目录 `apk-data.js`（单一数据源），不会上传任何信息。
+> 设计规范与组件库见 `prototype/` 下的 `design-system/`、`components/`、`interaction/`。
+> 旧版网页原型（`xiaomi-apk-cleanup.*`）已归档至 `prototype/archive/`，仅供回溯，不再维护。
 
 ## 命令说明
 
@@ -141,6 +149,24 @@ MIUI-lite-for-Letv-X600.bat
 ## 版本记录
 
 详见 [CHANGELOG.md](./CHANGELOG.md)。
+
+## 贡献指南
+
+欢迎参与完善包名清单与脚本。包名数据格式、风险分级、版本与提交规范请阅读
+[CONTRIBUTING.md](./CONTRIBUTING.md)。核心原则：**`apk-data.js` 为唯一数据源**，
+前端与脚本均从中读取，请勿在多处硬编码清单。
+
+## 本地忽略建议
+
+仓库根目录的 `.gitignore` 若未能生效（部分环境文件受保护），建议手动加入以下规则，
+避免将设备隐私快照与本地配置纳入版本库：
+
+```gitignore
+*.code-workspace
+backup-*.txt        # xiaomi-apk-cleanup.py backup 生成的设备包名快照
+*.cleanup.json      # 前端导出的本地精简方案
+*.bak
+```
 
 ## 免责声明
 

@@ -1,12 +1,18 @@
 // 小米设备内置 APK 推荐精简清单数据
 // 数据来源于仓库精简命令文件中的推荐精简项（已验证可精简）
-// 路径: apk-data.js  v1.4.0
+// 路径: apk-data.js  v1.6.2
 // 结构：APP_DATA[设备类型] = [{ cat: 类别, items: [{ pkg, desc, risk }] }]
 // risk 取值：safe(可安全精简) / caution(精简后可能影响功能,谨慎) / danger(核心组件,严禁精简)
 // 设备类型：phone(手机) / pad(平板,复用手机) / tv(电视盒)
 
 const APP_DATA = {
   phone: [
+    { cat: "系统核心（严禁精简）", items: [
+      { pkg: "com.android.settings", desc: "系统设置", risk: "danger" },
+      { pkg: "com.miui.home", desc: "系统桌面 Launcher", risk: "danger" },
+      { pkg: "com.android.systemui", desc: "系统界面", risk: "danger" },
+      { pkg: "android", desc: "Android 框架核心", risk: "danger" },
+    ]},
     { cat: "广告模块", items: [
       { pkg: "com.android.adservices.api", desc: "广告服务", risk: "safe" },
       { pkg: "com.miui.analytics", desc: "小米统计", risk: "safe" },
@@ -94,6 +100,12 @@ const APP_DATA = {
     ]},
   ],
   tv: [
+    { cat: "系统核心（严禁精简）", items: [
+      { pkg: "com.android.settings", desc: "系统设置", risk: "danger" },
+      { pkg: "com.mitv.tvhome", desc: "电视桌面", risk: "danger" },
+      { pkg: "com.android.systemui", desc: "系统界面", risk: "danger" },
+      { pkg: "android", desc: "Android 框架核心", risk: "danger" },
+    ]},
     { cat: "电视盒应用", items: [
       { pkg: "com.mipay.wallet.tv", desc: "小米支付(电视)", risk: "caution" },
       { pkg: "com.xiaomi.mibox.gamecenter", desc: "盒子游戏中心", risk: "safe" },

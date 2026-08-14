@@ -1,4 +1,15 @@
+﻿# 编辑器 / IDE 工作区
+*.code-workspace
 
+# 操作系统 / 临时文件
+.DS_Store
+Thumbs.db
 *.bak
-*.bak
-*.bak
+*.tmp
+
+# 设备备份快照（由 xiaomi-apk-cleanup.py backup 生成，含设备隐私包名）
+backup-*.txt
+
+# 用户导出的本地配置
+*.cleanup.json
+

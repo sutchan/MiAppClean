@@ -1,6 +1,6 @@
 // 小米安卓设备内置 APK 清理命令页面逻辑
 // 依赖 apk-data.js 中的 APP_DATA
-// 路径: xiaomi-apk-cleanup.js  v1.4.0
+// 路径: xiaomi-apk-cleanup.js  v1.6.0
 
 const $ = (sel) => document.querySelector(sel);
 const categoryList = $("#categoryList");
