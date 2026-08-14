@@ -43,7 +43,23 @@
 
 ```bash
 python3 -m py_compile xiaomi-apk-cleanup.py   # 语法检查
-python3 .github/scripts/check_data.py          # 如有校验脚本
+```
+
+数据完整性（包名 risk 字段、apk-data.js 可解析）也可本地用以下内联命令预检：
+
+```bash
+python3 - <<'PY'
+import re
+src = open("apk-data.js", encoding="utf-8").read()
+m = re.search(r"const APP_DATA\s*=\s*(\{.*?\n\});", src, re.S)
+js = m.group(1).replace("true","True").replace("false","False").replace("null","None")
+data = eval(js, {"__builtins__":{}}, {})
+for dev, groups in data.items():
+    for g in groups:
+        for it in g["items"]:
+            assert "risk" in it, it
+print("apk-data.js 校验通过")
+PY
 ```
 
 推送后 GitHub Actions 会自动校验版本一致性与数据完整性。

@@ -2,6 +2,21 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.5.0] - 2026-08-14
+
+### 新增
+- `xiaomi-apk-cleanup.py` 增加 `check` 子命令：预检设备上真实存在的推荐包，便于精简前确认。
+- `xiaomi-apk-cleanup.py` 增加 `backup` 子命令：导出当前已安装包快照（backup-时间戳.txt），便于误操作后定位恢复。
+- 5 份机型包名清单（HyperOS / MIUI14 / 小米13 / 小米MIUI通用 / 平板5）新增风险分级警示头，
+  标注 danger 核心组件（settings/systemui/telephony/launcher 等）严禁精简。
+
+### 变更
+- `CONTRIBUTING.md` 修正失效的校验脚本引用，改为内联预检命令。
+- `README.md` 补充 Python 脚本 `check` / `backup` 子命令用法。
+
+### 说明
+- 版本升级至 v1.5.0（新增预检与备份能力，向后兼容）。
+
 ## [1.4.0] - 2026-08-14
 
 ### 新增

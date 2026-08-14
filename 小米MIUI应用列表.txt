@@ -4,6 +4,15 @@
 #       执行精简前请先用 `adb shell pm list packages <包名>` 核对是否真实存在。
 # 关联脚本：精简小米手机MIUI及电视盒app命令.txt
 # ----------------------------------------------------------------
+# ⚠️ 风险分级提示：本清单为「候选全集」，含系统核心组件，请按需取子集！
+#   danger（严禁精简，可能变砖）：含 settings / systemui / telephony /
+#        framework / launcher / provider 等的包名，如 android、com.android.settings、
+#        com.android.systemui、com.android.launcher3、com.android.phone 等。
+#   caution（谨慎）：输入法、音效、息屏、支付、妙享等。
+#   safe（可放心）：广告、统计、测试、多余壁纸等。
+# 推荐做法：直接采用 apk-data.js（已按 safe/caution/danger 分级）作为数据源，
+#   或用 xiaomi-apk-cleanup.py 的 check 子命令预检后再精简。
+# ----------------------------------------------------------------
 android
 android.aosp.overlay
 android.miui.home.launcher.res

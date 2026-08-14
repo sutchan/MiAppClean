@@ -4,7 +4,7 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库路径：`e:/Github/MIUI-and-MiBox-Lite`
-> 版本：`v1.4.0`
+> 版本：`v1.5.0`
 
 ## 目录结构
 
@@ -87,10 +87,13 @@ xiaomi-apk-cleanup.bat
 `xiaomi-apk-cleanup.py` 复用 `apk-data.js` 作为唯一数据源，无需手工同步包名：
 
 ```bash
-python3 xiaomi-apk-cleanup.py
+python3 xiaomi-apk-cleanup.py        # 交互式精简
+python3 xiaomi-apk-cleanup.py check  # 预检：仅输出设备上真实存在的推荐包
+python3 xiaomi-apk-cleanup.py backup # 备份：导出当前已安装包快照用于恢复
 ```
 
-脚本自动校验 `adb` 可用性、`danger` 级核心组件自动跳过。
+脚本自动校验 `adb` 可用性、`danger` 级核心组件自动跳过；
+`check` 可先确认包是否存在再精简，`backup` 在误操作后便于对照定位恢复。
 
 ### 直接运行脚本（仅 X600）
 
