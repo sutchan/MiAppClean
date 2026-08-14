@@ -6,7 +6,8 @@
 
 ### 新增
 - 支持部署到腾讯云 EdgeOne Pages 在线使用：
-  - 新增站点入口 `index.html`（落地页，引导进入精简工具）。
+  - 新增站点入口 `index.html`：直接承载精简工具（选择设备/模式/勾选/生成命令），
+    首页即工具、无需跳转，复用 `prototype/app` 的样式与交互逻辑。
   - 新增 `.github/workflows/deploy.yml`，推送 `master`/`main` 时自动部署至 EdgeOne。
   - 将 `prototype/app/index.html` 对数据源的引用改为绝对路径 `/apk-data.js`，
     以仓库根为托管根，保持「apk-data.js 单一数据源」不被复制。

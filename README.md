@@ -4,7 +4,7 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库路径：`e:/Github/MiAppClean`
-> 版本：`v1.6.9`
+> 版本：`v1.6.10`
 
 ## 目录结构
 
@@ -14,7 +14,7 @@ MiAppClean/
 ├── VERSION                         # 项目版本号（单一来源）
 ├── CHANGELOG.md                    # 版本变更记录
 ├── CONTRIBUTING.md                 # 贡献指南（数据格式/编码/版本/CI 规范）
-├── index.html                      # ★ 站点入口（EO 托管首页，落地页）
+├── index.html                      # ★ 站点首页（EO 托管根，直接承载精简工具）
 ├── .github/workflows/ci.yml        # CI：提交/PR 时校验版本一致性与数据完整性
 ├── .github/workflows/deploy.yml     # CD：推送 master/main 时自动部署到腾讯云 EdgeOne
 │
@@ -70,12 +70,14 @@ MiAppClean/
 ## 在线使用（腾讯云 EdgeOne）
 
 本项目为纯静态前端，已配置 GitHub Actions 自动部署到腾讯云 EdgeOne Pages，
-推送 `master`/`main` 即上线，访问站点的首页即可直接在线使用精简工具。
+推送 `master`/`main` 即上线，访问站点首页 `index.html` 即可**直接在线使用精简工具**
+（首页本身即为工具，无需跳转）。
 
-- **站点首页**：`index.html`（落地页，引导进入工具）
-- **工具入口**：`prototype/app/index.html`（核心交互原型）
+- **站点首页**：`index.html` —— 直接承载精简工具（选择设备 / 模式 / 勾选 / 生成命令）。
 - **数据源**：根目录 `apk-data.js`，以 `/apk-data.js` 绝对路径被前端加载，
   部署时以**仓库根作为托管根**，保持「单一数据源」不被复制。
+- **原型目录 `prototype/`**：为仓库内独立的静态 HTML（含设计系统 / 组件库 / 交互标准 /
+  应用原型），仅供本地查阅与开发参考，**不作为线上站点入口展示**。
 
 ### 自行部署
 
@@ -85,14 +87,15 @@ MiAppClean/
 4. 部署完成后在 EdgeOne 控制台获得预览/生产域名；如需自定义域名，在控制台绑定并开启加速。
 
 > 部署工作流见 `.github/workflows/deploy.yml`，托管目录为仓库根 `.`，
-> 零构建、零运行时依赖。
+> 零构建、零运行时依赖。首页 `index.html` 复用 `prototype/app/app.css` 与
+> `prototype/app/app.js` 实现工具交互。
 
 ### 本地预览
 
 ```bash
 # 以仓库根为站点根启动本地静态服务（保证 /apk-data.js 可访问）
 python3 -m http.server 8080
-# 浏览器打开 http://localhost:8080/
+# 浏览器打开 http://localhost:8080/        # 在线工具首页
 ```
 
 ## 使用方法
