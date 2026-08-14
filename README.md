@@ -4,27 +4,28 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库路径：`e:/Github/MiAppClean`
-> 版本：`v1.6.3`
+> 版本：`v1.6.4`
 
 ## 目录结构
 
 ```
 MiAppClean/
 ├── README.md                       # 本文件（项目说明）
-├── VERSION                         # 项目版本号
+├── VERSION                         # 项目版本号（单一来源）
 ├── CHANGELOG.md                    # 版本变更记录
+├── CONTRIBUTING.md                 # 贡献指南（数据格式/编码/版本/CI 规范）
+├── .github/workflows/ci.yml        # CI：提交/PR 时校验版本一致性与数据完整性
 │
 ├── xiaomi-apk-cleanup.bat             # 统一精简脚本（合并手机/平板/电视盒命令，交互菜单）
 ├── xiaomi-apk-cleanup.py              # 跨平台精简脚本（Python，复用 apk-data.js 数据源）
-├── 精简小米手机MIUI及电视盒app命令.txt   # 通用精简命令模板（手机 + 盒子）
+├── 精简小米手机MIUI及电视盒app命令.md   # 通用精简命令模板（手机 + 盒子）
 ├── MIUI-lite-for-Letv-X600.bat         # 乐视 X600 盒子 ROM 精简脚本（历史/参考）
-├── prototype/                         # 网页原型（app/ 现行版本，archive/ 旧版归档）
 │
-├── 小米MIUI应用列表.txt             # 通用 MIUI 内置 App 包名清单
-├── MIUI14-App清单.txt             # MIUI 14 内置 App 包名清单
-├── 小米13内置App清单.txt           # 小米 13 内置 App 包名清单
-├── 小米平板5内置App清单.txt         # 小米平板 5 内置 App 包名清单
-├── HyperOS-App清单.txt            # HyperOS 内置 App 包名清单
+├── 小米MIUI应用列表.md             # 通用 MIUI 内置 App 包名清单
+├── MIUI14-App清单.md             # MIUI 14 内置 App 包名清单
+├── 小米13内置App清单.md           # 小米 13 内置 App 包名清单
+├── 小米平板5内置App清单.md         # 小米平板 5 内置 App 包名清单
+├── HyperOS-App清单.md            # HyperOS 内置 App 包名清单
 │
 ├── apk-data.js                    # ★ 各机型推荐精简包名数据（单一数据源，原型与脚本共用）
 │
@@ -44,18 +45,18 @@ MiAppClean/
 | --- | --- |
 | `xiaomi-apk-cleanup.bat` | 统一精简批处理脚本（合并多设备命令，交互选择设备/模式，连接设备后执行） |
 | `xiaomi-apk-cleanup.py` | 跨平台精简脚本（Python，解析 apk-data.js 单一数据源，macOS/Linux/Windows 通用） |
-| `精简小米手机MIUI及电视盒app命令.txt` | 通用精简命令模板，含手机与电视盒两类设备命令示例 |
+| `精简小米手机MIUI及电视盒app命令.md` | 通用精简命令模板，含手机与电视盒两类设备命令示例 |
 | `MIUI-lite-for-Letv-X600.bat` | 乐视 X600 盒子 ROM 精简脚本（历史参考，删除 ROM 目录） |
-| `小米MIUI应用列表.txt` | 通用 MIUI 系统内置 App 包名清单（待精简候选） |
-| `MIUI14-App清单.txt` | MIUI 14 系统内置 App 包名清单 |
-| `小米13内置App清单.txt` | 小米 13 出厂内置 App 包名清单 |
-| `小米平板5内置App清单.txt` | 小米平板 5 出厂内置 App 包名清单 |
-| `HyperOS-App清单.txt` | HyperOS（澎湃 OS）内置 App 包名清单 |
+| `小米MIUI应用列表.md` | 通用 MIUI 系统内置 App 包名清单（待精简候选） |
+| `MIUI14-App清单.md` | MIUI 14 系统内置 App 包名清单 |
+| `小米13内置App清单.md` | 小米 13 出厂内置 App 包名清单 |
+| `小米平板5内置App清单.md` | 小米平板 5 出厂内置 App 包名清单 |
+| `HyperOS-App清单.md` | HyperOS（澎湃 OS）内置 App 包名清单 |
 | `apk-data.js` | ★ 各机型推荐精简包名数据与风险等级（safe/caution/danger），前端与脚本共用**单一数据源** |
 | `prototype/` | 高保真原型 + 设计规范（纯 HTML，零依赖）：`index.html` 门户、`design-system/` 设计系统、`components/` 组件库、`interaction/` 交互标准、`app/` 可交互应用原型、`README.md` 原型说明 |
 | `prototype/archive/` | 历史归档：v1.3.0 旧版网页原型（`xiaomi-apk-cleanup.html/.css/.js` 与增强模块 `xiaomi-apk-cleanup.extra.js`），仅供回溯，不再维护 |
 
-各 `*.txt` 清单文件以纯文本逐行存储 Android 应用包名（`packageName`），
+各清单文件以 Markdown 列表逐行存储 Android 应用包名（`packageName`），
 可直接复制包名填入精简命令或脚本中执行。
 
 ## 使用方法
@@ -68,12 +69,12 @@ MiAppClean/
 
 ### 手机 / 平板精简
 
-参考 `精简小米手机MIUI及电视盒app命令.txt` 中的「手机」部分，
+参考 `精简小米手机MIUI及电视盒app命令.md` 中的「手机」部分，
 将清单中的包名逐个填入卸载/禁用命令执行。
 
 ### 电视盒精简
 
-参考 `精简小米手机MIUI及电视盒app命令.txt` 中的「电视盒」部分，
+参考 `精简小米手机MIUI及电视盒app命令.md` 中的「电视盒」部分，
 或使用 `MIUI-lite-for-Letv-X600.bat`（仅适用于乐视 X600 盒子）。
 
 ### 运行统一精简脚本（推荐）
@@ -117,7 +118,7 @@ MIUI-lite-for-Letv-X600.bat
 1. 选择设备类型：**手机 / 平板 / 电视盒**（平板复用手机清单）。
 2. 选择操作模式：**禁用（推荐·可恢复）** 或 **卸载（移除·谨慎）**。
 3. 展开类别，勾选要清理的应用（含中文用途说明与风险标签）。
-4. 粘贴任一 `*.txt` 清单内容到「自定义包名」文本框（自动按行解析）。
+4. 粘贴任一清单（`.md`）内容到「自定义包名」文本框（自动按行解析）。
 5. 点击 **复制全部命令**，粘贴到已连接设备的终端执行；或用 **全选推荐项** 快速选取。
 6. `danger` 级核心组件自动禁用勾选并在命令生成时跳过，规避变砖风险。
 

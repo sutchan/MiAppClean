@@ -2,6 +2,23 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.6.4] - 2026-08-14
+
+### 修复
+- 修正 `xiaomi-apk-cleanup.bat` 窗口标题版本号（`TITLE 小米 APK 精简工具 v1.4.0`
+  → `v1.6.4`），此前长期未随版本升级更新，与实际版本脱节。
+- 同步 `apk-data.js` 头注释版本号 `v1.6.2` → `v1.6.4`，消除头注释与实际版本不一致。
+
+### 变更
+- 删除空的 `tsconfig.json`（项目无 TypeScript 源码，属遗留冗余文件）。
+- 完善 `README.md` 目录结构图：补充 `.github/workflows/ci.yml` 与
+  `CONTRIBUTING.md`，反映实际文件布局。
+- 增强 CI 版本校验：新增对 `xiaomi-apk-cleanup.bat` 标题版本与 `apk-data.js`
+  头注释版本的断言，防止版本号再次遗漏。
+
+### 说明
+- 版本升级至 v1.6.4（版本号修正与文档完善，patch 级）。
+
 ## [1.6.3] - 2026-08-14
 
 ### 修复

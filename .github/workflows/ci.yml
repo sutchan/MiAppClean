@@ -28,6 +28,10 @@ jobs:
           grep -q "v$VERSION" README.md || { echo "README 版本号未更新为 v$VERSION"; exit 1; }
           # 校验前端原型 html 展示版本（应用原型入口）
           grep -q "v$VERSION" prototype/app/index.html || { echo "prototype/app/index.html 版本号未更新"; exit 1; }
+          # 校验 bat 脚本窗口标题版本
+          grep -q "v$VERSION" xiaomi-apk-cleanup.bat || { echo "xiaomi-apk-cleanup.bat 标题版本号未更新"; exit 1; }
+          # 校验 apk-data.js 头注释版本
+          grep -q "v$VERSION" apk-data.js || { echo "apk-data.js 头注释版本未更新"; exit 1; }
 
       - name: 校验 apk-data.js 可被 Python 解析
         shell: bash
