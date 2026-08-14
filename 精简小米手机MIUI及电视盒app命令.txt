@@ -13,7 +13,7 @@ adb connect 192.168.10.250:5555		// 连接手机
 
 adb devices		//查看可连接设备
 
-adb shell pm list package	//查看已安装app
+adb shell pm list packages	//查看已安装app
 
 //更多命令查看页面尾部
 

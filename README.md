@@ -3,8 +3,8 @@
 小米设备内置应用精简工具集（原名 MIUI & MiBox Lite）。收集了多款小米手机、平板、电视盒子的内置 App 包名清单，
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
-> 仓库路径：`e:/Github/MIUI-and-MiBox-Lite`
-> 版本：`v1.6.2`
+> 仓库路径：`e:/Github/MiAppClean`
+> 版本：`v1.6.3`
 
 ## 目录结构
 
@@ -18,6 +18,7 @@ MiAppClean/
 ├── xiaomi-apk-cleanup.py              # 跨平台精简脚本（Python，复用 apk-data.js 数据源）
 ├── 精简小米手机MIUI及电视盒app命令.txt   # 通用精简命令模板（手机 + 盒子）
 ├── MIUI-lite-for-Letv-X600.bat         # 乐视 X600 盒子 ROM 精简脚本（历史/参考）
+├── prototype/                         # 网页原型（app/ 现行版本，archive/ 旧版归档）
 │
 ├── 小米MIUI应用列表.txt             # 通用 MIUI 内置 App 包名清单
 ├── MIUI14-App清单.txt             # MIUI 14 内置 App 包名清单

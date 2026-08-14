@@ -7,13 +7,14 @@
 ```
 MiAppClean/
 ├── apk-data.js                    # 唯一数据源：各设备推荐精简包名与风险等级
-├── xiaomi-apk-cleanup.html/.css/.js  # 静态前端，从 apk-data.js 读取数据渲染
+├── xiaomi-apk-cleanup.html/.css/.js  # 旧版静态前端（已归档至 prototype/archive/）
 ├── xiaomi-apk-cleanup.bat         # Windows 统一精简脚本，复用同一数据源
 ├── xiaomi-apk-cleanup.py          # 跨平台精简脚本（Python），复用同一数据源
 ├── 精简小米手机MIUI及电视盒app命令.txt  # 通用命令模板参考
 ├── MIUI-lite-for-Letv-X600.bat    # 乐视 X600 盒子 ROM 精简历史脚本
 ├── README.md / VERSION / CHANGELOG.md  # 项目说明与版本单一来源
-└── CONTRIBUTING.md                # 本文件
+├── CONTRIBUTING.md                # 本文件
+└── prototype/                     # 网页原型（app/ 现行版本，archive/ 旧版归档）
 ```
 
 > 核心原则：**单一数据源**。`apk-data.js` 是唯一包名来源，前端与脚本均从中读取，

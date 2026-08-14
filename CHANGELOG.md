@@ -2,6 +2,26 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.6.3] - 2026-08-14
+
+### 修复
+- 真正完成旧版网页原型归档：将根目录 `xiaomi-apk-cleanup.html/.css/.js` 与
+  `xiaomi-apk-cleanup.extra.js` 移入 `prototype/archive/`，根目录仅保留脚本、
+  清单数据与 `apk-data.js` 单一数据源（此前 v1.6.2 仅文档声明未实际移动）。
+- 修正 `精简小米手机MIUI及电视盒app命令.txt` 第 16 行 `pm list package` 拼写错误为
+  `pm list packages`，与文件其余处命令保持一致。
+- 修复 `xiaomi-apk-cleanup.py` 的 `check` 子命令误判：原 `pm list packages <pkg>` 为
+  前缀匹配，改用 `grep -x` 精确匹配，避免前缀命中导致的存在性误判。
+
+### 变更
+- 同步各文件头注释与展示版本号至 v1.6.3：
+  `xiaomi-apk-cleanup.py`、`xiaomi-apk-cleanup.bat`、`prototype/app/index.html`、
+  `prototype/README.md`；README 页脚与仓库路径引用也已更新。
+- 将 CI 版本校验目标由已归档的根目录 `xiaomi-apk-cleanup.html` 改为
+  `prototype/app/index.html`，避免归档后 CI 失败。
+- 更新 README 与 CONTRIBUTING 的目录结构图，反映 `prototype/` 目录与归档状态，
+  并修正 README 中过时的仓库路径 `MIUI-and-MiBox-Lite` → `MiAppClean`。
+
 ## [1.6.2] - 2026-08-14
 
 ### 新增
