@@ -1,5 +1,5 @@
 // MiAppClean 原型主题切换（深浅色 + 跟随系统）
-// 路径: prototype/theme.js  v1.8.4
+// 路径: prototype/theme.js  v1.9.0
 // 单一数据源：视觉令牌见 prototype/design-system/tokens.css
 // 用法：在 <head> 末尾引入 <script src="theme.js"></script>（根页）或 "../theme.js"（子页）。
 // 为避免首屏闪烁，脚本同步执行，优先读取 localStorage 持久化的主题。

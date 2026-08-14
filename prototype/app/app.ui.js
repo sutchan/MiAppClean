@@ -1,7 +1,7 @@
-// MiAppClean 应用原型 · 交互与 UI 层
+tj// MiAppClean 应用原型 · 交互与 UI 层
 // 依赖：app.state.js（window.MiState）、render.js（window.MiRender）、
 //       generate.js（window.MiGen）、settings.js（window.MiSettings）
-// 路径: prototype/app/app.ui.js  v1.8.4
+// 路径: prototype/app/app.ui.js  v1.9.1
 
 (function () {
   "use strict";
@@ -71,10 +71,28 @@
     });
   }
 
+  // 卸载模式高风险警告条显隐控制
+  function toggleUninstallWarn() {
+    const banner = document.getElementById("uninstallWarn");
+    if (banner) banner.classList.toggle("hidden", getMode() !== "uninstall");
+  }
+
   async function copyAll() {
     if (!output.textContent.startsWith("adb")) {
       toast("暂无可复制的命令");
       return;
+    }
+    // 含卸载命令时，复制前强制弹窗二次确认（最危险操作）
+    if (output.textContent.includes("pm uninstall")) {
+      const ok = window.confirm(
+        "⚠️ 警告：当前命令包含「卸载（uninstall）」，会真正移除系统应用且不可恢复，\n" +
+        "可能导致无法开机、失去 OTA 能力或功能异常。\n\n" +
+        "是否仍要复制这些命令？\n（建议优先使用「禁用」模式，可随时 pm enable 恢复）"
+      );
+      if (!ok) {
+        toast("已取消复制（高危操作）");
+        return;
+      }
     }
     try {
       await navigator.clipboard.writeText(output.textContent);
@@ -104,12 +122,35 @@
     generate();
   }
 
+  // 取消全选：仅取消当前已勾选项，不清空自定义文本框
+  function deselectAll() {
+    if (checkedPkgs.size === 0) return;
+    document.querySelectorAll(".pkg-check").forEach((c) => { c.checked = false; checkedPkgs.delete(c.value); });
+    if (window.MiSettings) window.MiSettings.saveChecked([]);
+    generate();
+    toast("已取消全部已选项");
+  }
+
   // 事件绑定
   document.querySelectorAll('input[name="device"]').forEach((r) =>
     r.addEventListener("change", () => { renderCategories(); generate(); })
   );
   document.querySelectorAll('input[name="mode"]').forEach((r) =>
-    r.addEventListener("change", () => { generate(); syncRemember(); })
+    r.addEventListener("change", () => {
+      // 切换到「卸载」模式时强制弹窗警告，取消则回退到「禁用」
+      if (getMode() === "uninstall" && !window.confirm(
+        "⚠️ 危险操作确认：卸载（uninstall）会真正移除系统应用，不可恢复！\n" +
+        "可能导致设备无法开机、失去 OTA 更新能力或系统功能异常。\n\n" +
+        "确定要切换到卸载模式吗？\n（建议优先使用「禁用」模式，可随时 pm enable 恢复）"
+      )) {
+        const disable = document.querySelector('input[name="mode"][value="disable"]');
+        if (disable) disable.checked = true;
+        toast("已取消卸载模式，保持「禁用」");
+      }
+      toggleUninstallWarn();
+      generate();
+      syncRemember();
+    })
   );
   // 勾选变化：同步已选集合并重新生成命令
   catList.addEventListener("change", (e) => {
@@ -134,6 +175,7 @@
   bind("#copyBtn", copyAll);
   bind("#selectAllBtn", selectAll);
   bind("#clearBtn", clearAll);
+  bind("#deselectBtn", deselectAll);
 
   // 风险图例筛选：事件委托，点击切换 safe / caution / danger / all
   const riskLegend = document.querySelector(".risk-legend");
@@ -169,6 +211,7 @@
   setRiskFilter("all"); // 默认全部，并标记 active 态
   renderCategories();
   generate();
+  toggleUninstallWarn(); // 依据初始模式（含设置默认模式）同步警告条显隐
 
   // 主题切换：复用 theme.js 的三态循环（浅色/深色/跟随系统）
   const themeBtn = $("#themeBtn");

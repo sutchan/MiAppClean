@@ -1,5 +1,5 @@
 /* MiAppClean 应用原型样式 · 基础布局层
- * 路径: prototype/app/app.base.css  v1.8.4
+ * 路径: prototype/app/app.base.css  v1.9.1
  * 基于设计令牌 tokens.css（须最先导入），承载布局骨架与顶栏/步骤区等结构样式。
  * 组件级样式见同目录 app.components.css。
  */
@@ -85,8 +85,9 @@ body {
 .risk-legend .badge-all { color: var(--color-text); background: var(--color-surface-2); border-color: var(--color-border-strong); }
 
 /* ===== 搜索框 ===== */
-.search-row { margin-bottom: var(--sp-3); }
-.search-row .input { width: 100%; }
+.search-row { margin-bottom: var(--sp-3); display: flex; gap: var(--sp-2); align-items: center; }
+.search-row .input { width: 100%; flex: 1 1 auto; }
+.search-row .search-action { flex: 0 0 auto; white-space: nowrap; }
 
 /* ===== 响应式 ===== */
 @media (max-width: 640px) {

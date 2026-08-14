@@ -1,5 +1,5 @@
 /* MiAppClean 应用原型样式 · 组件层
- * 路径: prototype/app/app.components.css  v1.8.4
+ * 路径: prototype/app/app.components.css  v1.9.0
  * 承载具体 UI 组件样式（类别分组、包名行、徽章、按钮、Toast、设置面板等）。
  * 基础布局与令牌见同目录 app.base.css 与 ../design-system/tokens.css。
  */
@@ -57,6 +57,24 @@
 .notice { display: flex; gap: var(--sp-3); padding: var(--sp-4); border-radius: var(--radius-md); border: 1px solid var(--color-warning-border); background: var(--color-warning-soft); color: var(--color-warning-text); font-size: var(--fs-sm); margin-bottom: var(--sp-5); }
 .notice ul { margin: 0; padding-left: 20px; }
 .notice code { background: var(--color-surface-3, rgba(0,0,0,.06)); padding: 1px 5px; border-radius: var(--radius-sm); font-family: var(--font-mono); }
+.notice strong { color: var(--color-danger-text); font-weight: 700; }
+
+/* 危险操作常驻警告条：红色显眼，用于卸载模式等与高风险直接关联的位置 */
+.warn-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  margin: var(--sp-3) 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-danger-border);
+  background: var(--color-danger-soft);
+  color: var(--color-danger-text);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+.warn-banner .ico { font-size: 18px; line-height: 1.3; }
+.warn-banner.hidden { display: none; }
 
 /* 空状态 */
 .empty { text-align: center; padding: var(--sp-10); border: 1px dashed var(--color-border); border-radius: var(--radius-md); color: var(--color-text-2); }
