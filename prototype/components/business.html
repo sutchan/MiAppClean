@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>业务组件 · MiAppClean 组件库</title>
+  <link rel="stylesheet" href="components.css" />
+</head>
+<body style="padding:var(--sp-8)">
+  <h1 style="font-size:var(--fs-2xl);letter-spacing:var(--ls-tight);margin:0 0 var(--sp-2)">业务组件 Business</h1>
+  <p style="color:var(--color-text-2);margin:0 0 var(--sp-8)">针对「APK 精简」场景封装的领域组件，由基础/复合组件组合，承载真实数据语义。</p>
+
+  <div class="comp-stage">
+    <div class="comp-block" style="grid-column:1/-1">
+      <h4>DeviceSelector 设备选择器</h4>
+      <div class="segmented">
+        <label><input type="radio" name="dev" checked /><span>📱 手机</span></label>
+        <label><input type="radio" name="dev" /><span>📟 平板</span></label>
+        <label><input type="radio" name="dev" /><span>📺 电视盒</span></label>
+      </div>
+      <p class="comp-note">设备类型互斥选择；平板复用手机清单</p>
+    </div>
+
+    <div class="comp-block" style="grid-column:1/-1">
+      <h4>ModeSwitch 模式切换</h4>
+      <div class="segmented">
+        <label><input type="radio" name="mode" checked /><span>禁用（推荐·可恢复）</span></label>
+        <label><input type="radio" name="mode" /><span>卸载（移除·谨慎）</span></label>
+      </div>
+      <p class="comp-note">禁用可 pm enable 恢复；卸载需恢复出厂</p>
+    </div>
+
+    <div class="comp-block" style="grid-column:1/-1">
+      <h4>RiskTag 风险标签</h4>
+      <div style="display:flex;gap:var(--sp-3);flex-wrap:wrap">
+        <span class="badge badge-safe">安全 · 可放心精简</span>
+        <span class="badge badge-caution">谨慎 · 可能影响功能</span>
+        <span class="badge badge-danger">危险 · 严禁精简</span>
+      </div>
+      <p class="comp-note">risk 字段映射：safe/caution/danger</p>
+    </div>
+
+    <div class="comp-block" style="grid-column:1/-1">
+      <h4>PkgItem 包名行（含风险态）</h4>
+      <div class="card">
+        <div class="pkg-row">
+          <input type="checkbox" class="check" checked style="accent-color:var(--color-primary)" />
+          <span class="pkg-name">com.miui.analytics</span>
+          <span class="badge badge-safe">安全</span>
+          <span class="pkg-desc">小米统计</span>
+        </div>
+        <div class="pkg-row risk-caution">
+          <input type="checkbox" class="check" style="accent-color:var(--color-primary)" />
+          <span class="pkg-name">com.miui.audioeffect</span>
+          <span class="badge badge-caution">谨慎</span>
+          <span class="pkg-desc">小米音效</span>
+        </div>
+        <div class="pkg-row risk-danger">
+          <input type="checkbox" class="check" disabled style="accent-color:var(--color-primary)" />
+          <span class="pkg-name">com.android.settings</span>
+          <span class="badge badge-danger">危险</span>
+          <span class="pkg-desc">系统设置（禁止勾选）</span>
+        </div>
+      </div>
+      <p class="comp-note">danger 行自动禁用勾选，命令生成时跳过</p>
+    </div>
+
+    <div class="comp-block" style="grid-column:1/-1">
+      <h4>CategoryGroup 类别分组</h4>
+      <details class="disclosure" open>
+        <summary>广告模块（5）</summary>
+        <div class="body">
+          <div class="pkg-row"><input type="checkbox" class="check" style="accent-color:var(--color-primary)"/><span class="pkg-name">com.android.adservices.api</span><span class="badge badge-safe">安全</span><span class="pkg-desc">广告服务</span></div>
+          <div class="pkg-row"><input type="checkbox" class="check" style="accent-color:var(--color-primary)"/><span class="pkg-name">com.miui.analytics</span><span class="badge badge-safe">安全</span><span class="pkg-desc">小米统计</span></div>
+        </div>
+      </details>
+      <p class="comp-note">标题显示类别名与数量，点击展开/收起</p>
+    </div>
+  </div>
+</body>
+</html>

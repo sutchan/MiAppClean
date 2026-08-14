@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>色彩规范 · MiAppClean 设计系统</title>
+  <link rel="stylesheet" href="doc.css" />
+</head>
+<body>
+  <div class="doc">
+    <nav class="doc-nav">
+      <p class="doc-brand">Mi<span>App</span>Clean</p>
+      <p class="doc-sub">设计系统 v1.0.0</p>
+      <div class="doc-nav-group">
+        <h4>设计系统</h4>
+        <a href="index.html">总览</a>
+        <a href="color.html" class="active">色彩 Color</a>
+        <a href="typography.html">字体 Typography</a>
+        <a href="spacing.html">间距 Spacing</a>
+        <a href="icon.html">图标 Icon</a>
+        <a href="motion.html">动效 Motion</a>
+      </div>
+      <div class="doc-nav-group">
+        <h4>导航</h4>
+        <a href="../index.html">原型门户</a>
+        <a href="../components/index.html">组件库</a>
+        <a href="../interaction/index.html">交互标准</a>
+        <a href="../app/index.html">应用原型</a>
+      </div>
+    </nav>
+    <main class="doc-main">
+      <h1>色彩 Color</h1>
+      <p class="doc-lead">克制的中性底色 + 单一品牌强调色 + 语义状态色。色彩仅用于区分层次、传达状态与引导主操作。</p>
+
+      <div class="doc-section">
+        <h2>中性色 Neutral</h2>
+        <div class="showcase swatches">
+          <div class="swatch"><div class="chip" style="background:var(--color-bg)"></div><div class="meta"><div class="name">Background</div><div class="val">--color-bg</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-surface)"></div><div class="meta"><div class="name">Surface</div><div class="val">--color-surface</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-surface-2)"></div><div class="meta"><div class="name">Surface-2</div><div class="val">--color-surface-2</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-surface-3)"></div><div class="meta"><div class="name">Surface-3</div><div class="val">--color-surface-3</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-border)"></div><div class="meta"><div class="name">Border</div><div class="val">--color-border</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-text)"></div><div class="meta"><div class="name">Text</div><div class="val">--color-text</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-text-2)"></div><div class="meta"><div class="name">Text-2</div><div class="val">--color-text-2</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-text-3)"></div><div class="meta"><div class="name">Text-3</div><div class="val">--color-text-3</div></div></div>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <h2>品牌主色 Primary</h2>
+        <div class="showcase swatches">
+          <div class="swatch"><div class="chip" style="background:var(--color-primary)"></div><div class="meta"><div class="name">Primary</div><div class="val">--color-primary #ff6900</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-primary-hover)"></div><div class="meta"><div class="name">Hover</div><div class="val">--color-primary-hover</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-primary-active)"></div><div class="meta"><div class="name">Active</div><div class="val">--color-primary-active</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-primary-soft)"></div><div class="meta"><div class="name">Soft</div><div class="val">--color-primary-soft</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-primary-border)"></div><div class="meta"><div class="name">Border</div><div class="val">--color-primary-border</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-primary-text)"></div><div class="meta"><div class="name">Text</div><div class="val">--color-primary-text</div></div></div>
+        </div>
+        <div class="callout">主色仅用于主操作按钮、当前选中态、关键强调。每屏主色使用面积不超过 10%。</div>
+      </div>
+
+      <div class="doc-section">
+        <h2>语义状态色 Semantic</h2>
+        <div class="showcase swatches">
+          <div class="swatch"><div class="chip" style="background:var(--color-success-soft);border:1px solid var(--color-success-border)"></div><div class="meta"><div class="name">Success</div><div class="val">--color-success</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-warning-soft);border:1px solid var(--color-warning-border)"></div><div class="meta"><div class="name">Warning</div><div class="val">--color-warning</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-danger-soft);border:1px solid var(--color-danger-border)"></div><div class="meta"><div class="name">Danger</div><div class="val">--color-danger</div></div></div>
+          <div class="swatch"><div class="chip" style="background:var(--color-info-soft);border:1px solid var(--color-info-border)"></div><div class="meta"><div class="name">Info</div><div class="val">--color-info</div></div></div>
+        </div>
+        <p>本项目风险等级映射：<b style="color:var(--color-success-text)">safe 安全</b> → success；<b style="color:var(--color-warning-text)">caution 谨慎</b> → warning；<b style="color:var(--color-danger-text)">danger 危险</b> → danger。三者在所有列表与命令生成中保持一致语义。</p>
+      </div>
+
+      <footer class="doc-footer">MiAppClean 原型 · 色彩规范 v1.0.0</footer>
+    </main>
+  </div>
+</body>
+</html>

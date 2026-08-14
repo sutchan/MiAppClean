@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>复合组件 · MiAppClean 组件库</title>
+  <link rel="stylesheet" href="components.css" />
+</head>
+<body style="padding:var(--sp-8)">
+  <h1 style="font-size:var(--fs-2xl);letter-spacing:var(--ls-tight);margin:0 0 var(--sp-2)">复合组件 Composite</h1>
+  <p style="color:var(--color-text-2);margin:0 0 var(--sp-8)">由基础组件组合而成，承载局部交互：折叠面板、对话框、抽屉、Toast、命令输出块。</p>
+
+  <div class="comp-stage">
+    <div class="comp-block">
+      <h4>Disclosure 折叠面板</h4>
+      <details class="disclosure" open>
+        <summary>广告模块（5）</summary>
+        <div class="body">
+          <div class="pkg-row"><span class="pkg-name">com.android.adservices.api</span><span class="badge badge-safe">安全</span></div>
+          <div class="pkg-row"><span class="pkg-name">com.miui.analytics</span><span class="badge badge-safe">安全</span></div>
+        </div>
+      </details>
+      <p class="comp-note">用于按类别分组包名，默认展开</p>
+    </div>
+
+    <div class="comp-block">
+      <h4>Dialog 对话框</h4>
+      <button class="btn btn-secondary" onclick="document.getElementById('dlg').style.display='flex'">打开对话框</button>
+      <div class="dialog-backdrop" id="dlg" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+        <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t">
+          <h3 id="dlg-t">确认执行精简？</h3>
+          <p>将对所选设备执行禁用操作，被禁用的应用可随时通过 <code>pm enable</code> 恢复。</p>
+          <div class="dialog-actions">
+            <button class="btn btn-ghost" onclick="document.getElementById('dlg').style.display='none'">取消</button>
+            <button class="btn btn-primary" onclick="document.getElementById('dlg').style.display='none'">确认</button>
+          </div>
+        </div>
+      </div>
+      <p class="comp-note">关键操作前确认；点击遮罩或 Esc 关闭</p>
+    </div>
+
+    <div class="comp-block">
+      <h4>Drawer 抽屉</h4>
+      <button class="btn btn-secondary" onclick="document.getElementById('drw').style.display='block'">打开抽屉</button>
+      <div class="drawer-backdrop" id="drw" style="display:none" onclick="this.style.display='none'"></div>
+      <div class="drawer" id="drw-p" style="display:none" onclick="event.stopPropagation()">
+        <h3 style="margin:0 0 var(--sp-4)">操作详情</h3>
+        <p class="card-desc">抽屉从右侧滑入，承载较多内容（如完整命令预览、设置项）。点击遮罩关闭。</p>
+        <button class="btn btn-primary" style="margin-top:var(--sp-4)" onclick="document.getElementById('drw').style.display='none';document.getElementById('drw-p').style.display='none'">关闭</button>
+      </div>
+      <p class="comp-note">移动端优先的二级页面容器</p>
+    </div>
+
+    <div class="comp-block">
+      <h4>Toast 提示</h4>
+      <button class="btn btn-primary" onclick="showToast()">触发 Toast</button>
+      <p class="comp-note">操作结果轻提示，2s 自动消失</p>
+    </div>
+
+    <div class="comp-block" style="grid-column:1/-1">
+      <h4>Command Output 命令输出块</h4>
+      <pre class="cmd-output">adb shell pm disable-user --user 0 com.miui.analytics
+adb shell pm disable-user --user 0 com.xiaomi.gamecenter  # 谨慎：可能影响相关功能
+# 已跳过危险组件（严禁精简，可能变砖）：com.android.settings</pre>
+      <p class="comp-note">等宽字体、可滚动、危险项自动跳过并注释</p>
+    </div>
+  </div>
+
+  <script>
+    function showToast() {
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.textContent = '已复制到剪贴板 ✓';
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 2000);
+    }
+  </script>
+</body>
+</html>

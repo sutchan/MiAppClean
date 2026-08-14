@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>设计系统 · MiAppClean 原型</title>
+  <link rel="stylesheet" href="doc.css" />
+</head>
+<body>
+  <div class="doc">
+    <nav class="doc-nav">
+      <p class="doc-brand">Mi<span>App</span>Clean</p>
+      <p class="doc-sub">设计系统 v1.0.0</p>
+      <div class="doc-nav-group">
+        <h4>设计系统</h4>
+        <a href="index.html" class="active">总览</a>
+        <a href="color.html">色彩 Color</a>
+        <a href="typography.html">字体 Typography</a>
+        <a href="spacing.html">间距 Spacing</a>
+        <a href="icon.html">图标 Icon</a>
+        <a href="motion.html">动效 Motion</a>
+      </div>
+      <div class="doc-nav-group">
+        <h4>导航</h4>
+        <a href="../index.html">原型门户</a>
+        <a href="../components/index.html">组件库</a>
+        <a href="../interaction/index.html">交互标准</a>
+        <a href="../app/index.html">应用原型</a>
+      </div>
+    </nav>
+    <main class="doc-main">
+      <h1>设计系统</h1>
+      <p class="doc-lead">
+        定义 MiAppClean 的视觉语言与基础规则。所有界面代码与原型统一引用
+        <code>tokens.css</code> 中的设计令牌，确保跨页面、跨设备的一致体验。
+      </p>
+
+      <div class="doc-section">
+        <h2>设计原则</h2>
+        <h3>1. 极简克制</h3>
+        <p>以留白替代分割线，以层次替代装饰。界面只保留完成任务所必需的元素，避免视觉噪音。</p>
+        <h3>2. 高对比可读</h3>
+        <p>文本与背景对比度满足 WCAG AA（正文 ≥ 4.5:1）。主色仅在关键操作与强调处使用，不滥用。</p>
+        <h3>3. 移动优先</h3>
+        <p>布局以窄屏为基准设计，向宽屏渐进增强。触控目标 ≥ 44×44px，保证手指可操作。</p>
+        <h3>4. 一致反馈</h3>
+        <p>相同的操作在任何位置都有相同的外观与反馈。状态变化通过动效传达，而非突兀跳变。</p>
+      </div>
+
+      <div class="doc-section">
+        <h2>令牌层级</h2>
+        <table class="token-table">
+          <thead><tr><th>层级</th><th>作用</th><th>示例</th></tr></thead>
+          <tbody>
+            <tr><td>原始值 Primitives</td><td>不可变的色值/尺寸常量</td><td><code>#ff6900</code></td></tr>
+            <tr><td>语义令牌 Semantic</td><td>带意图的别名，组件引用此层</td><td><code>--color-primary</code></td></tr>
+            <tr><td>组件令牌 Component</td><td>组件内部专用微调（可选）</td><td><code>--btn-primary-bg</code></td></tr>
+          </tbody>
+        </table>
+        <div class="callout">组件只应使用语义令牌；修改品牌色只需变更语义令牌映射，无需改动组件。</div>
+      </div>
+
+      <div class="doc-section">
+        <h2>快速开始</h2>
+        <p>在任意原型或界面页面中引入令牌与共享样式：</p>
+        <pre class="token-table" style="font-family:var(--font-mono);color:var(--color-text);background:var(--color-surface-2);padding:var(--sp-4);border-radius:var(--radius-md);border:1px solid var(--color-border);"><code>&lt;link rel="stylesheet" href="design-system/tokens.css" /&gt;
+&lt;link rel="stylesheet" href="design-system/doc.css" /&gt;</code></pre>
+        <p>应用原型（app/）使用独立的 <code>app.css</code>，但同样基于上述令牌变量。</p>
+      </div>
+
+      <footer class="doc-footer">
+        MiAppClean 原型 · 设计系统 v1.0.0 · 纯 HTML 方案，零运行时依赖
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

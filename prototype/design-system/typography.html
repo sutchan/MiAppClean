@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>字体规范 · MiAppClean 设计系统</title>
+  <link rel="stylesheet" href="doc.css" />
+</head>
+<body>
+  <div class="doc">
+    <nav class="doc-nav">
+      <p class="doc-brand">Mi<span>App</span>Clean</p>
+      <p class="doc-sub">设计系统 v1.0.0</p>
+      <div class="doc-nav-group">
+        <h4>设计系统</h4>
+        <a href="index.html">总览</a>
+        <a href="color.html">色彩 Color</a>
+        <a href="typography.html" class="active">字体 Typography</a>
+        <a href="spacing.html">间距 Spacing</a>
+        <a href="icon.html">图标 Icon</a>
+        <a href="motion.html">动效 Motion</a>
+      </div>
+      <div class="doc-nav-group">
+        <h4>导航</h4>
+        <a href="../index.html">原型门户</a>
+        <a href="../components/index.html">组件库</a>
+        <a href="../interaction/index.html">交互标准</a>
+        <a href="../app/index.html">应用原型</a>
+      </div>
+    </nav>
+    <main class="doc-main">
+      <h1>字体 Typography</h1>
+      <p class="doc-lead">单一无衬线字体族覆盖中英文字形；等宽字体专用于包名与命令。字阶克制、层级清晰。</p>
+
+      <div class="doc-section">
+        <h2>字体族</h2>
+        <div class="type-row"><div class="tag">--font-sans</div><div class="sample" style="font-family:var(--font-sans)">小米安卓设备内置 APK 清理 · The quick brown fox 0123456789</div></div>
+        <div class="type-row"><div class="tag">--font-mono</div><div class="sample" style="font-family:var(--font-mono)">com.miui.analytics · adb shell pm disable-user --user 0</div></div>
+      </div>
+
+      <div class="doc-section">
+        <h2>字号阶梯 Type Scale</h2>
+        <div class="type-row"><div class="tag">--fs-3xl 34</div><div class="sample" style="font-size:var(--fs-3xl);font-weight:var(--fw-bold);letter-spacing:var(--ls-tight)">页面大标题</div></div>
+        <div class="type-row"><div class="tag">--fs-2xl 28</div><div class="sample" style="font-size:var(--fs-2xl);font-weight:var(--fw-bold);letter-spacing:var(--ls-tight)">区块标题</div></div>
+        <div class="type-row"><div class="tag">--fs-xl 22</div><div class="sample" style="font-size:var(--fs-xl);font-weight:var(--fw-semibold)">卡片标题</div></div>
+        <div class="type-row"><div class="tag">--fs-lg 18</div><div class="sample" style="font-size:var(--fs-lg);font-weight:var(--fw-semibold)">小节标题</div></div>
+        <div class="type-row"><div class="tag">--fs-md 16</div><div class="sample" style="font-size:var(--fs-md)">正文强调</div></div>
+        <div class="type-row"><div class="tag">--fs-base 14</div><div class="sample" style="font-size:var(--fs-base)">正文默认 Body</div></div>
+        <div class="type-row"><div class="tag">--fs-sm 13</div><div class="sample" style="font-size:var(--fs-sm);color:var(--color-text-2)">辅助说明</div></div>
+        <div class="type-row"><div class="tag">--fs-xs 12</div><div class="sample" style="font-size:var(--fs-xs);color:var(--color-text-3)">标签 / 元信息</div></div>
+      </div>
+
+      <div class="doc-section">
+        <h2>字重与行高</h2>
+        <table class="token-table">
+          <thead><tr><th>用途</th><th>字重</th><th>行高</th><th>字号</th></tr></thead>
+          <tbody>
+            <tr><td>标题</td><td>700 / 600</td><td>1.25–1.4</td><td>22–34</td></tr>
+            <tr><td>正文</td><td>400</td><td>1.6</td><td>14–16</td></tr>
+            <tr><td>辅助/标签</td><td>500</td><td>1.4</td><td>12–13</td></tr>
+            <tr><td>包名/命令</td><td>400 (mono)</td><td>1.6</td><td>13</td></tr>
+          </tbody>
+        </table>
+        <div class="callout">中文正文行高不低于 1.6 以保证可读性；标题字间距收紧 -0.02em 提升紧凑感。</div>
+      </div>
+
+      <footer class="doc-footer">MiAppClean 原型 · 字体规范 v1.0.0</footer>
+    </main>
+  </div>
+</body>
+</html>

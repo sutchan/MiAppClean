@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>基础组件 · MiAppClean 组件库</title>
+  <link rel="stylesheet" href="components.css" />
+</head>
+<body style="padding:var(--sp-8)">
+  <h1 style="font-size:var(--fs-2xl);letter-spacing:var(--ls-tight);margin:0 0 var(--sp-2)">基础组件 Base</h1>
+  <p style="color:var(--color-text-2);margin:0 0 var(--sp-8)">原子级元素：按钮、输入、文本域、选择、徽章、复选、分段控件。组件库第一层。</p>
+
+  <div class="comp-stage">
+    <div class="comp-block">
+      <h4>Button 按钮</h4>
+      <div class="comp-row">
+        <button class="btn btn-primary">主要操作</button>
+        <button class="btn btn-secondary">次要</button>
+        <button class="btn btn-ghost">幽灵</button>
+        <button class="btn btn-danger">危险</button>
+      </div>
+      <div class="comp-row">
+        <button class="btn btn-primary btn-sm">小号</button>
+        <button class="btn btn-primary btn-lg">大号</button>
+        <button class="btn btn-primary" disabled>禁用</button>
+      </div>
+      <p class="comp-note">min-height 40px · 主色仅用于主操作</p>
+    </div>
+
+    <div class="comp-block">
+      <h4>Input / Textarea / Select</h4>
+      <div class="field" style="margin-bottom:var(--sp-3)">
+        <label>包名输入</label>
+        <input class="input" placeholder="com.miui.analytics" />
+      </div>
+      <div class="field" style="margin-bottom:var(--sp-3)">
+        <label>错误态</label>
+        <input class="input input-error" value="com.miui.." />
+      </div>
+      <div class="field">
+        <label>自定义包名（多行）</label>
+        <textarea class="textarea" placeholder="每行一个包名"></textarea>
+      </div>
+    </div>
+
+    <div class="comp-block">
+      <h4>Badge 徽章</h4>
+      <div class="comp-row">
+        <span class="badge badge-safe">安全</span>
+        <span class="badge badge-caution">谨慎</span>
+        <span class="badge badge-danger">危险</span>
+      </div>
+      <div class="comp-row">
+        <span class="badge badge-neutral">默认</span>
+        <span class="badge badge-primary">已选 12</span>
+      </div>
+      <p class="comp-note">风险三态语义：success/warning/danger</p>
+    </div>
+
+    <div class="comp-block">
+      <h4>Checkbox 复选</h4>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
+        <label class="check"><input type="checkbox" checked /> 勾选应用</label>
+        <label class="check"><input type="checkbox" /> 未勾选</label>
+        <label class="check"><input type="checkbox" disabled /> 禁用态</label>
+      </div>
+    </div>
+
+    <div class="comp-block">
+      <h4>Segmented 分段控件</h4>
+      <div class="segmented">
+        <label><input type="radio" name="demo-seg" checked /><span>手机</span></label>
+        <label><input type="radio" name="demo-seg" /><span>平板</span></label>
+        <label><input type="radio" name="demo-seg" /><span>电视盒</span></label>
+      </div>
+      <p class="comp-note">用于设备/模式互斥单选，替代原生 radio</p>
+    </div>
+
+    <div class="comp-block">
+      <h4>Card 卡片</h4>
+      <div class="card">
+        <p class="card-title">风险提示</p>
+        <p class="card-desc">精简前请备份设备数据，优先使用禁用模式以保留可恢复性。</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

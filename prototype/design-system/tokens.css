@@ -1,0 +1,176 @@
+/* MiAppClean 设计令牌（Design Tokens）
+ * 路径: prototype/design-system/tokens.css  v1.6.2
+ * 单一数据源：所有原型与界面代码统一引用本文件变量，确保视觉一致性。
+ * 设计原则：极简（minimal）、克制、高对比、留白充足、移动优先。
+ */
+
+:root {
+  /* ===== 色彩 Color ===== */
+  /* 中性色阶（灰阶）——克制的中性底色，避免纯黑纯白刺眼 */
+  --color-bg: #fafafa;          /* 页面背景 */
+  --color-surface: #ffffff;     /* 卡片/面板表面 */
+  --color-surface-2: #f4f5f7;   /* 次级表面（输入框/悬停区） */
+  --color-surface-3: #eceef1;   /* 三级表面（禁用态/分隔区） */
+  --color-border: #e4e7ec;      /* 描边/分隔线 */
+  --color-border-strong: #d0d5dd; /* 强描边（聚焦/重要） */
+
+  --color-text: #1a1d23;        /* 主文本 */
+  --color-text-2: #475467;      /* 次级文本 */
+  --color-text-3: #98a2b3;      /* 辅助/占位文本 */
+  --color-text-invert: #ffffff; /* 反色文本（按钮上） */
+
+  /* 品牌主色：小米橙（精确取色 #ff6900），提供可访问的对比层次 */
+  --color-primary: #ff6900;
+  --color-primary-hover: #e65f00;
+  --color-primary-active: #cc5400;
+  --color-primary-soft: #fff1e6;     /* 浅橙底（选中/软提示） */
+  --color-primary-border: #ffd6b0;
+  --color-primary-text: #b34700;     /* 橙底上的深色文字 */
+
+  /* 语义色：风险等级与状态反馈 */
+  --color-success: #16a34a;
+  --color-success-soft: #ecfdf3;
+  --color-success-border: #abefc6;
+  --color-success-text: #067647;
+
+  --color-warning: #d97706;
+  --color-warning-soft: #fffaeb;
+  --color-warning-border: #fde7bc;
+  --color-warning-text: #b45309;
+
+  --color-danger: #dc2626;
+  --color-danger-soft: #fef3f2;
+  --color-danger-border: #fecdc9;
+  --color-danger-text: #b42318;
+
+  --color-info: #2563eb;
+  --color-info-soft: #eff8ff;
+  --color-info-border: #b2ddff;
+  --color-info-text: #175cd3;
+
+  /* 阴影：极简、低透明度、分层 */
+  --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-md: 0 4px 8px -2px rgba(16, 24, 40, 0.08), 0 2px 4px -2px rgba(16, 24, 40, 0.04);
+  --shadow-lg: 0 12px 24px -6px rgba(16, 24, 40, 0.12), 0 4px 8px -4px rgba(16, 24, 40, 0.06);
+
+  /* 遮罩 */
+  --overlay: rgba(16, 24, 40, 0.45);
+
+  /* ===== 字体 Typography ===== */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", "Cascadia Code",
+    "Roboto Mono", Menlo, Consolas, monospace;
+
+  /* 字号阶梯（1.125 比例，克制） */
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-base: 14px;
+  --fs-md: 16px;
+  --fs-lg: 18px;
+  --fs-xl: 22px;
+  --fs-2xl: 28px;
+  --fs-3xl: 34px;
+
+  /* 字重 */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* 行高 */
+  --lh-tight: 1.25;
+  --lh-snug: 1.4;
+  --lh-normal: 1.6;
+
+  /* 字间距（标题略收紧） */
+  --ls-tight: -0.02em;
+  --ls-normal: 0;
+
+  /* ===== 间距 Spacing（4px 基准栅格）===== */
+  --sp-0: 0;
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+
+  /* 圆角 */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 999px;
+
+  /* ===== 动效 Motion ===== */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);     /* 标准进出 */
+  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1);   /* 强调（重要状态） */
+  --ease-decelerate: cubic-bezier(0, 0, 0, 1);     /* 进入减速 */
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+
+  /* 层级 */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-overlay: 1000;
+  --z-modal: 1100;
+  --z-toast: 1200;
+
+  /* 容器 */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 960px;
+  --container-xl: 1120px;
+}
+
+/* 深色模式（系统偏好，原型可选启用）
+ * 采用与浅色同构的极简深色，避免高饱和。
+ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f1115;
+    --color-surface: #171a21;
+    --color-surface-2: #1e222b;
+    --color-surface-3: #262b36;
+    --color-border: #2a2e38;
+    --color-border-strong: #3a4150;
+
+    --color-text: #eef1f5;
+    --color-text-2: #b3b9c4;
+    --color-text-3: #7a828f;
+
+    --color-primary-soft: #2a1d0f;
+    --color-primary-border: #4a3216;
+    --color-primary-text: #ffb066;
+
+    --color-success-soft: #0f2918;
+    --color-success-border: #1d4a2e;
+    --color-success-text: #4ade80;
+
+    --color-warning-soft: #2a1f0a;
+    --color-warning-border: #4a3612;
+    --color-warning-text: #fbbf24;
+
+    --color-danger-soft: #2a1212;
+    --color-danger-border: #4a1f1f;
+    --color-danger-text: #f87171;
+
+    --color-info-soft: #0f1e33;
+    --color-info-border: #1d3a5a;
+    --color-info-text: #60a5fa;
+
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 8px -2px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 24px -6px rgba(0, 0, 0, 0.6);
+    --overlay: rgba(0, 0, 0, 0.6);
+  }
+}

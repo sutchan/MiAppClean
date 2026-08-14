@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>组件库 · MiAppClean 原型</title>
+  <link rel="stylesheet" href="../design-system/doc.css" />
+</head>
+<body>
+  <div class="doc">
+    <nav class="doc-nav">
+      <p class="doc-brand">Mi<span>App</span>Clean</p>
+      <p class="doc-sub">组件库 v1.0.0</p>
+      <div class="doc-nav-group">
+        <h4>组件库</h4>
+        <a href="index.html" class="active">总览</a>
+        <a href="base.html">基础组件</a>
+        <a href="composite.html">复合组件</a>
+        <a href="business.html">业务组件</a>
+      </div>
+      <div class="doc-nav-group">
+        <h4>导航</h4>
+        <a href="../index.html">原型门户</a>
+        <a href="../design-system/index.html">设计系统</a>
+        <a href="../interaction/index.html">交互标准</a>
+        <a href="../app/index.html">应用原型</a>
+      </div>
+    </nav>
+    <main class="doc-main">
+      <h1>组件库</h1>
+      <p class="doc-lead">分层组织组件：基础（原子）→ 复合（组合交互）→ 业务（领域封装）。所有组件基于设计令牌，可在原型与最终界面中直接复用。</p>
+
+      <div class="doc-section">
+        <h2>层级概览</h2>
+        <table class="token-table">
+          <thead><tr><th>层级</th><th>职责</th><th>示例</th></tr></thead>
+          <tbody>
+            <tr><td>基础 Base</td><td>原子元素，单一职责，无业务语义</td><td>Button / Input / Badge / Checkbox / Segmented</td></tr>
+            <tr><td>复合 Composite</td><td>基础组合，承载局部交互模式</td><td>Disclosure / Dialog / Drawer / Toast / CommandOutput</td></tr>
+            <tr><td>业务 Business</td><td>领域封装，含真实数据语义</td><td>DeviceSelector / ModeSwitch / RiskTag / PkgItem / CategoryGroup</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-section">
+        <h2>组件清单</h2>
+        <div class="showcase" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+          <a class="card" href="base.html" style="display:block"><p class="card-title">基础组件 →</p><p class="card-desc">按钮、输入、徽章、复选、分段控件、卡片</p></a>
+          <a class="card" href="composite.html" style="display:block"><p class="card-title">复合组件 →</p><p class="card-desc">折叠面板、对话框、抽屉、Toast、命令输出</p></a>
+          <a class="card" href="business.html" style="display:block"><p class="card-title">业务组件 →</p><p class="card-desc">设备选择、模式切换、风险标签、包名行、类别分组</p></a>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <h2>使用约定</h2>
+        <ul style="color:var(--color-text-2);max-width:72ch">
+          <li>组件只消费语义令牌，不写死色值/尺寸。</li>
+          <li>交互元素最小触控区 40×40px（按钮）/ 44×44px（图标）。</li>
+          <li>所有可聚焦元素提供 <code>:focus-visible</code> 可见焦点环。</li>
+          <li>业务组件状态由数据驱动（risk、checked），与渲染解耦。</li>
+        </ul>
+      </div>
+
+      <footer class="doc-footer">MiAppClean 原型 · 组件库 v1.0.0</footer>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>间距规范 · MiAppClean 设计系统</title>
+  <link rel="stylesheet" href="doc.css" />
+</head>
+<body>
+  <div class="doc">
+    <nav class="doc-nav">
+      <p class="doc-brand">Mi<span>App</span>Clean</p>
+      <p class="doc-sub">设计系统 v1.0.0</p>
+      <div class="doc-nav-group">
+        <h4>设计系统</h4>
+        <a href="index.html">总览</a>
+        <a href="color.html">色彩 Color</a>
+        <a href="typography.html">字体 Typography</a>
+        <a href="spacing.html" class="active">间距 Spacing</a>
+        <a href="icon.html">图标 Icon</a>
+        <a href="motion.html">动效 Motion</a>
+      </div>
+      <div class="doc-nav-group">
+        <h4>导航</h4>
+        <a href="../index.html">原型门户</a>
+        <a href="../components/index.html">组件库</a>
+        <a href="../interaction/index.html">交互标准</a>
+        <a href="../app/index.html">应用原型</a>
+      </div>
+    </nav>
+    <main class="doc-main">
+      <h1>间距 Spacing</h1>
+      <p class="doc-lead">基于 4px 基准栅格（Base 4）。所有内外边距、 gaps 均取自令牌，杜绝魔法数字。</p>
+
+      <div class="doc-section">
+        <h2>间距阶梯</h2>
+        <div class="showcase spacing-grid">
+          <div class="spacing-cell"><div class="box" style="width:4px;height:4px"></div><div class="lbl">--sp-1 · 4</div></div>
+          <div class="spacing-cell"><div class="box" style="width:8px;height:8px"></div><div class="lbl">--sp-2 · 8</div></div>
+          <div class="spacing-cell"><div class="box" style="width:12px;height:12px"></div><div class="lbl">--sp-3 · 12</div></div>
+          <div class="spacing-cell"><div class="box" style="width:16px;height:16px"></div><div class="lbl">--sp-4 · 16</div></div>
+          <div class="spacing-cell"><div class="box" style="width:20px;height:20px"></div><div class="lbl">--sp-5 · 20</div></div>
+          <div class="spacing-cell"><div class="box" style="width:24px;height:24px"></div><div class="lbl">--sp-6 · 24</div></div>
+          <div class="spacing-cell"><div class="box" style="width:32px;height:32px"></div><div class="lbl">--sp-8 · 32</div></div>
+          <div class="spacing-cell"><div class="box" style="width:40px;height:40px"></div><div class="lbl">--sp-10 · 40</div></div>
+          <div class="spacing-cell"><div class="box" style="width:48px;height:48px"></div><div class="lbl">--sp-12 · 48</div></div>
+          <div class="spacing-cell"><div class="box" style="width:64px;height:64px"></div><div class="lbl">--sp-16 · 64</div></div>
+          <div class="spacing-cell"><div class="box" style="width:80px;height:80px"></div><div class="lbl">--sp-20 · 80</div></div>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <h2>圆角 Radius</h2>
+        <div class="showcase spacing-grid">
+          <div class="spacing-cell"><div class="box" style="width:64px;height:48px;border-radius:var(--radius-sm)"></div><div class="lbl">--radius-sm 6</div></div>
+          <div class="spacing-cell"><div class="box" style="width:64px;height:48px;border-radius:var(--radius-md)"></div><div class="lbl">--radius-md 10</div></div>
+          <div class="spacing-cell"><div class="box" style="width:64px;height:48px;border-radius:var(--radius-lg)"></div><div class="lbl">--radius-lg 14</div></div>
+          <div class="spacing-cell"><div class="box" style="width:64px;height:48px;border-radius:var(--radius-xl)"></div><div class="lbl">--radius-xl 20</div></div>
+          <div class="spacing-cell"><div class="box" style="width:64px;height:48px;border-radius:var(--radius-full)"></div><div class="lbl">--radius-full</div></div>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <h2>使用约定</h2>
+        <table class="token-table">
+          <thead><tr><th>场景</th><th>推荐令牌</th></tr></thead>
+          <tbody>
+            <tr><td>组件内元素间距</td><td>--sp-2 ~ --sp-3</td></tr>
+            <tr><td>卡片内边距</td><td>--sp-4 ~ --sp-6</td></tr>
+            <tr><td>区块间距</td><td>--sp-8 ~ --sp-12</td></tr>
+            <tr><td>页面左右留白</td><td>--sp-5（移动）/ --sp-10（桌面）</td></tr>
+            <tr><td>主操作按钮圆角</td><td>--radius-md</td></tr>
+            <tr><td>徽章/标签圆角</td><td>--radius-full</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <footer class="doc-footer">MiAppClean 原型 · 间距规范 v1.0.0</footer>
+    </main>
+  </div>
+</body>
+</html>

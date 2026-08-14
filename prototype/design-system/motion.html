@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>动效规范 · MiAppClean 设计系统</title>
+  <link rel="stylesheet" href="doc.css" />
+  <style>
+    .motion-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:var(--sp-4); }
+    .motion-card { border:1px solid var(--color-border); border-radius:var(--radius-md); background:var(--color-surface); padding:var(--sp-4); text-align:center; }
+    .motion-box { width:48px; height:48px; margin:0 auto var(--sp-3); border-radius:var(--radius-md); background:var(--color-primary); }
+    .m-fade { animation: demoFade var(--dur-slow) var(--ease-standard) infinite alternate; }
+    .m-scale { animation: demoScale var(--dur-slow) var(--ease-emphasized) infinite alternate; }
+    .m-slide { animation: demoSlide var(--dur-slow) var(--ease-decelerate) infinite alternate; }
+    @keyframes demoFade { from{opacity:.3} to{opacity:1} }
+    @keyframes demoScale { from{transform:scale(.85)} to{transform:scale(1)} }
+    @keyframes demoSlide { from{transform:translateX(-16px)} to{transform:translateX(0)} }
+    .motion-card .name { font-size:var(--fs-sm); font-weight:var(--fw-semibold); }
+    .motion-card .val { font-size:var(--fs-xs); color:var(--color-text-3); font-family:var(--font-mono); }
+  </style>
+</head>
+<body>
+  <div class="doc">
+    <nav class="doc-nav">
+      <p class="doc-brand">Mi<span>App</span>Clean</p>
+      <p class="doc-sub">设计系统 v1.0.0</p>
+      <div class="doc-nav-group">
+        <h4>设计系统</h4>
+        <a href="index.html">总览</a>
+        <a href="color.html">色彩 Color</a>
+        <a href="typography.html">字体 Typography</a>
+        <a href="spacing.html">间距 Spacing</a>
+        <a href="icon.html">图标 Icon</a>
+        <a href="motion.html" class="active">动效 Motion</a>
+      </div>
+      <div class="doc-nav-group">
+        <h4>导航</h4>
+        <a href="../index.html">原型门户</a>
+        <a href="../components/index.html">组件库</a>
+        <a href="../interaction/index.html">交互标准</a>
+        <a href="../app/index.html">应用原型</a>
+      </div>
+    </nav>
+    <main class="doc-main">
+      <h1>动效 Motion</h1>
+      <p class="doc-lead">动效服务于理解，而非装饰。所有过渡统一缓动曲线与时长令牌，时长克制（120–320ms），尊重 reduce-motion。</p>
+
+      <div class="doc-section">
+        <h2>缓动曲线与时长</h2>
+        <table class="token-table">
+          <thead><tr><th>令牌</th><th>值</th><th>用途</th></tr></thead>
+          <tbody>
+            <tr><td>--ease-standard</td><td>cubic-bezier(.2,0,0,1)</td><td>常规进出（hover、展开）</td></tr>
+            <tr><td>--ease-emphasized</td><td>cubic-bezier(.3,0,0,1)</td><td>重要状态（选中、提交）</td></tr>
+            <tr><td>--ease-decelerate</td><td>cubic-bezier(0,0,0,1)</td><td>进入（滑入、淡入）</td></tr>
+            <tr><td>--dur-fast</td><td>120ms</td><td>即时反馈（按钮、开关）</td></tr>
+            <tr><td>--dur-base</td><td>200ms</td><td>常规过渡（颜色、位移）</td></tr>
+            <tr><td>--dur-slow</td><td>320ms</td><td>较大位移（抽屉、弹层）</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc-section">
+        <h2>标准动效示例</h2>
+        <div class="motion-grid">
+          <div class="motion-card"><div class="motion-box m-fade"></div><div class="name">淡入淡出</div><div class="val">fade · 320ms</div></div>
+          <div class="motion-card"><div class="motion-box m-scale"></div><div class="name">缩放强调</div><div class="val">scale · 320ms</div></div>
+          <div class="motion-card"><div class="motion-box m-slide"></div><div class="name">滑入</div><div class="val">slide · 320ms</div></div>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <h2>无障碍约束</h2>
+        <div class="callout">检测到 <code>prefers-reduced-motion: reduce</code> 时，所有非必要动效停用，仅保留 opacity 即时切换，避免前庭功能障碍用户不适。</div>
+        <pre class="token-table" style="font-family:var(--font-mono);color:var(--color-text);background:var(--color-surface-2);padding:var(--sp-4);border-radius:var(--radius-md);border:1px solid var(--color-border);"><code>@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}</code></pre>
+      </div>
+
+      <footer class="doc-footer">MiAppClean 原型 · 动效规范 v1.0.0</footer>
+    </main>
+  </div>
+</body>
+</html>

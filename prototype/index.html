@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MiAppClean 原型门户</title>
+  <link rel="stylesheet" href="design-system/tokens.css" />
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: var(--font-sans); background: var(--color-bg); color: var(--color-text); -webkit-font-smoothing: antialiased; }
+    .wrap { max-width: var(--container-lg); margin: 0 auto; padding: var(--sp-12) var(--sp-5) var(--sp-16); }
+    .hero { text-align: center; padding: var(--sp-10) var(--sp-4) var(--sp-8); }
+    .hero .brand { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-2xl); font-weight: var(--fw-bold); letter-spacing: var(--ls-tight); }
+    .hero .brand .dot { width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-primary); }
+    .hero .brand span { color: var(--color-primary); }
+    .hero p { color: var(--color-text-2); max-width: 56ch; margin: var(--sp-3) auto 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--sp-5); }
+    .card { display: block; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--sp-6); text-decoration: none; color: inherit; transition: border-color var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard), transform var(--dur-base) var(--ease-standard); }
+    .card:hover { border-color: var(--color-primary-border); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .card .ico { font-size: 26px; margin-bottom: var(--sp-3); }
+    .card h3 { margin: 0 0 var(--sp-2); font-size: var(--fs-lg); }
+    .card p { margin: 0; color: var(--color-text-2); font-size: var(--fs-sm); }
+    .card .arrow { margin-top: var(--sp-4); font-size: var(--fs-sm); color: var(--color-primary); font-weight: var(--fw-medium); }
+    .section-title { font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: .08em; color: var(--color-text-3); margin: var(--sp-10) 0 var(--sp-4); }
+    footer { text-align: center; color: var(--color-text-3); font-size: var(--fs-sm); margin-top: var(--sp-12); }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="brand"><span class="dot"></span>Mi<span>App</span>Clean</div>
+    <p>小米设备内置 APK 精简工具 · 高保真原型与设计规范。纯 HTML 方案，零运行时依赖，可直接打开。</p>
+  </div>
+
+  <div class="wrap">
+    <div class="section-title">核心原型</div>
+    <div class="grid">
+      <a class="card" href="app/index.html">
+        <div class="ico">🧪</div>
+        <h3>应用原型</h3>
+        <p>高保真可交互主界面，使用真实包名数据，对齐全部设计令牌与组件库。</p>
+        <div class="arrow">打开原型 →</div>
+      </a>
+    </div>
+
+    <div class="section-title">设计规范</div>
+    <div class="grid">
+      <a class="card" href="design-system/index.html">
+        <div class="ico">🎨</div>
+        <h3>设计系统</h3>
+        <p>色彩 / 字体 / 间距 / 图标 / 动效——设计令牌与基础规则。</p>
+        <div class="arrow">查看 →</div>
+      </a>
+      <a class="card" href="components/index.html">
+        <div class="ico">🧩</div>
+        <h3>组件库</h3>
+        <p>基础 / 复合 / 业务三层组件，可视化示例与用法约定。</p>
+        <div class="arrow">查看 →</div>
+      </a>
+      <a class="card" href="interaction/index.html">
+        <div class="ico">🔁</div>
+        <h3>交互标准</h3>
+        <p>交互模式 / 反馈 / 错误处理 / 空状态统一规范。</p>
+        <div class="arrow">查看 →</div>
+      </a>
+    </div>
+
+    <footer>MiAppClean 原型 v1.0.0 · 纯 HTML 方案 · 设计令牌单一来源：prototype/design-system/tokens.css</footer>
+  </div>
+</body>
+</html>

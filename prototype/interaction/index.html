@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>交互标准 · MiAppClean 原型</title>
+  <link rel="stylesheet" href="../components/components.css" />
+  <link rel="stylesheet" href="../design-system/doc.css" />
+  <style>
+    .ix-stage { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--sp-5); align-items:start; }
+    .ix-card { border:1px solid var(--color-border); border-radius:var(--radius-lg); background:var(--color-surface); padding:var(--sp-5); }
+    .ix-card h4 { margin:0 0 var(--sp-3); font-size:var(--fs-sm); color:var(--color-text-3); text-transform:uppercase; letter-spacing:.06em; }
+    .ix-note { font-size:var(--fs-xs); color:var(--color-text-3); margin-top:var(--sp-3); }
+  </style>
+</head>
+<body>
+  <div class="doc">
+    <nav class="doc-nav">
+      <p class="doc-brand">Mi<span>App</span>Clean</p>
+      <p class="doc-sub">交互标准 v1.0.0</p>
+      <div class="doc-nav-group">
+        <h4>导航</h4>
+        <a href="../index.html">原型门户</a>
+        <a href="../design-system/index.html">设计系统</a>
+        <a href="../components/index.html">组件库</a>
+        <a href="index.html" class="active">交互标准</a>
+        <a href="../app/index.html">应用原型</a>
+      </div>
+    </nav>
+    <main class="doc-main">
+      <h1>交互标准</h1>
+      <p class="doc-lead">统一交互模式与反馈语言，确保用户在任何页面获得一致、可预期的体验。覆盖：交互模式、反馈、错误处理、空状态。</p>
+
+      <div class="doc-section">
+        <h2>1. 交互模式 Patterns</h2>
+        <div class="ix-stage">
+          <div class="ix-card">
+            <h4>选择模式</h4>
+            <div class="segmented">
+              <label><input type="radio" name="p-dev" checked /><span>手机</span></label>
+              <label><input type="radio" name="p-dev" /><span>平板</span></label>
+              <label><input type="radio" name="p-dev" /><span>电视盒</span></label>
+            </div>
+            <p class="ix-note">互斥单选用分段控件；多选用复选框</p>
+          </div>
+          <div class="ix-card">
+            <h4>确认模式</h4>
+            <button class="btn btn-secondary" onclick="document.getElementById('ix-dlg').style.display='flex'">危险操作前确认</button>
+            <div class="dialog-backdrop" id="ix-dlg" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+              <div class="dialog" role="dialog" aria-modal="true">
+                <h3>确认卸载？</h3>
+                <p>卸载后应用将被移除，需恢复出厂才能装回。</p>
+                <div class="dialog-actions">
+                  <button class="btn btn-ghost" onclick="document.getElementById('ix-dlg').style.display='none'">取消</button>
+                  <button class="btn btn-danger" onclick="document.getElementById('ix-dlg').style.display='none'">确认卸载</button>
+                </div>
+              </div>
+            </div>
+            <p class="ix-note">破坏性操作必须二次确认</p>
+          </div>
+          <div class="ix-card">
+            <h4>渐进披露</h4>
+            <details class="disclosure" open>
+              <summary>高级选项</summary>
+              <div class="body"><p class="card-desc">默认隐藏次要设置，点击展开。降低首屏认知负荷。</p></div>
+            </details>
+            <p class="ix-note">复杂表单用折叠面板分组</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <h2>2. 反馈 Feedback</h2>
+        <div class="ix-stage">
+          <div class="ix-card">
+            <h4>即时反馈</h4>
+            <button class="btn btn-primary" onclick="this.textContent='处理中…';setTimeout(()=>this.textContent='主要操作',1200)">点击体验</button>
+            <p class="ix-note">按钮态变化（hover/active/loading）即时可见</p>
+          </div>
+          <div class="ix-card">
+            <h4>轻提示 Toast</h4>
+            <button class="btn btn-primary" onclick="ixToast('已复制全部命令 ✓')">复制成功</button>
+            <p class="ix-note">非阻断提示，2s 自动消失</p>
+          </div>
+          <div class="ix-card">
+            <h4>状态徽章</h4>
+            <div style="display:flex;gap:var(--sp-2);flex-wrap:wrap">
+              <span class="badge badge-safe">已生成</span>
+              <span class="badge badge-primary">已选 12</span>
+              <span class="badge badge-warning">部分风险</span>
+            </div>
+            <p class="ix-note">持续态用徽章而非 Toast</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <h2>3. 错误处理 Error</h2>
+        <div class="ix-stage">
+          <div class="ix-card">
+            <h4>字段级错误</h4>
+            <div class="field">
+              <label>自定义包名</label>
+              <input class="input input-error" value="com.miui.." aria-invalid="true" />
+              <span style="color:var(--color-danger-text);font-size:var(--fs-xs)">包名格式无效：缺少末尾标识，请检查</span>
+            </div>
+            <p class="ix-note">错误就近展示，说明原因 + 建议</p>
+          </div>
+          <div class="ix-card">
+            <h4>阻断错误（Dialog）</h4>
+            <button class="btn btn-secondary" onclick="document.getElementById('ix-err').style.display='flex'">模拟失败</button>
+            <div class="dialog-backdrop" id="ix-err" style="display:none" onclick="if(event.target===this)this.style.display='none'">
+              <div class="dialog" role="alertdialog" aria-modal="true">
+                <h3 style="color:var(--color-danger-text)">未检测到设备</h3>
+                <p>请确认已开启 USB 调试并通过 <code>adb devices</code> 识别到设备。</p>
+                <div class="dialog-actions">
+                  <button class="btn btn-primary" onclick="document.getElementById('ix-err').style.display='none'">我知道了</button>
+                </div>
+              </div>
+            </div>
+            <p class="ix-note">阻断性错误用对话框，提供下一步动作</p>
+          </div>
+          <div class="ix-card">
+            <h4>命令错误注释</h4>
+            <pre class="cmd-output" style="color:var(--color-danger-text)"># 跳过：com.android.settings 为核心组件，禁止精简
+# 警告：com.miui.audioeffect 精简后可能影响音效</pre>
+            <p class="ix-note">命令生成时失败项以注释说明，不中断</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <h2>4. 空状态 Empty</h2>
+        <div class="ix-stage">
+          <div class="ix-card" style="grid-column:1/-1">
+            <h4>无勾选项</h4>
+            <div class="card" style="text-align:center;padding:var(--sp-10);border-style:dashed">
+              <div style="font-size:32px;margin-bottom:var(--sp-3)">📋</div>
+              <p class="card-title">尚未选择任何应用</p>
+              <p class="card-desc">勾选上方应用或粘贴自定义包名后，将在此生成 adb 命令。</p>
+              <button class="btn btn-primary" style="margin-top:var(--sp-4)">全选推荐项</button>
+            </div>
+            <p class="ix-note">空状态需说明「是什么、为什么、怎么做」，并提供主操作</p>
+          </div>
+          <div class="ix-card" style="grid-column:1/-1">
+            <h4>无搜索结果</h4>
+            <div class="card" style="text-align:center;padding:var(--sp-8);border-style:dashed">
+              <p class="card-desc">未找到匹配的包名，请调整关键词或清空筛选。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="doc-footer">MiAppClean 原型 · 交互标准 v1.0.0</footer>
+    </main>
+  </div>
+
+  <script>
+    function ixToast(msg) {
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 2000);
+    }
+  </script>
+</body>
+</html>
