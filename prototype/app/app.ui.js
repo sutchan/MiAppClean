@@ -54,7 +54,7 @@
       checkedPkgs: checkedPkgs,
       catListEl: catList,
       appData: APP_DATA,
-      riskLabel: RISK_LABEL,
+      riskLabel: (risk) => RISK_LABEL.of(risk),
       riskFilter: riskFilter,
     });
   }

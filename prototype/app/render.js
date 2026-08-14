@@ -10,6 +10,12 @@
   // riskFilter: "all" | "safe" | "caution" | "danger"
   function render(opts) {
     const { device, term, checkedPkgs, catListEl, appData, riskLabel, riskFilter } = opts;
+    // riskLabel 兼容两种形态：函数 (risk)=>text，或含 .of 的取值器，或 {risk:"text"} 静态表
+    const labelOf = (risk) => {
+      if (typeof riskLabel === "function") return riskLabel(risk);
+      if (riskLabel && typeof riskLabel.of === "function") return riskLabel.of(risk);
+      return (riskLabel && riskLabel[risk]) || "安全";
+    };
     const list = device === "pad" ? appData.phone : appData[device];
     const q = (term || "").trim().toLowerCase();
     const rf = riskFilter || "all";
@@ -62,7 +68,7 @@
         name.textContent = it.pkg;
         const tag = document.createElement("span");
         tag.className = `badge badge-${risk === "danger" ? "danger" : risk === "caution" ? "caution" : "safe"}`;
-        tag.textContent = riskLabel[risk] || "安全";
+        tag.textContent = labelOf(risk);
         const desc = document.createElement("span");
         desc.className = "desc";
         desc.textContent = it.desc;

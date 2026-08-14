@@ -96,63 +96,64 @@
       <span>Mi<span>App</span>Clean</span>
     </div>
     <div class="topbar-actions">
+      <button type="button" id="langBtn" class="icon-btn" aria-label="切换界面语言">EN</button>
       <button type="button" id="settingsBtn" class="icon-btn" aria-label="打开设置" aria-haspopup="dialog" aria-expanded="false">⚙</button>
     </div>
   </header>
 
   <div class="hero">
-    <h1>小米设备内置 APK 精简</h1>
-    <p>按机型分类 · 推荐精简清单 · 一键生成 adb 命令。安全优先，危险组件自动拦截。</p>
+    <h1 data-i18n="hero.title">小米设备内置 APK 精简</h1>
+    <p data-i18n="hero.desc">按机型分类 · 推荐精简清单 · 一键生成 adb 命令。安全优先，危险组件自动拦截。</p>
     <div class="chips">
-      <span class="badge badge-safe">安全 可恢复</span>
-      <span class="badge badge-caution">谨慎 影响功能</span>
-      <span class="badge badge-danger">危险 严禁</span>
+      <span class="badge badge-safe" data-i18n="badge.safe">安全 可恢复</span>
+      <span class="badge badge-caution" data-i18n="badge.caution">谨慎 影响功能</span>
+      <span class="badge badge-danger" data-i18n="badge.danger">危险 严禁</span>
     </div>
   </div>
 
   <div class="wrap">
     <!-- 步骤 1：设备 -->
     <section class="step" id="step-1">
-      <div class="step-head"><span class="step-num">1</span><h2>选择设备类型</h2></div>
+      <div class="step-head"><span class="step-num">1</span><h2 data-i18n="step.1.title">选择设备类型</h2></div>
       <div class="panel">
         <div class="segmented" id="deviceSeg" role="radiogroup" aria-label="设备类型">
-          <label><input type="radio" name="device" value="phone" checked /><span>📱 手机</span></label>
-          <label><input type="radio" name="device" value="pad" /><span>📟 平板</span></label>
-          <label><input type="radio" name="device" value="tv" /><span>📺 电视盒</span></label>
+          <label><input type="radio" name="device" value="phone" checked /><span data-i18n="device.phone">📱 手机</span></label>
+          <label><input type="radio" name="device" value="pad" /><span data-i18n="device.pad">📟 平板</span></label>
+          <label><input type="radio" name="device" value="tv" /><span data-i18n="device.tv">📺 电视盒</span></label>
         </div>
-        <p class="ix-note" style="color:var(--color-text-3);font-size:var(--fs-sm);margin:var(--sp-3) 0 0">平板复用手机清单；电视盒使用独立精简集合。</p>
+        <p class="ix-note" style="color:var(--color-text-3);font-size:var(--fs-sm);margin:var(--sp-3) 0 0" data-i18n="device.note">平板复用手机清单；电视盒使用独立精简集合。</p>
       </div>
     </section>
 
     <!-- 步骤 2：模式 -->
     <section class="step" id="step-2">
-      <div class="step-head"><span class="step-num">2</span><h2>选择操作模式</h2></div>
+      <div class="step-head"><span class="step-num">2</span><h2 data-i18n="step.2.title">选择操作模式</h2></div>
       <div class="panel">
         <div class="segmented" id="modeSeg" role="radiogroup" aria-label="操作模式">
-          <label><input type="radio" name="mode" value="disable" checked /><span>禁用（推荐·可恢复）</span></label>
-          <label><input type="radio" name="mode" value="uninstall" /><span>卸载（移除·谨慎）</span></label>
+          <label><input type="radio" name="mode" value="disable" checked /><span data-i18n="mode.disable">禁用（推荐·可恢复）</span></label>
+          <label><input type="radio" name="mode" value="uninstall" /><span data-i18n="mode.uninstall">卸载（移除·谨慎）</span></label>
         </div>
         <div class="warn-banner hidden" id="uninstallWarn" role="alert">
           <span class="ico">⛔</span>
-          <span><strong>危险操作：卸载（uninstall）会真正移除系统应用，不可恢复！</strong>
-          可能导致无法开机、失去 OTA 更新能力或系统功能异常。强烈建议优先使用「禁用」模式（可随时 <code>pm enable</code> 恢复）。</span>
+          <span><strong data-i18n="warn.uninstall.title">危险操作：卸载（uninstall）会真正移除系统应用，不可恢复！</strong>
+          <span data-i18n="warn.uninstall.desc">可能导致无法开机、失去 OTA 更新能力或系统功能异常。强烈建议优先使用「禁用」模式（可随时 <code>pm enable</code> 恢复）。</span></span>
         </div>
       </div>
     </section>
 
     <!-- 步骤 3：勾选 -->
     <section class="step" id="step-3">
-      <div class="step-head"><span class="step-num">3</span><h2>勾选要清理的应用</h2></div>
+      <div class="step-head"><span class="step-num">3</span><h2 data-i18n="step.3.title">勾选要清理的应用</h2></div>
       <div class="panel">
         <div class="risk-legend" role="group" aria-label="按风险等级筛选">
-          <button type="button" class="badge badge-safe" data-filter="safe">安全 · 可放心精简</button>
-          <button type="button" class="badge badge-caution" data-filter="caution">谨慎 · 可能影响功能</button>
-          <button type="button" class="badge badge-danger" data-filter="danger">危险 · 严禁精简</button>
-          <button type="button" class="badge badge-all active" data-filter="all" aria-pressed="true">全部</button>
+          <button type="button" class="badge badge-safe" data-filter="safe" data-i18n="filter.safe">安全 · 可放心精简</button>
+          <button type="button" class="badge badge-caution" data-filter="caution" data-i18n="filter.caution">谨慎 · 可能影响功能</button>
+          <button type="button" class="badge badge-danger" data-filter="danger" data-i18n="filter.danger">危险 · 严禁精简</button>
+          <button type="button" class="badge badge-all active" data-filter="all" aria-pressed="true" data-i18n="filter.all">全部</button>
         </div>
         <div class="search-row">
-          <input id="search" class="input" type="search" placeholder="搜索包名或描述…" aria-label="搜索应用" />
-          <button id="deselectBtn" type="button" class="btn btn-ghost search-action">取消全选</button>
+          <input id="search" class="input" type="search" data-i18n-placeholder="search.placeholder" placeholder="搜索包名或描述…" aria-label="搜索应用" />
+          <button id="deselectBtn" type="button" class="btn btn-ghost search-action" data-i18n="btn.deselect">取消全选</button>
         </div>
         <div id="catList"></div>
       </div>
@@ -160,26 +161,26 @@
 
     <!-- 步骤 4：自定义 -->
     <section class="step" id="step-4">
-      <div class="step-head"><span class="step-num">4</span><h2>自定义包名（可选）</h2></div>
+      <div class="step-head"><span class="step-num">4</span><h2 data-i18n="step.4.title">自定义包名（可选）</h2></div>
       <div class="panel">
         <div class="field">
-          <label for="custom">粘贴任一清单文件内容，每行一个包名</label>
-          <textarea id="custom" class="textarea" placeholder="com.miui.analytics&#10;com.xiaomi.gamecenter&#10;# 以 # 开头的行为注释"></textarea>
+          <label for="custom" data-i18n="custom.label">粘贴任一清单文件内容，每行一个包名</label>
+          <textarea id="custom" class="textarea" data-i18n-placeholder="custom.placeholder" placeholder="com.miui.analytics&#10;com.xiaomi.gamecenter&#10;# 以 # 开头的行为注释"></textarea>
         </div>
       </div>
     </section>
 
     <!-- 步骤 5：生成 -->
     <section class="step" id="step-5">
-      <div class="step-head"><span class="step-num">5</span><h2>生成的命令</h2></div>
+      <div class="step-head"><span class="step-num">5</span><h2 data-i18n="step.5.title">生成的命令</h2></div>
       <div class="panel">
         <div class="toolbar">
-          <button id="copyBtn" class="btn btn-primary">复制全部命令</button>
-          <button id="selectAllBtn" class="btn btn-secondary">全选推荐项</button>
-          <button id="clearBtn" class="btn btn-ghost">清空勾选</button>
-          <span id="stat" class="badge badge-primary" style="margin-left:auto">已选 0</span>
+          <button id="copyBtn" class="btn btn-primary" data-i18n="btn.copy">复制全部命令</button>
+          <button id="selectAllBtn" class="btn btn-secondary" data-i18n="btn.selectAll">全选推荐项</button>
+          <button id="clearBtn" class="btn btn-ghost" data-i18n="btn.clear">清空勾选</button>
+          <span id="stat" class="badge badge-primary" style="margin-left:auto" data-i18n="stat.selected">已选 0</span>
         </div>
-        <pre id="output" class="output">// 勾选应用或粘贴自定义包名后将在此生成 adb 命令</pre>
+        <pre id="output" class="output" data-i18n="output.empty">// 勾选应用或粘贴自定义包名后将在此生成 adb 命令</pre>
       </div>
     </section>
 
@@ -204,17 +205,17 @@
 
     <!-- 风险提示 -->
     <div class="notice" id="notice">
-      <span>⚠️</span>
+      <span data-i18n="notice.title">⚠️</span>
       <ul>
-        <li><strong>操作前请务必备份设备数据！</strong>优先使用「禁用」模式（可 <code>pm enable</code> 恢复）。</li>
-        <li>包名含 <code>system</code> / <code>framework</code> / <code>settings</code> 的<strong>核心组件严禁精简，可能直接导致设备变砖</strong>。</li>
-        <li>执行前先用 <code>adb shell pm list packages &lt;包名&gt;</code> 核对包名是否真实存在，避免误删。</li>
+        <li data-i18n="notice.1"><strong>操作前请务必备份设备数据！</strong>优先使用「禁用」模式（可 <code>pm enable</code> 恢复）。</li>
+        <li data-i18n="notice.2">包名含 <code>system</code> / <code>framework</code> / <code>settings</code> 的<strong>核心组件严禁精简，可能直接导致设备变砖</strong>。</li>
+        <li data-i18n="notice.3">执行前先用 <code>adb shell pm list packages &lt;包名&gt;</code> 核对包名是否真实存在，避免误删。</li>
       </ul>
     </div>
 
     <footer class="legal">
-      <p>免责声明：本页面仅供学习与技术研究使用。因使用其中命令导致的设备损坏、数据丢失等后果，作者与贡献者不承担任何责任。</p>
-      <p class="ver-line">MiAppClean · <span id="ver">v1.9.1</span></p>
+      <p data-i18n="legal.disclaimer">免责声明：本页面仅供学习与技术研究使用。因使用其中命令导致的设备损坏、数据丢失等后果，作者与贡献者不承担任何责任。</p>
+      <p class="ver-line">MiAppClean · <span id="ver">v1.10.0</span></p>
     </footer>
   </div>
 
@@ -223,6 +224,7 @@
   <script src="/prototype/app/render.js"></script>
   <script src="/prototype/app/generate.js"></script>
   <script src="/prototype/app/settings.js"></script>
+  <script src="/prototype/app/i18n.js"></script>
   <script src="/prototype/app/app.state.js"></script>
   <script src="/prototype/app/app.ui.js"></script>
 </body>

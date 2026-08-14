@@ -1,5 +1,5 @@
 // MiAppClean 设置模块（主题 / 默认模式 / 勾选记忆 / 提示开关）
-// 路径: prototype/app/settings.js  v1.10.0
+// 路径: prototype/app/settings.js  v1.9.1
 // 单一数据源：视觉令牌见 ../design-system/tokens.css；主题持久化复用 theme.js 的 STORE_KEY。
 // 用法：先于 app.js 引入；对外暴露 window.MiSettings。
 (function () {
@@ -117,6 +117,7 @@
     panel.querySelector("#setMode").value = get("mode");
     panel.querySelector("#setRemember").checked = get("remember") === "on";
     panel.querySelector("#setToast").checked = get("toast") === "on";
+    panel.querySelector("#setLang").value = get("lang");
 
     // 事件：主题切换（双入口——设置面板下拉 + 顶栏主题按钮共享 miac-theme 持久化键）
     panel.querySelector("#setTheme").addEventListener("change", function (e) {
@@ -144,6 +145,13 @@
     });
     panel.querySelector("#setToast").addEventListener("change", function (e) {
       set("toast", e.target.checked ? "on" : "off");
+    });
+    panel.querySelector("#setLang").addEventListener("change", function (e) {
+      set("lang", e.target.value);
+      if (window.MiI18n) window.MiI18n.setLang(e.target.value);
+      // 同步顶栏语言按钮文案
+      var lb = document.getElementById("langBtn");
+      if (lb && window.MiI18n) lb.textContent = window.MiI18n.getLang() === "zh-CN" ? "EN" : "中";
     });
 
     function close() { closePanel(); }

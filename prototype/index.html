@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MiAppClean 原型门户</title>
   <link rel="stylesheet" href="design-system/doc.css" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../assets/logo.svg" />
   <style>
     .hero { text-align: center; padding: var(--sp-10) var(--sp-4) var(--sp-8); }
     .hero .brand { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-2xl); font-weight: var(--fw-bold); letter-spacing: var(--ls-tight); margin: 0; }
-    .hero .brand .dot { width: 14px; height: 14px; border-radius: var(--radius-full); background: var(--color-primary); }
+    .hero .brand .brand-logo { width: 26px; height: 26px; }
     .hero .brand span { color: var(--color-primary); }
     .hero p { color: var(--color-text-2); max-width: 56ch; margin: var(--sp-3) auto 0; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--sp-5); }
@@ -38,7 +40,7 @@
     </nav>
     <main class="doc-main">
       <div class="hero">
-        <div class="brand"><span class="dot"></span>Mi<span>App</span>Clean</div>
+        <div class="brand"><img class="brand-logo" src="../assets/logo.svg" alt="" width="26" height="26" aria-hidden="true" />Mi<span>App</span>Clean</div>
         <p>小米设备内置 APK 精简工具 · 高保真原型与设计规范。纯 HTML 方案，零运行时依赖，可直接打开。</p>
       </div>
 

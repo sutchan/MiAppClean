@@ -11,6 +11,12 @@
 - `app.base.css`：搜索行改为 flex 布局，输入框与按钮同行排列；新增 `.search-action`
   按钮样式，窄屏不换行。
 
+### 修复
+- `prototype/app/index.html`：移除对已删除 `app.js` 的脚本引用，改为拆分后的
+  `app.state.js` + `app.ui.js`，并补挂 `i18n.js`，修复原型入口不可用问题。
+- 校正 `app.state.js` / `app.ui.js` / `i18n.js` / `settings.js` 头注释版本漂移
+  （v1.10.0 → v1.9.1），与 VERSION 单一来源保持一致。
+
 ## [1.9.0] - 2026-08-15
 
 ### 功能
