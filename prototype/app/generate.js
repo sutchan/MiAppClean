@@ -1,5 +1,5 @@
 // MiAppClean 命令生成模块（adb 命令拼装 / 自定义包名解析 / HTML 转义）
-// 路径: prototype/app/generate.js  v1.8.3
+// 路径: prototype/app/generate.js  v1.8.4
 // 单一数据源：风险映射 RISK_MAP 由调用方（app.js）传入，保证单一事实来源。
 // 用法：先于 app.js 引入；对外暴露 window.MiGen。
 (function () {

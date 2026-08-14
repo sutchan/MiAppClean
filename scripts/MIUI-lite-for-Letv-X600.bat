@@ -10,6 +10,8 @@ REM 用法：将本脚本置于 ROM 解包根目录（含 system/、data/ 子目
 REM       原脚本含 `cd LETV_X600_AND_X608_MIUI7_6.4.22\` 步骤，请按实际解包目录调整。
 REM 风险：请勿删除系统桌面（Launcher）相关目录，否则盒子将无界面；
 REM       仅建议有 ROM 打包/解包经验的用户使用。
+REM 模块化：本脚本按 ROM 目录分组（system\app / system\priv-app 等）以 :label 子例程或区块注释分段。
+REM       作为历史参考脚本，保持单文件形式，不跨文件拆分（版本独立标注 v1.2.0）。
 REM ============================================================
 ECHO MIUI V7 Lite for Letv X600 (ROM 精简脚本)
 ECHO Building in 2016.4.30

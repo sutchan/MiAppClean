@@ -1,58 +1,26 @@
-// MiAppClean 应用原型交互逻辑
-// 复用根目录 apk-data.js 的 APP_DATA 作为单一数据源（真实数据）
-// 路径: prototype/app/app.js  v1.8.3
+// MiAppClean 应用原型 · 交互与 UI 层
+// 依赖：app.state.js（window.MiState）、render.js（window.MiRender）、
+//       generate.js（window.MiGen）、settings.js（window.MiSettings）
+// 路径: prototype/app/app.ui.js  v1.8.4
 
 (function () {
   "use strict";
 
   const $ = (sel) => document.querySelector(sel);
-  const catList = $("#catList");
+  const state = window.MiState;
+  // 数据源未就绪时（app.state.js 已给出提示）直接退出，避免二次报错
+  if (!state) return;
+
+  const { APP_DATA, RISK_MAP, RISK_LABEL, checkedPkgs, getDevice, getMode, syncRemember } = state;
+
   const output = $("#output");
   const custom = $("#custom");
   const stat = $("#stat");
   const search = $("#search");
-
-  // 数据由 apk-data.js 以 window.APP_DATA 暴露；缺失时给出友好提示而非白屏
-  const APP_DATA = window.APP_DATA;
-  if (!APP_DATA || typeof APP_DATA !== "object") {
-    const tip = "数据源 apk-data.js 未加载，请通过本地 HTTP 服务打开本原型。";
-    if (catList) catList.innerHTML = '<p class="empty">' + tip + "</p>";
-    if (stat) stat.textContent = "数据加载失败";
-    return;
-  }
-
-  // 预扫描所有设备清单，建立 包名 -> risk 映射，供生成命令时判定风险
-  const RISK_MAP = {};
-  Object.values(APP_DATA).forEach((groups) =>
-    groups.forEach((g) =>
-      g.items.forEach((it) => { RISK_MAP[it.pkg] = it.risk || "safe"; })
-    )
-  );
-  const RISK_LABEL = { safe: "安全", caution: "谨慎", danger: "危险" };
+  const catList = $("#catList");
 
   // 当前风险筛选：all | safe | caution | danger（点击风险图例切换）
   let riskFilter = "all";
-
-  // 已勾选包名集合：跨搜索过滤 / 设备切换持久保留勾选状态
-  // 若开启「记忆上次勾选」，则从本地存储恢复勾选集合
-  const checkedPkgs = new Set(
-    window.MiSettings ? window.MiSettings.loadChecked() : []
-  );
-
-  // 应用默认操作模式（设置项：默认操作模式）
-  function applyDefaultMode() {
-    if (!window.MiSettings) return;
-    const mode = window.MiSettings.get("mode");
-    const radio = document.querySelector(`input[name="mode"][value="${mode}"]`);
-    if (radio) radio.checked = true;
-  }
-
-  function getDevice() {
-    return document.querySelector('input[name="device"]:checked').value;
-  }
-  function getMode() {
-    return document.querySelector('input[name="mode"]:checked').value;
-  }
 
   // 复制提示是否开启（设置项：复制成功后提示）
   function toastEnabled() {
@@ -87,7 +55,7 @@
       catListEl: catList,
       appData: APP_DATA,
       riskLabel: RISK_LABEL,
-      riskFilter: riskFilter
+      riskFilter: riskFilter,
     });
   }
 
@@ -99,7 +67,7 @@
       customEl: custom,
       outputEl: output,
       statEl: stat,
-      riskMap: RISK_MAP
+      riskMap: RISK_MAP,
     });
   }
 
@@ -177,11 +145,6 @@
     });
   }
 
-  // 勾选集合变更后持久化（受「记忆上次勾选」开关控制）
-  function syncRemember() {
-    if (window.MiSettings) window.MiSettings.saveChecked([...checkedPkgs]);
-  }
-
   // 响应设置面板变更：默认模式 / 记忆开关
   window.addEventListener("settingchange", (e) => {
     const d = e.detail || {};
@@ -198,7 +161,11 @@
   });
 
   // 初始化
-  applyDefaultMode();
+  if (window.MiSettings) {
+    const mode = window.MiSettings.get("mode");
+    const radio = document.querySelector(`input[name="mode"][value="${mode}"]`);
+    if (radio) radio.checked = true;
+  }
   setRiskFilter("all"); // 默认全部，并标记 active 态
   renderCategories();
   generate();

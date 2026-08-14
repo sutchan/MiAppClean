@@ -104,7 +104,7 @@
 
   <div class="wrap">
     <!-- 步骤 1：设备 -->
-    <section class="step">
+    <section class="step" id="step-1">
       <div class="step-head"><span class="step-num">1</span><h2>选择设备类型</h2></div>
       <div class="panel">
         <div class="segmented" id="deviceSeg" role="radiogroup" aria-label="设备类型">
@@ -117,7 +117,7 @@
     </section>
 
     <!-- 步骤 2：模式 -->
-    <section class="step">
+    <section class="step" id="step-2">
       <div class="step-head"><span class="step-num">2</span><h2>选择操作模式</h2></div>
       <div class="panel">
         <div class="segmented" id="modeSeg" role="radiogroup" aria-label="操作模式">
@@ -128,7 +128,7 @@
     </section>
 
     <!-- 步骤 3：勾选 -->
-    <section class="step">
+    <section class="step" id="step-3">
       <div class="step-head"><span class="step-num">3</span><h2>勾选要清理的应用</h2></div>
       <div class="panel">
         <div class="risk-legend" role="group" aria-label="按风险等级筛选">
@@ -145,7 +145,7 @@
     </section>
 
     <!-- 步骤 4：自定义 -->
-    <section class="step">
+    <section class="step" id="step-4">
       <div class="step-head"><span class="step-num">4</span><h2>自定义包名（可选）</h2></div>
       <div class="panel">
         <div class="field">
@@ -156,7 +156,7 @@
     </section>
 
     <!-- 步骤 5：生成 -->
-    <section class="step">
+    <section class="step" id="step-5">
       <div class="step-head"><span class="step-num">5</span><h2>生成的命令</h2></div>
       <div class="panel">
         <div class="toolbar">
@@ -170,7 +170,7 @@
     </section>
 
     <!-- SEO / GEO 语义化内容块：无 JS 或爬虫可读取的结构化摘要 -->
-    <section class="seo-content" aria-label="小米内置应用精简说明">
+    <section class="seo-content" id="seo-content" aria-label="小米内置应用精简说明">
       <h2>小米内置应用精简清单说明</h2>
       <p>MiAppClean 收录小米手机（MIUI / HyperOS）、平板、电视盒（MiBox / 乐视 X600 等）的内置应用包名，按设备与风险分级整理，可一键生成 <code>adb shell pm disable-user</code> 或 <code>pm uninstall --user 0</code> 命令。</p>
       <ul>
@@ -189,7 +189,7 @@
     </section>
 
     <!-- 风险提示 -->
-    <div class="notice">
+    <div class="notice" id="notice">
       <span>⚠️</span>
       <ul>
         <li>操作前请备份设备数据；优先使用「禁用」模式（可 <code>pm enable</code> 恢复）。</li>
@@ -206,9 +206,10 @@
 
   <!-- 数据源：以仓库根为托管根，绝对路径引用单一数据源 /apk-data.js -->
   <script src="/apk-data.js"></script>
-  <script src="/prototype/app/generate.js"></script>
   <script src="/prototype/app/render.js"></script>
+  <script src="/prototype/app/generate.js"></script>
   <script src="/prototype/app/settings.js"></script>
-  <script src="/prototype/app/app.js"></script>
+  <script src="/prototype/app/app.state.js"></script>
+  <script src="/prototype/app/app.ui.js"></script>
 </body>
 </html>

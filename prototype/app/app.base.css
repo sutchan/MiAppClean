@@ -1,0 +1,102 @@
+/* MiAppClean 应用原型样式 · 基础布局层
+ * 路径: prototype/app/app.base.css  v1.8.4
+ * 基于设计令牌 tokens.css（须最先导入），承载布局骨架与顶栏/步骤区等结构样式。
+ * 组件级样式见同目录 app.components.css。
+ */
+@import url("../design-system/tokens.css");
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ===== 顶栏 ===== */
+.topbar {
+  position: sticky; top: 0; z-index: var(--z-sticky);
+  display: flex; align-items: center; gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-5);
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+.brand { display: flex; align-items: center; gap: var(--sp-2); font-weight: var(--fw-bold); font-size: var(--fs-md); letter-spacing: var(--ls-tight); }
+.brand a { display: inline-flex; align-items: center; gap: var(--sp-2); color: inherit; text-decoration: none; }
+.brand .dot { width: 10px; height: 10px; border-radius: var(--radius-full); background: var(--color-primary); }
+.brand span { color: var(--color-primary); }
+.nav-btn { display: inline-flex; align-items: center; padding: 6px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text-2); font-size: var(--fs-sm); text-decoration: none; }
+.nav-btn:hover { border-color: var(--color-primary-border); color: var(--color-primary-text); text-decoration: none; }
+
+/* ===== 顶栏操作区（主题切换 + 设置）===== */
+.topbar-actions { display: flex; align-items: center; gap: var(--sp-2); margin-left: auto; }
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; flex: none;
+  font-size: var(--fs-md); line-height: 1;
+  color: var(--color-text); background: var(--color-surface);
+  border: 1px solid var(--color-border); border-radius: var(--radius-full);
+  cursor: pointer; transition: border-color var(--dur-base) var(--ease-standard), background var(--dur-base) var(--ease-standard);
+}
+.icon-btn:hover { border-color: var(--color-primary-border); background: var(--color-surface-2); }
+.icon-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+/* ===== 布局容器 ===== */
+.wrap { max-width: 1080px; margin: 0 auto; padding: var(--sp-6) var(--sp-5) var(--sp-16); }
+
+/* ===== Hero ===== */
+.hero { text-align: center; padding: var(--sp-10) var(--sp-4) var(--sp-8); }
+.hero h1 { font-size: var(--fs-2xl); letter-spacing: var(--ls-tight); margin: 0 0 var(--sp-2); }
+.hero p { color: var(--color-text-2); margin: 0 auto; max-width: 52ch; }
+.hero .chips { display: flex; gap: var(--sp-2); justify-content: center; flex-wrap: wrap; margin-top: var(--sp-4); }
+
+/* ===== 步骤区 ===== */
+.step { margin-bottom: var(--sp-5); }
+.step-head { display: flex; align-items: baseline; gap: var(--sp-2); margin-bottom: var(--sp-3); }
+.step-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: var(--radius-full); background: var(--color-primary-soft); color: var(--color-primary-text); font-size: var(--fs-xs); font-weight: var(--fw-bold); flex: none; }
+.step-head h2 { font-size: var(--fs-lg); font-weight: var(--fw-semibold); margin: 0; }
+
+/* ===== 面板卡片 ===== */
+.panel { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--sp-5); box-shadow: var(--shadow-xs); }
+
+/* ===== 分段控件（设备/模式）===== */
+.segmented { display: inline-flex; flex-wrap: wrap; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 3px; gap: 3px; }
+.segmented label { position: relative; }
+.segmented input { position: absolute; opacity: 0; pointer-events: none; }
+.segmented span { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: calc(var(--radius-md) - 3px); font-size: var(--fs-base); font-weight: var(--fw-medium); color: var(--color-text-2); cursor: pointer; transition: all var(--dur-fast) var(--ease-standard); }
+.segmented input:checked + span { background: var(--color-surface); color: var(--color-text); box-shadow: var(--shadow-xs); }
+.segmented input:focus-visible + span { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+
+/* ===== 风险图例（可点击筛选）===== */
+.risk-legend { display: flex; gap: var(--sp-3); flex-wrap: wrap; font-size: var(--fs-sm); color: var(--color-text-2); margin-bottom: var(--sp-3); }
+.risk-legend .badge {
+  cursor: pointer; border: 1px solid transparent; opacity: .65;
+  font-family: var(--font-sans); line-height: 1;
+  transition: opacity var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+}
+.risk-legend .badge:hover { opacity: 1; }
+.risk-legend .badge:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.risk-legend .badge.active { opacity: 1; box-shadow: 0 0 0 2px var(--color-primary-border) inset; font-weight: var(--fw-semibold); }
+.risk-legend .badge-all { color: var(--color-text); background: var(--color-surface-2); border-color: var(--color-border-strong); }
+
+/* ===== 搜索框 ===== */
+.search-row { margin-bottom: var(--sp-3); }
+.search-row .input { width: 100%; }
+
+/* ===== 响应式 ===== */
+@media (max-width: 640px) {
+  .wrap { padding: var(--sp-5) var(--sp-4) var(--sp-12); }
+  .hero { padding: var(--sp-6) var(--sp-2) var(--sp-4); }
+  .pkg-grid { grid-template-columns: 1fr; }
+  .pkg .desc { display: none; }
+  .segmented span { padding: 8px 12px; font-size: var(--fs-sm); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

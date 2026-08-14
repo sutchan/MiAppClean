@@ -22,6 +22,16 @@
   与 design-system 契约对齐。
 - 同步 VERSION 与各 CI 版本一致性覆盖文件至 v1.8.4。
 
+### 重构
+- 拆分 `prototype/app/app.css`（236 行）为基础布局层 `app.base.css` 与组件层 `app.components.css`，
+  主文件改为纯 `@import` 编排入口（设计令牌单一来源仍由 `app.base.css` 引入 `tokens.css`）。
+- 拆分 `prototype/app/app.js`（212 行）为状态数据层 `app.state.js` 与交互 UI 层 `app.ui.js`
+  （通过 `window.MiState` 暴露状态，复刻 render/generate/settings 的全局契约模式）。
+- 根 `index.html` 的步骤区、hero、风险说明与 SEO 语义块补充语义化 `id`，便于锚点与自动化测试。
+- `apk-data.js` / `tokens.css` / 根 `index.html` / 两个 `.bat` 因 openspec 硬契约
+  （Python 正则解析、设计令牌单一来源、站点根入口与 SEO 内联、单文件交互分发）按
+  `project.md`「具体能力约定优先于通用规则」原则作为拆分例外，bat 采用 `:label` 子例程分段。
+
 ## [1.8.3] - 2026-08-15
 
 ### 文档

@@ -14,6 +14,9 @@ REM 数据：内置清单为 apk-data.js 的「安全包子集」离线镜像，
 REM       不含 danger 级核心组件（如 android / com.miui.home / com.android.settings 等保留项）。
 REM       ⚠️ 此为离线副本：更新 apk-data.js 后请同步下方 PKG_PHONE / PKG_TV，保持单一数据源一致。
 REM       权威数据源见仓库根目录 apk-data.js（前端与 xiaomi-apk-cleanup.py 均直接消费它）。
+REM 模块化：本脚本按职责以 :label 子例程分段（设备选择 / 模式选择 / 执行确认 / 运行），
+REM       包名清单为 apk-data.js 的离线镜像内联于此。因需作为「单文件交互工具」分发，
+REM       不跨文件拆分（保持双击即用的单文件交付契约，见 openspec/specs/scripts）。
 REM ============================================================
 
 SETLOCAL ENABLEDELAYEDEXPANSION
