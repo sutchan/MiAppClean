@@ -28,7 +28,6 @@ body {
 .brand { display: flex; align-items: center; gap: var(--sp-2); font-weight: var(--fw-bold); font-size: var(--fs-md); letter-spacing: var(--ls-tight); }
 .brand .dot { width: 10px; height: 10px; border-radius: var(--radius-full); background: var(--color-primary); }
 .brand span { color: var(--color-primary); }
-.topbar .ver { margin-left: auto; font-size: var(--fs-xs); color: var(--color-text-3); font-family: var(--font-mono); }
 
 /* ===== 布局容器 ===== */
 .wrap { max-width: var(--container-lg); margin: 0 auto; padding: var(--sp-6) var(--sp-5) var(--sp-16); }
@@ -124,6 +123,8 @@ body {
 
 footer.legal { text-align: center; color: var(--color-text-3); font-size: var(--fs-sm); margin-top: var(--sp-10); padding: 0 var(--sp-4); }
 footer.legal a { color: var(--color-primary); }
+footer.legal .ver-line { margin-top: var(--sp-3); font-size: var(--fs-xs); color: var(--color-text-3); font-family: var(--font-mono); }
+footer.legal .ver-line #ver { color: var(--color-text-2); }
 
 /* 响应式 */
 @media (max-width: 640px) {
