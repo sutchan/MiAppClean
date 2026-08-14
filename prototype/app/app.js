@@ -1,6 +1,6 @@
 // MiAppClean 应用原型交互逻辑
 // 复用根目录 apk-data.js 的 APP_DATA 作为单一数据源（真实数据）
-// 路径: prototype/app/app.js  v1.7.1
+// 路径: prototype/app/app.js  v1.8.0
 
 (function () {
   "use strict";
@@ -29,6 +29,9 @@
     )
   );
   const RISK_LABEL = { safe: "安全", caution: "谨慎", danger: "危险" };
+
+  // 当前风险筛选：all | safe | caution | danger（点击风险图例切换）
+  let riskFilter = "all";
 
   // 已勾选包名集合：跨搜索过滤 / 设备切换持久保留勾选状态
   // 若开启「记忆上次勾选」，则从本地存储恢复勾选集合
@@ -64,7 +67,18 @@
     setTimeout(() => t.remove(), 2000);
   }
 
-  // 包装 MiRender.render：注入当前设备、搜索词与勾选集合
+  // 设置风险筛选：切换 active 样式并重新渲染列表
+  function setRiskFilter(value) {
+    riskFilter = value;
+    document.querySelectorAll(".risk-legend [data-filter]").forEach((el) => {
+      const on = el.getAttribute("data-filter") === value;
+      el.classList.toggle("active", on);
+      el.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    renderCategories();
+  }
+
+  // 包装 MiRender.render：注入当前设备、搜索词、勾选集合与风险筛选
   function renderCategories() {
     window.MiRender.render({
       device: getDevice(),
@@ -72,7 +86,8 @@
       checkedPkgs: checkedPkgs,
       catListEl: catList,
       appData: APP_DATA,
-      riskLabel: RISK_LABEL
+      riskLabel: RISK_LABEL,
+      riskFilter: riskFilter
     });
   }
 
@@ -144,6 +159,16 @@
   $("#selectAllBtn").addEventListener("click", selectAll);
   $("#clearBtn").addEventListener("click", clearAll);
 
+  // 风险图例筛选：事件委托，点击切换 safe / caution / danger / all
+  const riskLegend = document.querySelector(".risk-legend");
+  if (riskLegend) {
+    riskLegend.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-filter]");
+      if (!btn) return;
+      setRiskFilter(btn.getAttribute("data-filter"));
+    });
+  }
+
   // 勾选集合变更后持久化（受「记忆上次勾选」开关控制）
   function syncRemember() {
     if (window.MiSettings) window.MiSettings.saveChecked([...checkedPkgs]);
@@ -166,6 +191,7 @@
 
   // 初始化
   applyDefaultMode();
+  setRiskFilter("all"); // 默认全部，并标记 active 态
   renderCategories();
   generate();
 })();

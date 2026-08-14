@@ -65,3 +65,29 @@ jobs:
 
       - name: 语法检查 Python 脚本
         run: python3 -m py_compile scripts/xiaomi-apk-cleanup.py && echo "py 语法 OK"
+
+      - name: 校验 SEO / GEO 基础设施
+        shell: bash
+        run: |
+          set -e
+          echo "== 校验 SEO/GEO 必需文件存在 =="
+          for f in robots.txt sitemap.xml llms.txt; do
+            test -f "$f" || { echo "缺少 $f"; exit 1; }
+            echo "存在: $f"
+          done
+
+          echo "== 校验 index.html 含结构化数据与 SEO meta =="
+          grep -q 'application/ld+json' index.html || { echo "index.html 缺少 JSON-LD 结构化数据"; exit 1; }
+          grep -qi 'rel="canonical"' index.html || { echo "index.html 缺少 canonical"; exit 1; }
+          grep -q 'og:title' index.html || { echo "index.html 缺少 Open Graph"; exit 1; }
+          grep -q 'robots.txt' robots.txt || { echo "robots.txt 未引用自身协议"; exit 1; }
+
+          echo "== 校验 sitemap.xml 含首页与格式 =="
+          grep -q '<loc>https://mi-app-clean.pages.dev/</loc>' sitemap.xml || { echo "sitemap.xml 缺少首页 loc"; exit 1; }
+          python3 -c "import xml.dom.minidom,sys; xml.dom.minidom.parse('sitemap.xml'); print('sitemap.xml 格式有效')"
+
+          echo "== 校验 llms.txt 含 H1 标题与文档索引 =="
+          head -1 llms.txt | grep -q '^# ' || { echo "llms.txt 首行应为 H1 标题"; exit 1; }
+          grep -q 'apk-data.js' llms.txt || { echo "llms.txt 应说明数据源"; exit 1; }
+
+          echo "SEO / GEO 校验全部通过"

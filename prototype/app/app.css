@@ -1,5 +1,5 @@
 /* MiAppClean 应用原型样式（高保真可交互）
- * 路径: prototype/app/app.css  v1.7.1
+ * 路径: prototype/app/app.css  v1.8.0
  * 基于设计令牌 tokens.css，对齐组件库 components.css 的实现。
  */
 @import url("../design-system/tokens.css");
@@ -55,9 +55,17 @@ body {
 .segmented input:checked + span { background: var(--color-surface); color: var(--color-text); box-shadow: var(--shadow-xs); }
 .segmented input:focus-visible + span { outline: 2px solid var(--color-primary); outline-offset: 1px; }
 
-/* ===== 风险图例 ===== */
+/* ===== 风险图例（可点击筛选）===== */
 .risk-legend { display: flex; gap: var(--sp-3); flex-wrap: wrap; font-size: var(--fs-sm); color: var(--color-text-2); margin-bottom: var(--sp-3); }
-.risk-legend .badge { cursor: default; }
+.risk-legend .badge {
+  cursor: pointer; border: 1px solid transparent; opacity: .65;
+  font-family: var(--font-sans); line-height: 1;
+  transition: opacity var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+}
+.risk-legend .badge:hover { opacity: 1; }
+.risk-legend .badge:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.risk-legend .badge.active { opacity: 1; box-shadow: 0 0 0 2px var(--color-primary-border) inset; font-weight: var(--fw-semibold); }
+.risk-legend .badge-all { color: var(--color-text); background: var(--color-surface-2); border-color: var(--color-border-strong); }
 
 /* ===== 搜索框 ===== */
 .search-row { margin-bottom: var(--sp-3); }
@@ -131,6 +139,23 @@ footer.legal { text-align: center; color: var(--color-text-3); font-size: var(--
 footer.legal a { color: var(--color-primary); }
 footer.legal .ver-line { margin-top: var(--sp-3); font-size: var(--fs-xs); color: var(--color-text-3); font-family: var(--font-mono); }
 footer.legal .ver-line #ver { color: var(--color-text-2); }
+
+/* SEO / GEO 语义化内容块：保留可读性与爬虫可见性，视觉弱化处理（非 display:none） */
+.seo-content {
+  margin: var(--sp-6) 0;
+  padding: var(--sp-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-2);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+}
+.seo-content h2 { margin: 0 0 var(--sp-3); font-size: var(--fs-md); color: var(--color-text); }
+.seo-content p { margin: 0 0 var(--sp-3); }
+.seo-content ul { margin: 0 0 var(--sp-3); padding-left: 20px; }
+.seo-content a { color: var(--color-primary); }
+.seo-content code { background: var(--color-surface-3, rgba(0,0,0,.06)); padding: 1px 5px; border-radius: var(--radius-sm); font-family: var(--font-mono); }
 
 /* 响应式 */
 @media (max-width: 640px) {

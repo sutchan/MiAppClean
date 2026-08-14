@@ -2,7 +2,31 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.8.0] - 2026-08-14
+
+### 新增
+- SEO 基础设施：新增 `robots.txt`、`sitemap.xml`（`robots.txt` 排除原型归档目录，
+  `sitemap.xml` 提交首页与各机型包名清单文档）。
+- GEO 基础设施：新增 `llms.txt`（遵循 llmstxt.org 规范），提供机器友好的项目概览、
+  风险分级、命令模板与文档索引，便于生成式引擎（ChatGPT / Claude / 豆包等）引用。
+- 首页 `index.html` 增强 SEO meta：补充 keywords、author、canonical、Open Graph、
+  Twitter Card、theme-color；新增 JSON-LD 结构化数据（`WebApplication` + `FAQPage`）。
+- 首页注入 `.seo-content` 语义化内容块（含 `<noscript>` 回退），使无 JS 环境与爬虫
+  可读到设备分类、风险分级与文档链接，提升可索引性与 GEO 命中。
+- CI 新增「SEO / GEO 基础设施」校验步骤：确保 `robots.txt`/`sitemap.xml`/`llms.txt`
+  存在且关键字段（canonical、OG、sitemap 首页 loc、llms.txt H1）有效。
+
+### 样式
+- `prototype/app/app.css`：新增 `.seo-content` 视觉弱化处理样式（非 display:none，
+  保留爬虫与屏幕阅读器可读），版本单一来源同步至 v1.8.0。
+
 ## [1.7.1] - 2026-08-14
+
+### 新增
+- 风险等级筛选：步骤③清单顶部的「安全 · 谨慎 · 危险 · 全部」图例改为可点击筛选
+  控件（`data-filter` 委托事件），点击按风险等级过滤列表项；选中态高亮（`.active`），
+  与搜索框、设备切换、勾选记忆叠加生效。`render.js` 新增 `riskFilter` 参数，
+  `app.js` 增加 `setRiskFilter()` 驱动重渲染。
 
 ### 样式
 - 站点首页 `index.html` 版本号由顶栏移至页脚免责声明区，布局更紧凑。

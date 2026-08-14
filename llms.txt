@@ -1,0 +1,53 @@
+# MiAppClean
+
+> MiAppClean 是一个开源的小米设备内置应用（预装 App）精简工具集。支持小米手机（MIUI / HyperOS）、平板、电视盒（MiBox / 乐视 X600 等），按机型分类、按风险等级（安全 safe / 谨慎 caution / 危险 danger）标注内置应用包名，并一键生成 adb 禁用（disable-user）或卸载（uninstall --user 0）命令。危险核心组件自动拦截，避免设备变砖。项目为纯静态前端，零运行时依赖。
+
+## 项目概览
+
+- 在线工具首页：index.html（选择设备 → 选择模式 → 勾选应用 → 生成 adb 命令）
+- 唯一数据源：apk-data.js（各机型推荐精简包名与风险等级，前端与脚本共用）
+- 部署：GitHub Actions 自动部署到腾讯云 EdgeOne Pages，仓库根即站点根
+
+## 风险分级规则
+
+- safe（安全）：广告模块、统计、可卸载的预装 App，可放心精简
+- caution（谨慎）：输入法、音效、定位等，精简后可能影响部分功能，按需保留
+- danger（危险）：系统设置、桌面 Launcher、系统界面等核心组件，严禁精简，工具会自动拦截
+
+## 命令模板
+
+- 禁用（推荐，可恢复）：`adb shell pm disable-user --user 0 <包名>`，恢复用 `pm enable`
+- 卸载（谨慎，移除）：`adb shell pm uninstall --user 0 <包名>`，需恢复出厂或重刷
+
+## 文档与清单（详细来源）
+
+- [通用精简命令模板](docs/commands.md)：手机与电视盒两类设备的 adb 命令示例
+- [通用 MIUI 内置 App 包名清单](docs/lists/xiaomi-miui-app-list.md)：待精简候选包名
+- [MIUI 14 内置 App 包名清单](docs/lists/miui14-app-list.md)
+- [小米 13 内置 App 包名清单](docs/lists/xiaomi-13-app-list.md)
+- [小米平板 5 内置 App 包名清单](docs/lists/xiaomi-pad5-app-list.md)
+- [HyperOS（澎湃 OS）内置 App 包名清单](docs/lists/hyperos-app-list.md)
+
+## 脚本入口
+
+- [跨平台精简脚本](scripts/xiaomi-apk-cleanup.py)：解析 apk-data.js 数据源，支持交互式精简、check 预检、backup 备份
+- [Windows 统一精简脚本](scripts/xiaomi-apk-cleanup.bat)：合并多设备命令，交互菜单
+- [乐视 X600 盒子 ROM 精简脚本](scripts/MIUI-lite-for-Letv-X600.bat)：历史 ROM 精简参考
+
+## 使用前置条件
+
+1. 电脑已安装 ADB 并加入 PATH
+2. 设备开启开发者选项与 USB 调试
+3. 通过 USB 或 TCP/IP 连接，`adb devices` 可识别设备
+
+## 风险提示
+
+- 操作前务必备份设备数据
+- 优先使用「禁用」模式（可一键恢复），不确定时勿用「卸载」
+- 包名含 system / framework / settings 的核心组件切勿精简，可能变砖
+- 不同机型、系统版本内置包名不同，执行前先用 `adb shell pm list packages <包名>` 核对
+
+## 许可与免责
+
+- 许可证：MIT（docs/governance/LICENSE）
+- 免责声明：仅供学习与技术研究使用，因使用命令导致的设备损坏、数据丢失等后果作者与贡献者不承担责任

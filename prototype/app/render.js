@@ -1,28 +1,34 @@
 // MiAppClean 分类渲染模块（按设备/搜索过滤渲染可勾选应用列表）
-// 路径: prototype/app/render.js  v1.7.1
+// 路径: prototype/app/render.js  v1.8.0
 // 单一数据源：APP_DATA 由调用方传入，勾选状态由 checkedPkgs 集合维护。
 // 用法：先于 app.js 引入；对外暴露 window.MiRender。
 (function () {
   "use strict";
 
   // 渲染分类列表
-  // opts: { device, term, checkedPkgs:Set, catListEl, appData, riskLabel }
+  // opts: { device, term, checkedPkgs:Set, catListEl, appData, riskLabel, riskFilter }
+  // riskFilter: "all" | "safe" | "caution" | "danger"
   function render(opts) {
-    const { device, term, checkedPkgs, catListEl, appData, riskLabel } = opts;
+    const { device, term, checkedPkgs, catListEl, appData, riskLabel, riskFilter } = opts;
     const list = device === "pad" ? appData.phone : appData[device];
     const q = (term || "").trim().toLowerCase();
+    const rf = riskFilter || "all";
     catListEl.innerHTML = "";
     let totalShown = 0;
 
     list.forEach((group) => {
       // 按包名或描述过滤（大小写不敏感）
-      const items = q
+      let items = q
         ? group.items.filter(
             (it) =>
               it.pkg.toLowerCase().includes(q) ||
               (it.desc || "").toLowerCase().includes(q)
           )
         : group.items;
+      // 按风险等级筛选（点击图例触发）
+      if (rf !== "all") {
+        items = items.filter((it) => (it.risk || "safe") === rf);
+      }
       if (items.length === 0) return; // 无匹配项则隐藏整个分类
 
       const details = document.createElement("details");

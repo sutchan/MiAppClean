@@ -54,10 +54,11 @@
     <section class="step">
       <div class="step-head"><span class="step-num">3</span><h2>勾选要清理的应用</h2></div>
       <div class="panel">
-        <div class="risk-legend">
-          <span class="badge badge-safe">安全 · 可放心精简</span>
-          <span class="badge badge-caution">谨慎 · 可能影响功能</span>
-          <span class="badge badge-danger">危险 · 严禁精简</span>
+        <div class="risk-legend" role="group" aria-label="按风险等级筛选">
+          <button type="button" class="badge badge-safe" data-filter="safe">安全 · 可放心精简</button>
+          <button type="button" class="badge badge-caution" data-filter="caution">谨慎 · 可能影响功能</button>
+          <button type="button" class="badge badge-danger" data-filter="danger">危险 · 严禁精简</button>
+          <button type="button" class="badge badge-all active" data-filter="all" aria-pressed="true">全部</button>
         </div>
         <div class="search-row">
           <input id="search" class="input" type="search" placeholder="搜索包名或描述…" aria-label="搜索应用" />
@@ -103,7 +104,7 @@
 
     <footer class="legal">
       <p>免责声明：本页面仅供学习与技术研究使用。因使用其中命令导致的设备损坏、数据丢失等后果，作者与贡献者不承担任何责任。</p>
-      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.7.1</span></p>
+      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.8.0</span></p>
     </footer>
   </div>
 

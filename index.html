@@ -3,12 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MiAppClean · 小米设备内置 APK 精简</title>
-  <!-- 路径: index.html  v1.7.1 -->
-  <meta name="description" content="小米手机 / 平板 / 电视盒内置应用精简工具，按机型分类、一键生成 adb 命令，危险组件自动拦截。" />
+  <title>MiAppClean · 小米手机/平板/电视盒内置 APK 精简工具（adb 一键生成）</title>
+  <!-- 路径: index.html  v1.8.0 -->
+  <meta name="description" content="小米手机、平板、电视盒内置应用精简工具。按机型分类、风险分级（安全/谨慎/危险）、一键生成 adb 禁用/卸载命令，危险核心组件自动拦截，避免变砖。" />
+  <meta name="keywords" content="小米,MIUI,HyperOS,内置应用,预装应用,精简,卸载,禁用,adb,包名,apk,电视盒,去广告,MIUI精简,小米13,平板5,去冗余" />
+  <meta name="author" content="MiAppClean Contributors" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://mi-app-clean.pages.dev/" />
+  <meta name="theme-color" content="#2a6df4" />
+
+  <!-- Open Graph / 微信、社媒分享 -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:site_name" content="MiAppClean" />
+  <meta property="og:title" content="MiAppClean · 小米设备内置 APK 精简工具" />
+  <meta property="og:description" content="按机型分类、风险分级、一键生成 adb 命令的小米预装应用精简工具，危险组件自动拦截。" />
+  <meta property="og:url" content="https://mi-app-clean.pages.dev/" />
+  <meta property="og:image" content="https://mi-app-clean.pages.dev/og-cover.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MiAppClean · 小米设备内置 APK 精简工具" />
+  <meta name="twitter:description" content="按机型分类、风险分级、一键生成 adb 命令的小米预装应用精简工具。" />
+  <meta name="twitter:image" content="https://mi-app-clean.pages.dev/og-cover.png" />
+
   <link rel="stylesheet" href="/prototype/app/app.css" />
   <!-- 主题切换：同步执行避免首屏闪烁（数据源见 /prototype/design-system/tokens.css） -->
   <script src="/prototype/theme.js"></script>
+
+  <!-- JSON-LD：结构化数据，便于搜索引擎与生成式引擎（GEO）理解站点 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "MiAppClean",
+    "alternateName": "小米设备内置 APK 精简工具",
+    "url": "https://mi-app-clean.pages.dev/",
+    "description": "小米手机、平板、电视盒内置应用精简工具，按机型分类、风险分级，一键生成 adb 禁用/卸载命令。",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Android",
+    "inLanguage": "zh-CN",
+    "softwareVersion": "1.8.0",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+    "author": { "@type": "Organization", "name": "MiAppClean Contributors", "url": "https://github.com/sutchan/MiAppClean" },
+    "keywords": "小米,MIUI,HyperOS,内置应用,精简,adb,包名,预装应用,去广告"
+  }
+  </script>
+
+  <!-- JSON-LD：FAQPage，提升 GEO（生成式引擎）问答命中率 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "MiAppClean 是什么？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MiAppClean 是一个面向小米手机、平板、电视盒的开源内置应用（预装 App）精简工具。它按机型分类、按风险等级（安全/谨慎/危险）标注，并一键生成 adb 禁用或卸载命令，危险核心组件会自动拦截，避免设备变砖。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "如何精简小米内置应用？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "在页面选择设备类型（手机/平板/电视盒）与操作模式（禁用推荐可恢复、卸载谨慎），勾选要清理的应用后复制生成的 adb 命令，在已开启 USB 调试并连接电脑的设备上执行即可。优先使用「禁用」模式，可随时 pm enable 恢复。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "精简内置应用有风险吗？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "有风险。卸载（uninstall）会真正移除系统应用，部分核心组件被卸载可能导致无法开机或失去 OTA 能力；包名含 system、framework、settings 的组件严禁精简。建议优先使用禁用（disable-user）模式，并在操作前做好数据备份。"
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -57,10 +131,11 @@
     <section class="step">
       <div class="step-head"><span class="step-num">3</span><h2>勾选要清理的应用</h2></div>
       <div class="panel">
-        <div class="risk-legend">
-          <span class="badge badge-safe">安全 · 可放心精简</span>
-          <span class="badge badge-caution">谨慎 · 可能影响功能</span>
-          <span class="badge badge-danger">危险 · 严禁精简</span>
+        <div class="risk-legend" role="group" aria-label="按风险等级筛选">
+          <button type="button" class="badge badge-safe" data-filter="safe">安全 · 可放心精简</button>
+          <button type="button" class="badge badge-caution" data-filter="caution">谨慎 · 可能影响功能</button>
+          <button type="button" class="badge badge-danger" data-filter="danger">危险 · 严禁精简</button>
+          <button type="button" class="badge badge-all active" data-filter="all" aria-pressed="true">全部</button>
         </div>
         <div class="search-row">
           <input id="search" class="input" type="search" placeholder="搜索包名或描述…" aria-label="搜索应用" />
@@ -94,6 +169,25 @@
       </div>
     </section>
 
+    <!-- SEO / GEO 语义化内容块：无 JS 或爬虫可读取的结构化摘要 -->
+    <section class="seo-content" aria-label="小米内置应用精简说明">
+      <h2>小米内置应用精简清单说明</h2>
+      <p>MiAppClean 收录小米手机（MIUI / HyperOS）、平板、电视盒（MiBox / 乐视 X600 等）的内置应用包名，按设备与风险分级整理，可一键生成 <code>adb shell pm disable-user</code> 或 <code>pm uninstall --user 0</code> 命令。</p>
+      <ul>
+        <li><strong>安全（safe）</strong>：广告模块、统计、部分可卸载的预装 App，可放心精简。</li>
+        <li><strong>谨慎（caution）</strong>：输入法、音效、定位等，精简后可能影响部分功能，按需保留。</li>
+        <li><strong>危险（danger）</strong>：系统设置、桌面 Launcher、系统界面等核心组件，严禁精简，工具会自动拦截。</li>
+      </ul>
+      <p>完整包名清单与逐机型明细见文档：
+        <a href="https://github.com/sutchan/MiAppClean/tree/master/docs/lists">各机型内置 App 包名清单</a>、
+        <a href="https://github.com/sutchan/MiAppClean/blob/master/docs/commands.md">通用精简命令模板</a>。
+      </p>
+      <noscript>
+        <p>您当前的浏览器未启用 JavaScript，无法使用在线勾选与命令生成。请直接访问上方文档链接复制包名，或运行仓库内的
+        <code>scripts/xiaomi-apk-cleanup.py</code> 跨平台精简脚本。</p>
+      </noscript>
+    </section>
+
     <!-- 风险提示 -->
     <div class="notice">
       <span>⚠️</span>
@@ -106,7 +200,7 @@
 
     <footer class="legal">
       <p>免责声明：本页面仅供学习与技术研究使用。因使用其中命令导致的设备损坏、数据丢失等后果，作者与贡献者不承担任何责任。</p>
-      <p class="ver-line">MiAppClean · <span id="ver">v1.7.1</span></p>
+      <p class="ver-line">MiAppClean · <span id="ver">v1.8.0</span></p>
     </footer>
   </div>
 

@@ -1,0 +1,13 @@
+# MiAppClean 爬虫协议
+# 站点为纯静态托管（仓库根即站点根），所有路径相对站点根。
+User-agent: *
+Allow: /
+
+# 原型目录仅供本地/开发查阅，建议排除出索引以避免重复内容
+Disallow: /prototype/archive/
+
+# 生成式引擎（LLM）友好索引入口
+# 详见 https://llmstxt.org 规范
+Allow: /llms.txt
+
+Sitemap: https://mi-app-clean.pages.dev/sitemap.xml

@@ -4,13 +4,14 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库地址：[github.com/sutchan/MiAppClean](https://github.com/sutchan/MiAppClean)
-> 版本：`v1.7.1`
+> 版本：`v1.8.0`
 
 ## 目录
 
 - [目录结构](#目录结构)
 - [文件说明](#文件说明)
 - [在线使用（腾讯云 EdgeOne）](#在线使用腾讯云-edgeone)
+- [SEO 与 GEO 优化](#seo-与-geo-优化)
 - [使用方法](#使用方法)
 - [推荐 ADB 工具](#推荐-adb-工具)
 - [命令说明](#命令说明)
@@ -126,6 +127,24 @@ MiAppClean/
 python3 -m http.server 8080
 # 浏览器打开 http://localhost:8080/        # 在线工具首页
 ```
+
+## SEO 与 GEO 优化
+
+本项目为纯静态站点，已内置搜索引擎优化（SEO）与生成式引擎优化（GEO）基础设施，
+帮助百度 / 谷歌 / 必应等搜索引擎以及 ChatGPT、Claude、豆包等生成式引擎更好地
+索引与引用本工具。
+
+| 文件 | 作用 |
+| --- | --- |
+| `robots.txt` | 爬虫协议：允许抓取全站，排除原型归档目录，声明 sitemap 与 `llms.txt` |
+| `sitemap.xml` | 站点地图：提交首页与各机型包名清单文档，标注更新频率与优先级 |
+| `llms.txt` | GEO 机器可读索引（遵循 [llmstxt.org](https://llmstxt.org) 规范）：机器友好的项目概览、风险分级、命令模板与文档链接 |
+| `index.html` 内 JSON-LD | 结构化数据：`WebApplication` + `FAQPage`，提升富媒体摘要与问答命中 |
+| `index.html` 内 meta | Open Graph / Twitter Card / canonical / keywords，优化社媒分享与去重 |
+
+> 部署说明：`robots.txt` 与 `sitemap.xml` 中的站点域名当前为占位
+> `https://mi-app-clean.pages.dev/`，绑定自定义域名后请替换为实际地址。
+> `.seo-content` 语义块在页面中视觉弱化呈现，既丰富内容又保证爬虫与屏幕阅读器可读。
 
 ## 使用方法
 
