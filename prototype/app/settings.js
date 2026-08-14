@@ -1,5 +1,5 @@
 // MiAppClean 设置模块（主题 / 默认模式 / 勾选记忆 / 提示开关）
-// 路径: prototype/app/settings.js  v1.8.1
+// 路径: prototype/app/settings.js  v1.8.3
 // 单一数据源：视觉令牌见 ../design-system/tokens.css；主题持久化复用 theme.js 的 STORE_KEY。
 // 用法：先于 app.js 引入；对外暴露 window.MiSettings。
 (function () {
@@ -107,7 +107,7 @@
     panel.querySelector("#setRemember").checked = get("remember") === "on";
     panel.querySelector("#setToast").checked = get("toast") === "on";
 
-    // 事件：主题切换（入口即设置面板「外观主题」下拉；顶栏不再单独按钮）
+    // 事件：主题切换（双入口——设置面板下拉 + 顶栏主题按钮共享 miac-theme 持久化键）
     panel.querySelector("#setTheme").addEventListener("change", function (e) {
       set("theme", e.target.value);
       // 写入持久化键（与 theme.js 共享），并直接施加到 <html> 立即生效
@@ -115,6 +115,12 @@
       if (e.target.value === "auto") root.removeAttribute("data-theme");
       else root.setAttribute("data-theme", e.target.value);
       window.dispatchEvent(new CustomEvent("themechange", { detail: { theme: e.target.value } }));
+    });
+    // 顶栏主题按钮（cycleTheme）或系统偏好变化后，同步回填下拉，避免两处状态不一致
+    window.addEventListener("themechange", function (e) {
+      var next = (e && e.detail && e.detail.theme) || read(THEME_KEY, "auto");
+      var sel = panel.querySelector("#setTheme");
+      if (sel) sel.value = next;
     });
     panel.querySelector("#setMode").addEventListener("change", function (e) {
       set("mode", e.target.value);

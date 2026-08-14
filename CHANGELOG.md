@@ -2,6 +2,42 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.8.3] - 2026-08-15
+
+### 文档
+- 新增 `openspec/` 项目规范目录（OpenSpec 轻量级规范工作流）：
+  - `openspec/AGENTS.md`：AI agent 工作流说明（何时提 change、目录约定、快速命令）。
+  - `openspec/project.md`：项目级规范与上下文（单一事实来源，不持版本号）。
+  - `openspec/specs/data-source/spec.md`：单一数据源（`apk-data.js`）契约——结构化导出、
+    `risk` 字段强制、设备分组、禁止重复维护。
+  - `openspec/specs/scripts/spec.md`：离线脚本契约——复用数据源、子命令（interactive/check/backup）、
+    仅依赖标准库、版本标注。
+  - `openspec/specs/site/spec.md`：静态站点契约——零依赖、复用数据源、危险包名拦截、
+    SEO/GEO 基础设施、EdgeOne 部署、版本标注。
+
+### 修复
+- 修复全仓库版本漂移（主版本已至 `v1.8.2`，但多处文件仍停留在 `v1.8.1`）：
+  统一 `apk-data.js`、根 `index.html`（头注释+页面显示）、`scripts/*.bat`（标题+头注释）、
+  `scripts/*.py`（头注释+运行打印）、`docs/commands.md`、`prototype/README.md`、
+  `prototype/app/*`（index.html + app.js/generate.js/render.js/settings.js）、
+  `prototype/interaction/index.html`、`prototype/index.html` footer、`prototype/theme.js`、
+  `docs/governance/{SUPPORT,SECURITY,CODE_OF_CONDUCT}.md`、`CONTRIBUTING.md` 至 `v1.8.3`。
+- 上述均为 CI 版本一致性校验覆盖文件与一致性补充文件，消除再次触发校验失败的风险。
+
+## [1.8.2] - 2026-08-14
+
+### 修复
+- 组件库子页 `components/base.html` / `composite.html` / `business.html` 原为孤立页面
+  （无侧栏导航，从门户进入后无法返回）：统一接入 `.doc` 双栏 + 跨页导航组；并修正其
+  `doc.css` 引用路径（原误写为同目录 `doc.css`，改为 `../design-system/doc.css`）。
+- `theme.js` 自动注入浮动主题切换按钮（🌓），填补「设计系统文档声明三态控件」与
+  「除 app 外各原型页实际无入口」的不一致；应用原型顶栏已自带 `#themeBtn` 时自动跳过。
+- 应用原型 `settings.js` 未监听 `themechange` 事件：顶栏主题按钮（`cycleTheme`）切换后，
+  设置面板的「外观主题」下拉不同步；已增加监听回填，并修正过时注释。
+
+### 其他
+- 版本单一来源同步至 v1.8.2。
+
 ## [1.8.1] - 2026-08-14
 
 ### 改善

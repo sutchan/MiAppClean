@@ -4,12 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>复合组件 · MiAppClean 组件库</title>
+  <link rel="stylesheet" href="../design-system/doc.css" />
   <link rel="stylesheet" href="components.css" />
   <script src="../theme.js"></script>
 </head>
-<body class="doc-page">
-  <h1 class="doc-h1">复合组件 Composite</h1>
-  <p class="doc-lead">由基础组件组合而成，承载局部交互：折叠面板、对话框、抽屉、Toast、命令输出块。</p>
+<body>
+  <div class="doc">
+    <nav class="doc-nav">
+      <p class="doc-brand">Mi<span>App</span>Clean</p>
+      <p class="doc-sub">组件库 v1.0.0</p>
+      <div class="doc-nav-group">
+        <h4>导航</h4>
+        <a href="../index.html">原型门户</a>
+        <a href="../design-system/index.html">设计系统</a>
+        <a href="index.html" class="active">组件库</a>
+        <a href="../interaction/index.html">交互标准</a>
+        <a href="../app/index.html">应用原型</a>
+      </div>
+    </nav>
+    <main class="doc-main">
+      <h1 class="doc-h1">复合组件 Composite</h1>
+      <p class="doc-lead">由基础组件组合而成，承载局部交互：折叠面板、对话框、抽屉、Toast、命令输出块。</p>
 
   <div class="comp-stage">
     <div class="comp-block">
@@ -65,6 +80,8 @@ adb shell pm disable-user --user 0 com.xiaomi.gamecenter  # 谨慎：可能影�
 # 已跳过危险组件（严禁精简，可能变砖）：com.android.settings</pre>
       <p class="comp-note">等宽字体、可滚动、危险项自动跳过并注释</p>
     </div>
+  </div>
+    </main>
   </div>
 
   <script>

@@ -1,5 +1,5 @@
 /* MiAppClean 设计系统文档页共享样式
- * 路径: prototype/design-system/doc.css  v1.8.1
+ * 路径: prototype/design-system/doc.css  v1.8.2
  * 仅用于原型站内的规范展示页，应用原型另用 app.css。
  */
 @import url("tokens.css");
@@ -137,6 +137,19 @@ a:hover { text-decoration: underline; }
 
 /* 代码块（替代内联 style，统一引用令牌） */
 .token-code { font-family: var(--font-mono); color: var(--color-text); background: var(--color-surface-2); padding: var(--sp-4); border-radius: var(--radius-md); border: 1px solid var(--color-border); white-space: pre-wrap; }
+
+/* 浮动主题切换按钮（theme.js 自动注入，三态循环） */
+.theme-fab {
+  position: fixed; right: var(--sp-5); bottom: var(--sp-5); z-index: var(--z-toast, 1000);
+  width: 44px; height: 44px; border-radius: var(--radius-full);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 18px; line-height: 1; cursor: pointer;
+  background: var(--color-surface); color: var(--color-text);
+  border: 1px solid var(--color-border); box-shadow: var(--shadow-md);
+  transition: transform var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard);
+}
+.theme-fab:hover { transform: translateY(-2px); border-color: var(--color-primary-border); }
+.theme-fab:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 
 /* 响应式：窄屏收起导航 */
 @media (max-width: 880px) {

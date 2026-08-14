@@ -2,7 +2,7 @@
 
 小米设备内置 APK 精简工具的高保真原型与设计规范。采用**纯 HTML 方案**，零运行时依赖，所有页面可直接用浏览器打开。
 
-> 版本：v1.8.1
+> 版本：v1.8.3
 > 入口：`prototype/index.html`（原型门户）
 
 ## 目录结构
@@ -39,7 +39,8 @@ prototype/
 └── archive/                   # 历史归档（v1.3.0 旧版网页原型，深色风）
     ├── xiaomi-apk-cleanup.html
     ├── xiaomi-apk-cleanup.css
-    └── xiaomi-apk-cleanup.js
+    ├── xiaomi-apk-cleanup.js
+    └── xiaomi-apk-cleanup.extra.js
 ```
 
 ## 设计原则

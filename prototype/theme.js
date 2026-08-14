@@ -1,5 +1,5 @@
 // MiAppClean 原型主题切换（深浅色 + 跟随系统）
-// 路径: prototype/theme.js  v1.8.1
+// 路径: prototype/theme.js  v1.8.3
 // 单一数据源：视觉令牌见 prototype/design-system/tokens.css
 // 用法：在 <head> 末尾引入 <script src="theme.js"></script>（根页）或 "../theme.js"（子页）。
 // 为避免首屏闪烁，脚本同步执行，优先读取 localStorage 持久化的主题。
@@ -66,4 +66,25 @@
   // 对外暴露：供应用原型顶栏按钮调用，并供设置面板同步
   window.cycleTheme = cycleTheme;
   window.applyTheme = apply;
+
+  // 自动注入浮动主题按钮：所有引入本脚本的页面（门户 / 设计系统 / 组件库 / 交互）
+  // 均获得主题切换入口，避免「文档声明三态控件」与「实际无入口」的不一致。
+  // 应用原型 app 已在顶栏自带 #themeBtn，此处检测到则不重复注入。
+  function injectThemeFab() {
+    if (document.getElementById("themeBtn")) return; // 顶栏已提供入口
+    var fab = document.createElement("button");
+    fab.type = "button";
+    fab.className = "theme-fab";
+    fab.id = "themeBtn";
+    fab.setAttribute("aria-label", "切换主题（浅色/深色/跟随系统）");
+    fab.title = "切换主题";
+    fab.textContent = "🌓";
+    fab.addEventListener("click", cycleTheme);
+    document.body.appendChild(fab);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", injectThemeFab);
+  } else {
+    injectThemeFab();
+  }
 })();
