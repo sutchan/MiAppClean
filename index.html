@@ -4,13 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MiAppClean · 小米设备内置 APK 精简</title>
+  <!-- 路径: index.html  v1.6.12 -->
   <meta name="description" content="小米手机 / 平板 / 电视盒内置应用精简工具，按机型分类、一键生成 adb 命令，危险组件自动拦截。" />
   <link rel="stylesheet" href="/prototype/app/app.css" />
+  <!-- 主题切换：同步执行避免首屏闪烁（数据源见 /prototype/design-system/tokens.css） -->
+  <script src="/prototype/theme.js"></script>
 </head>
 <body>
   <header class="topbar">
     <div class="brand"><span class="dot"></span>Mi<span>App</span>Clean</div>
-    <span class="ver" id="ver">v1.6.11</span>
+    <span class="ver" id="ver">v1.6.12</span>
+    <div class="topbar-actions">
+      <button type="button" id="settingsBtn" class="icon-btn" aria-label="打开设置" aria-haspopup="dialog" aria-expanded="false">⚙</button>
+    </div>
   </header>
 
   <div class="hero">
@@ -103,6 +109,9 @@
 
   <!-- 数据源：以仓库根为托管根，绝对路径引用单一数据源 /apk-data.js -->
   <script src="/apk-data.js"></script>
+  <script src="/prototype/app/generate.js"></script>
+  <script src="/prototype/app/render.js"></script>
+  <script src="/prototype/app/settings.js"></script>
   <script src="/prototype/app/app.js"></script>
 </body>
 </html>

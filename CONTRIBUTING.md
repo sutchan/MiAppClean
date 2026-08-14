@@ -1,6 +1,7 @@
-# MiAppClean 贡献指南
+# 贡献指南（Contributing）
 
-感谢参与 **MiAppClean**（小米设备内置应用精简工具）的建设！请遵循以下约定。
+感谢你关注 **MiAppClean**！本仓库收集小米设备内置应用精简方案，
+欢迎补充机型清单、修正包名、优化脚本或完善文档。
 
 ## 项目结构
 
@@ -23,95 +24,52 @@ MiAppClean/
 └── .github/workflows/             # CI（ci.yml 校验）/ 部署（deploy.yml 发布站点）
 ```
 
-> 核心原则：**单一数据源**。`apk-data.js` 是唯一包名来源，前端与脚本均从中读取，
-> 严禁在脚本/前端内硬编码包名清单，避免多处同步出错。
+## 数据规范
 
-## 数据格式约定
-
-`apk-data.js` 整体结构：`APP_DATA[设备类型] = [{ cat, items: [{ pkg, desc, risk }] }]`，
-设备类型取值 `phone`（手机）/ `pad`（平板，复用手机）/ `tv`（电视盒）。
-
-每个包名条目形如：
-
-```js
-{ pkg: "com.miui.analytics", desc: "小米统计", risk: "safe" }
-```
-
-字段含义：
-
-| 字段 | 说明 |
-|------|------|
-| `pkg` | Android 应用包名（`packageName`），全小写，点号分隔 |
-| `desc` | 简体中文简短用途说明，用于前端展示与脚本日志 |
-| `risk` | 风险等级，见下表 |
-| `cat` | 所属类别（中文），用于前端分组与脚本按类执行 |
-
-`risk` 取值：
-
-| 值 | 含义 | 处理 |
-|----|------|------|
-| `safe` | 可安全精简 | 默认勾选 |
-| `caution` | 精简后可能影响某项功能 | 标注「谨慎」，建议按需取舍 |
-| `danger` | 系统核心组件 | 严禁精简，前端/脚本自动跳过 |
-
-新增包名时请：
-1. 明确填写 `risk`，切勿将核心组件（settings / systemui / telephony / framework 等）标为 `safe`。
-2. `desc` 用简体中文简短说明用途。
-3. 按类别归入对应 `cat`，无合适类别时新建（同类目请勿重复拆分）。
-4. 包名需真实存在，提交前建议 `adb shell pm list packages | findstr <pkg>` 核对。
+- **唯一数据源**：所有机型的推荐精简包名集中维护在 `apk-data.js`，
+  `bat`/`py` 脚本与原型前端均从该文件读取，**请勿在多处硬编码包名**。
+- 每条记录字段：
+  - `type`：`recommended`（推荐卸载）/ `safe`（可禁用）/ `caution`（谨慎操作）
+  - `packages`：包名数组
+  - 新增包名请附 `note`（作用说明）与 `risk`（`low`/`medium`/`high`）。
+- 提交前请用 `node -e "require('./apk-data.js')"` 或 CI 校验确认 JSON 合法、全条目含 `risk`。
 
 ## 编码规范
 
-- **单文件行数**：源代码文件（`.js` / `.py` / `.html` / `.css` 等）单行超过 **200 行** 时，
-  须按职责拆分为更小模块（如数据 `apk-data.js`、UI 与逻辑分离），保持单一职责与可读性。
-- **文件头注释**：每个源文件顶部标注路径与版本号，格式 `// path vX.Y.Z`，
-  修改该文件时同步更新其头注释版本（未改动文件不刷写）。
-- **注释语言**：关键逻辑添加中文注释；对外展示文本统一简体中文。
-- **脚本健壮性**：`.py` / `.bat` 须先校验 `adb` 可用性再执行；`danger` 级组件无条件跳过。
+- 脚本（`bat`/`py`）保持零额外依赖，仅使用系统自带 `adb` 与标准库。
+- 关键逻辑添加中文注释；函数超过 20 行考虑拆分。
+- 源代码文件超过 200 行请拆分为更小的模块（按职责/关注点）。
+- 文件头部标注「路径 + 版本号」注释，如 `// 路径: apk-data.js v1.6.12`。
 
-## 版本与提交
+## 版本管理
 
-- 版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)，每次修改至少 bump 一次 patch。
-- 升级后同步更新以下**单一来源**位置（改动文件头注释版本仅更新被改文件）：
-  - `VERSION` 的版本字段
-  - `CHANGELOG.md` 新增对应版本小节
-  - `README.md` 版本徽章与页脚版本号
-  - 改动文件的头注释 `// path vX.Y.Z`
-- 提交信息遵循 `type: description` 格式：
-  - `type` ∈ `feat` / `fix` / `docs` / `style` / `refactor` / `test` / `chore` / `perf` / `ci` / `revert`
-  - 描述 ≤50 字符、首字母小写、动词开头、无句号；正文每行 ≤72 字符。
+- 版本号遵循 SemVer（`VERSION` 文件，当前 `v1.6.12`）。
+- 任意文件修改均需 bump **patch** 版本；新增功能 bump minor；破坏性变更 bump major。
+- 提交前同步：
+  1. `VERSION` 文件；
+  2. `CHANGELOG.md`（新增对应版本小节）；
+  3. 被改动文件的头注释版本号（未改动文件**不**批量刷写）；
+  4. `README.md` 顶部展示版本；
+  5. `index.html` / `prototype/app/index.html` / `prototype/index.html` 展示版本；
+  6. `xiaomi-apk-cleanup.bat` 标题、`.py` 头注释与运行打印、`.md` 清单版本。
 
-## 分支与流程
+## 提交规范
 
-- 主分支 `master`；功能开发用 `feature/*`，修复用 `fix/*` 或 `hotfix/*`。
-- 开发完成后 `git add` → `commit` → `push` → 向 `master` 创建 PR。
-- PR 描述包含：变更总结 + 动机 + 测试说明；PR 标题格式同提交规范。
+提交信息格式：`<type>: <description>`，如 `feat: 新增小米14清单`。
+类型：`feat` / `fix` / `docs` / `refactor` / `style` / `test` / `chore` / `perf`。
+描述简短、以动词开头、无句号结尾；正文每行 ≤72 字符。
 
-## 校验
-
-提交前请本地运行：
+## 本地验证
 
 ```bash
-python3 -m py_compile xiaomi-apk-cleanup.py   # Python 语法检查
-node --check apk-data.js                       # JS 数据源语法检查
+# 校验 apk-data.js 结构
+node -e "const d=require('./apk-data.js'); console.log('OK', Object.keys(d).length)"
+
+# 校验 Python 脚本语法
+python3 -m py_compile xiaomi-apk-cleanup.py
 ```
 
-数据完整性（包名 risk 字段、apk-data.js 可解析）也可本地用以下内联命令预检：
-
-```bash
-python3 - <<'PY'
-import re
-src = open("apk-data.js", encoding="utf-8").read()
-m = re.search(r"const APP_DATA\s*=\s*(\{.*?\n\});", src, re.S)
-js = m.group(1).replace("true","True").replace("false","False").replace("null","None")
-data = eval(js, {"__builtins__":{}}, {})
-for dev, groups in data.items():
-    for g in groups:
-        for it in g["items"]:
-            assert "risk" in it, it
-print("apk-data.js 校验通过")
-PY
-```
+## CI
 
 推送后 GitHub Actions（`.github/workflows/ci.yml`）会自动校验：
 - 版本一致性：扫描 `VERSION`，并断言以下文件均含 `v<VERSION>`：
@@ -122,3 +80,13 @@ PY
 - `apk-data.js` 数据结构与 `risk` 取值合法性（Python 解析 + 全条目含 `risk`）
 - 源文件是否超出 200 行阈值（超出则提示拆分）
 - `xiaomi-apk-cleanup.py` 语法检查（`python3 -m py_compile`）
+
+## 流程
+
+1. Fork 并创建分支（`feature/*` 或 `fix/*`）。
+2. 修改后本地自测，更新 `CHANGELOG` 与版本号。
+3. 提 PR 到 `main`，等待 CI 通过与 review。
+
+---
+
+> 版本：`v1.6.12`

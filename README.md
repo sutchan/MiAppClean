@@ -4,7 +4,7 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库路径：`e:/Github/MiAppClean`
-> 版本：`v1.6.11`
+> 版本：`v1.6.12`
 
 ## 目录结构
 
@@ -17,6 +17,12 @@ MiAppClean/
 ├── index.html                      # ★ 站点首页（EO 托管根，直接承载精简工具）
 ├── .github/workflows/ci.yml        # CI：提交/PR 时校验版本一致性与数据完整性
 ├── .github/workflows/deploy.yml     # CD：推送 master/main 时自动部署到腾讯云 EdgeOne
+│
+├── CODE_OF_CONDUCT.md             # 行为准则（Contributor Covenant v2.1）
+├── CONTRIBUTING.md                # 贡献指南（数据/编码/版本/CI 规范）
+├── LICENSE                        # MIT 许可证
+├── SECURITY.md                    # 安全政策（漏洞私密举报流程）
+├── SUPPORT.md                     # 支持渠道与自助排查指引
 │
 ├── xiaomi-apk-cleanup.bat             # 统一精简脚本（合并手机/平板/电视盒命令，交互菜单）
 ├── xiaomi-apk-cleanup.py              # 跨平台精简脚本（Python，复用 apk-data.js 数据源）
@@ -57,6 +63,11 @@ MiAppClean/
 | `apk-data.js` | ★ **权威单一数据源**：各机型推荐精简包名与风险等级（safe/caution/danger）。前端原型（`prototype/app/`）、`xiaomi-apk-cleanup.py` 均直接消费它；请勿在多处维护包名副本 |
 | `prototype/` | 高保真原型 + 设计规范（纯 HTML，零依赖）：`index.html` 门户、`design-system/` 设计系统、`components/` 组件库、`interaction/` 交互标准、`app/` 可交互应用原型、`README.md` 原型说明 |
 | `prototype/archive/` | 历史归档：v1.3.0 旧版网页原型（`xiaomi-apk-cleanup.html/.css/.js` 与增强模块 `xiaomi-apk-cleanup.extra.js`），仅供回溯，不再维护 |
+| `CODE_OF_CONDUCT.md` | 行为准则，明确社区可接受行为与举报方式（GitHub About 区自动识别） |
+| `CONTRIBUTING.md` | 贡献指南：项目结构、数据规范、编码与版本管理要求 |
+| `LICENSE` | MIT 许可证（Copyright © 2026 MiAppClean） |
+| `SECURITY.md` | 安全政策：支持版本与漏洞私密举报流程 |
+| `SUPPORT.md` | 支持渠道（Issues / Discussions）与常见问题自助排查 |
 
 > **数据源关系**：`apk-data.js` 为唯一权威来源。三个可执行入口定位如下——
 > - `prototype/app/index.html`：浏览器原型，直接读取 `apk-data.js`（适合查看/生成命令）。

@@ -2,6 +2,30 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.6.12] - 2026-08-14
+
+### 新增
+- 深色 / 浅色 / 跟随系统 三态外观主题切换，复用 `prototype/theme.js` 与
+  `prototype/design-system/tokens.css` 深色令牌，首屏同步执行避免闪烁，
+  选择持久化于 `localStorage`。
+- 设置面板（齿轮按钮唤起），包含合理设置项：
+  - 外观主题：浅色 / 深色 / 跟随系统
+  - 默认操作模式：禁用（推荐）/ 卸载
+  - 记忆上次勾选：跨筛选与设备切换保留勾选（可关闭清空）
+  - 复制成功后提示：复制 adb 命令后的轻提示开关
+- 应用逻辑按职责拆分，新增 `render.js`（分类渲染）、`generate.js`（命令生成）、
+  `settings.js`（设置管理），单一数据源 `apk-data.js` 不变。
+
+### 文档
+- 新增社区健康文件，完善 GitHub 仓库 About 导航与协作规范：
+  - `CODE_OF_CONDUCT.md`：基于 Contributor Covenant v2.1 的行为准则。
+  - `LICENSE`：采用 MIT 许可证（Copyright © 2026 MiAppClean）。
+  - `SECURITY.md`：漏洞私密举报流程、支持版本与免责提示。
+  - `SUPPORT.md`：支持渠道（Issues/Discussions）与自助排查指引。
+- 同步 `CONTRIBUTING.md` 结构图与版本号至 `v1.6.12`。
+- 全仓库展示版本（README、bat 标题、py 头注释/打印、apk-data.js、各 index.html
+  与 prototype 页面）统一刷新至 `v1.6.12`。
+
 ## [1.6.11] - 2026-08-14
 
 ### 新增

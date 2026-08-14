@@ -1,6 +1,6 @@
 // MiAppClean 应用原型交互逻辑
 // 复用根目录 apk-data.js 的 APP_DATA 作为单一数据源（真实数据）
-// 路径: prototype/app/app.js  v1.6.11
+// 路径: prototype/app/app.js  v1.6.12
 
 (function () {
   "use strict";
@@ -31,7 +31,18 @@
   const RISK_LABEL = { safe: "安全", caution: "谨慎", danger: "危险" };
 
   // 已勾选包名集合：跨搜索过滤 / 设备切换持久保留勾选状态
-  const checkedPkgs = new Set();
+  // 若开启「记忆上次勾选」，则从本地存储恢复勾选集合
+  const checkedPkgs = new Set(
+    window.MiSettings ? window.MiSettings.loadChecked() : []
+  );
+
+  // 应用默认操作模式（设置项：默认操作模式）
+  function applyDefaultMode() {
+    if (!window.MiSettings) return;
+    const mode = window.MiSettings.get("mode");
+    const radio = document.querySelector(`input[name="mode"][value="${mode}"]`);
+    if (radio) radio.checked = true;
+  }
 
   function getDevice() {
     return document.querySelector('input[name="device"]:checked').value;
@@ -40,110 +51,41 @@
     return document.querySelector('input[name="mode"]:checked').value;
   }
 
+  // 复制提示是否开启（设置项：复制成功后提示）
+  function toastEnabled() {
+    return !window.MiSettings || window.MiSettings.get("toast") === "on";
+  }
+  function toast(msg) {
+    if (!toastEnabled()) return;
+    const t = document.createElement("div");
+    t.className = "toast";
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2000);
+  }
+
+  // 包装 MiRender.render：注入当前设备、搜索词与勾选集合
   function renderCategories() {
-    const device = getDevice();
-    const list = device === "pad" ? APP_DATA.phone : APP_DATA[device];
-    const term = (search.value || "").trim().toLowerCase();
-    catList.innerHTML = "";
-    let totalShown = 0;
-
-    list.forEach((group) => {
-      // 按包名或描述过滤（大小写不敏感）
-      const items = term
-        ? group.items.filter(
-            (it) =>
-              it.pkg.toLowerCase().includes(term) ||
-              (it.desc || "").toLowerCase().includes(term)
-          )
-        : group.items;
-      if (items.length === 0) return; // 无匹配项则隐藏整个分类
-
-      const details = document.createElement("details");
-      details.className = "cat";
-      details.open = true;
-      const summary = document.createElement("summary");
-      summary.innerHTML = `${group.cat}<span class="count">${items.length}</span>`;
-      details.appendChild(summary);
-
-      items.forEach((it) => {
-        const risk = it.risk || "safe";
-        const row = document.createElement("label");
-        row.className = `pkg risk-${risk}`;
-        const cb = document.createElement("input");
-        cb.type = "checkbox";
-        cb.className = "pkg-check";
-        cb.value = it.pkg;
-        cb.disabled = risk === "danger"; // 危险组件禁止勾选
-        cb.checked = checkedPkgs.has(it.pkg); // 恢复勾选状态
-        const name = document.createElement("span");
-        name.className = "name";
-        name.textContent = it.pkg;
-        const tag = document.createElement("span");
-        tag.className = `badge badge-${risk === "danger" ? "danger" : risk === "caution" ? "caution" : "safe"}`;
-        tag.textContent = RISK_LABEL[risk];
-        const desc = document.createElement("span");
-        desc.className = "desc";
-        desc.textContent = it.desc;
-        row.append(cb, name, tag, desc);
-        details.appendChild(row);
-        totalShown++;
-      });
-      catList.appendChild(details);
+    window.MiRender.render({
+      device: getDevice(),
+      term: search ? search.value : "",
+      checkedPkgs: checkedPkgs,
+      catListEl: catList,
+      appData: APP_DATA,
+      riskLabel: RISK_LABEL
     });
-
-    if (totalShown === 0) {
-      catList.innerHTML = '<p class="empty">未找到匹配的包名，请调整关键词或清空筛选。</p>';
-    }
   }
 
-  function parseCustom() {
-    return custom.value
-      .split(/\r?\n/)
-      .map((s) => s.trim())
-      .filter((s) => s && !s.startsWith("#"));
-  }
-
+  // 包装 MiGen.generate：注入当前模式、勾选集合与风险映射
   function generate() {
-    const mode = getMode();
-    const cmd = mode === "uninstall"
-      ? "adb shell pm uninstall --user 0"
-      : "adb shell pm disable-user --user 0";
-    const checks = [...document.querySelectorAll(".pkg-check:checked")].map((c) => c.value);
-    const customPkgs = parseCustom();
-    const pkgs = [...new Set([...checks, ...customPkgs])];
-
-    if (pkgs.length === 0) {
-      output.innerHTML = "// 勾选应用或粘贴自定义包名后将在此生成 adb 命令";
-      stat.textContent = "已选 0";
-      return;
-    }
-
-    const lines = [];
-    const skipped = [];
-    pkgs.forEach((p) => {
-      const risk = RISK_MAP[p] || "safe";
-      if (risk === "danger") {
-        skipped.push(p); // 危险组件严禁精简，不生成命令
-        return;
-      }
-      const comment = risk === "caution" ? "  # 谨慎：可能影响相关功能" : "";
-      lines.push(`${cmd} ${p}${comment}`);
+    window.MiGen.generate({
+      mode: getMode(),
+      checkedPkgs: checkedPkgs,
+      customEl: custom,
+      outputEl: output,
+      statEl: stat,
+      riskMap: RISK_MAP
     });
-
-    let html = lines.map((l) => {
-      if (l.includes("# 谨慎")) return `<span class="c-caution">${escapeHtml(l)}</span>`;
-      return escapeHtml(l);
-    }).join("\n");
-
-    if (skipped.length) {
-      html += `\n\n// 已跳过危险组件（严禁精简，可能变砖）：\n// ${skipped.map(escapeHtml).join(", ")}`;
-    }
-    output.innerHTML = html;
-    stat.textContent = `已选 ${pkgs.length}`;
-  }
-
-  function escapeHtml(s) {
-    return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 
   async function copyAll() {
@@ -175,15 +117,8 @@
 
   function clearAll() {
     document.querySelectorAll(".pkg-check").forEach((c) => { c.checked = false; checkedPkgs.delete(c.value); });
+    if (window.MiSettings) window.MiSettings.saveChecked([]);
     generate();
-  }
-
-  function toast(msg) {
-    const t = document.createElement("div");
-    t.className = "toast";
-    t.textContent = msg;
-    document.body.appendChild(t);
-    setTimeout(() => t.remove(), 2000);
   }
 
   // 事件绑定
@@ -191,7 +126,7 @@
     r.addEventListener("change", () => { renderCategories(); generate(); })
   );
   document.querySelectorAll('input[name="mode"]').forEach((r) =>
-    r.addEventListener("change", generate)
+    r.addEventListener("change", () => { generate(); syncRemember(); })
   );
   // 勾选变化：同步已选集合并重新生成命令
   catList.addEventListener("change", (e) => {
@@ -199,6 +134,7 @@
     if (cb) {
       if (cb.checked) checkedPkgs.add(cb.value);
       else checkedPkgs.delete(cb.value);
+      syncRemember();
     }
     generate();
   });
@@ -208,7 +144,28 @@
   $("#selectAllBtn").addEventListener("click", selectAll);
   $("#clearBtn").addEventListener("click", clearAll);
 
+  // 勾选集合变更后持久化（受「记忆上次勾选」开关控制）
+  function syncRemember() {
+    if (window.MiSettings) window.MiSettings.saveChecked([...checkedPkgs]);
+  }
+
+  // 响应设置面板变更：默认模式 / 记忆开关
+  window.addEventListener("settingchange", (e) => {
+    const d = e.detail || {};
+    if (d.mode) {
+      const radio = document.querySelector(`input[name="mode"][value="${d.mode}"]`);
+      if (radio) radio.checked = true;
+      generate();
+    }
+    if (d.remember === "off") {
+      checkedPkgs.clear();
+      renderCategories();
+      generate();
+    }
+  });
+
   // 初始化
+  applyDefaultMode();
   renderCategories();
   generate();
 })();
