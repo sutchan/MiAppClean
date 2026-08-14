@@ -1,6 +1,6 @@
 // MiAppClean 应用原型交互逻辑
 // 复用根目录 apk-data.js 的 APP_DATA 作为单一数据源（真实数据）
-// 路径: prototype/app/app.js  v1.6.10
+// 路径: prototype/app/app.js  v1.6.11
 
 (function () {
   "use strict";
@@ -10,6 +10,7 @@
   const output = $("#output");
   const custom = $("#custom");
   const stat = $("#stat");
+  const search = $("#search");
 
   // 数据由 apk-data.js 以 window.APP_DATA 暴露；缺失时给出友好提示而非白屏
   const APP_DATA = window.APP_DATA;
@@ -29,6 +30,9 @@
   );
   const RISK_LABEL = { safe: "安全", caution: "谨慎", danger: "危险" };
 
+  // 已勾选包名集合：跨搜索过滤 / 设备切换持久保留勾选状态
+  const checkedPkgs = new Set();
+
   function getDevice() {
     return document.querySelector('input[name="device"]:checked').value;
   }
@@ -39,16 +43,29 @@
   function renderCategories() {
     const device = getDevice();
     const list = device === "pad" ? APP_DATA.phone : APP_DATA[device];
+    const term = (search.value || "").trim().toLowerCase();
     catList.innerHTML = "";
+    let totalShown = 0;
+
     list.forEach((group) => {
+      // 按包名或描述过滤（大小写不敏感）
+      const items = term
+        ? group.items.filter(
+            (it) =>
+              it.pkg.toLowerCase().includes(term) ||
+              (it.desc || "").toLowerCase().includes(term)
+          )
+        : group.items;
+      if (items.length === 0) return; // 无匹配项则隐藏整个分类
+
       const details = document.createElement("details");
       details.className = "cat";
       details.open = true;
       const summary = document.createElement("summary");
-      summary.innerHTML = `${group.cat}<span class="count">${group.items.length}</span>`;
+      summary.innerHTML = `${group.cat}<span class="count">${items.length}</span>`;
       details.appendChild(summary);
 
-      group.items.forEach((it) => {
+      items.forEach((it) => {
         const risk = it.risk || "safe";
         const row = document.createElement("label");
         row.className = `pkg risk-${risk}`;
@@ -57,6 +74,7 @@
         cb.className = "pkg-check";
         cb.value = it.pkg;
         cb.disabled = risk === "danger"; // 危险组件禁止勾选
+        cb.checked = checkedPkgs.has(it.pkg); // 恢复勾选状态
         const name = document.createElement("span");
         name.className = "name";
         name.textContent = it.pkg;
@@ -68,9 +86,14 @@
         desc.textContent = it.desc;
         row.append(cb, name, tag, desc);
         details.appendChild(row);
+        totalShown++;
       });
       catList.appendChild(details);
     });
+
+    if (totalShown === 0) {
+      catList.innerHTML = '<p class="empty">未找到匹配的包名，请调整关键词或清空筛选。</p>';
+    }
   }
 
   function parseCustom() {
@@ -144,14 +167,14 @@
 
   function selectAll() {
     document.querySelectorAll(".pkg-check").forEach((c) => {
-      if (!c.disabled) c.checked = true;
+      if (!c.disabled) { c.checked = true; checkedPkgs.add(c.value); }
     });
     generate();
     toast("已全选推荐项（危险组件已排除）");
   }
 
   function clearAll() {
-    document.querySelectorAll(".pkg-check").forEach((c) => (c.checked = false));
+    document.querySelectorAll(".pkg-check").forEach((c) => { c.checked = false; checkedPkgs.delete(c.value); });
     generate();
   }
 
@@ -170,8 +193,17 @@
   document.querySelectorAll('input[name="mode"]').forEach((r) =>
     r.addEventListener("change", generate)
   );
-  catList.addEventListener("change", generate);
+  // 勾选变化：同步已选集合并重新生成命令
+  catList.addEventListener("change", (e) => {
+    const cb = e.target.closest(".pkg-check");
+    if (cb) {
+      if (cb.checked) checkedPkgs.add(cb.value);
+      else checkedPkgs.delete(cb.value);
+    }
+    generate();
+  });
   custom.addEventListener("input", generate);
+  if (search) search.addEventListener("input", renderCategories);
   $("#copyBtn").addEventListener("click", copyAll);
   $("#selectAllBtn").addEventListener("click", selectAll);
   $("#clearBtn").addEventListener("click", clearAll);

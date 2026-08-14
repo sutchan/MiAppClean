@@ -59,6 +59,11 @@ body {
 .risk-legend { display: flex; gap: var(--sp-3); flex-wrap: wrap; font-size: var(--fs-sm); color: var(--color-text-2); margin-bottom: var(--sp-3); }
 .risk-legend .badge { cursor: default; }
 
+/* ===== 搜索框 ===== */
+.search-row { margin-bottom: var(--sp-3); }
+.search-row .input { width: 100%; }
+.empty { text-align: center; color: var(--color-text-3); padding: var(--sp-8); font-size: var(--fs-sm); }
+
 /* ===== 类别分组 ===== */
 .cat { border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; margin-bottom: var(--sp-3); background: var(--color-surface); }
 .cat > summary { list-style: none; cursor: pointer; padding: var(--sp-3) var(--sp-4); font-weight: var(--fw-semibold); background: var(--color-surface-2); display: flex; align-items: center; gap: var(--sp-2); }

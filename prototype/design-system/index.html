@@ -84,6 +84,20 @@
         <div class="callout">新增页面只需在 <code>&lt;head&gt;</code> 引入 <code>theme.js</code> 即可获得切换能力，无需额外样式。</div>
       </div>
 
+      <div class="doc-section">
+        <h2>无障碍基线 Accessibility</h2>
+        <p>所有页面与组件遵循 WCAG 2.1 AA，最低满足以下基线：</p>
+        <ul>
+          <li><strong>键盘可达</strong>：所有可交互元素均可 Tab 聚焦；分段控件用原生 <code>radio</code> + <code>role="radiogroup"</code>，对话框用 <code>role="dialog" aria-modal</code>。</li>
+          <li><strong>可见焦点</strong>：统一提供 <code>:focus-visible</code> 焦点环（2px 主色描边，偏移 2px），不依赖鼠标悬停。</li>
+          <li><strong>对比度</strong>：正文文本对比度 ≥ 4.5:1，大号文本与图标 ≥ 3:1；深浅色均经令牌约束，不写死低对比色值。</li>
+          <li><strong>语义标签</strong>：按钮用 <code>&lt;button&gt;</code>（非 <code>div</code>），图标按钮补 <code>aria-label</code>；表单控件绑定 <code>label for</code>，错误态加 <code>aria-invalid</code>。</li>
+          <li><strong>触控目标</strong>：按钮最小可点区 40×40px，图标类 44×44px，避免误触。</li>
+          <li><strong>动效偏好</strong>：尊重 <code>prefers-reduced-motion</code>，时长级动效在该模式下降级为瞬时。</li>
+        </ul>
+        <div class="callout">令牌中的 <code>--duration-*</code> / <code>--ease-*</code> 已为动效唯一来源；若需支持减弱动效，可在 <code>tokens.css</code> 追加 <code>@media (prefers-reduced-motion: reduce)</code> 覆盖。</div>
+      </div>
+
       <footer class="doc-footer">
         MiAppClean 原型 · 设计系统 v1.0.0 · 纯 HTML 方案，零运行时依赖
       </footer>

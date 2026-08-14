@@ -2,6 +2,32 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.6.11] - 2026-08-14
+
+### 新增
+- 数据涵盖最新 HyperOS（澎湃）系统内置应用：
+  - `phone` 新增「HyperOS 系统应用」「HyperOS 小米服务」「HyperOS 广告与分析」
+    「HyperOS Google 服务（国行可精简）」四个分类，补全安全中心、小爱、
+    云服务、推送框架、WebView 等典型可精简/谨慎组件。
+  - `tv` 新增「HyperOS 电视盒应用（澎湃 TV）」分类，补充电视账号、视频播放器、
+    系统升级、PatchWall、画质引擎等 TV 端内置应用。
+  - 沿用 safe / caution / danger 三级风险，未搬运含系统核心的候选全集，避免误精简。
+- 版本单一来源同步至 v1.6.11：VERSION、README、bat、`apk-data.js`、
+  `index.html`、`prototype/app/index.html`、`prototype/index.html`、
+  `prototype/README.md`、精简命令文档。
+- `README.md` 新增「推荐 ADB 工具」章节：列举 ADB AppControl、甲虫 ADB 助手、
+  Shizuku+冰箱、scrcpy、无线 ADB、官方 Platform-Tools、Swift Backup/oandbackupx
+  等图形与命令行工具，并给出与本项目脚本的配合使用建议。
+
+### 完善
+- 原型与设计规范收口：
+  - 设计系统总览（`design-system/index.html`）新增「无障碍基线 Accessibility」章节，
+    明确键盘可达、可见焦点、对比度、语义标签、触控目标、动效偏好六项 WCAG 2.1 AA 基线。
+  - 应用原型（`app/`）新增包名搜索框，支持按包名/描述实时过滤，并持久保留勾选状态
+    （跨搜索与设备切换不丢失）；无匹配结果时展示空状态提示。
+  - 交互标准页（`interaction/index.html`）版本标识对齐至真实版本，与门户导航同源。
+  - 修复 `doc.css` 头注释版本滞后（v1.6.10 → v1.6.11）；清理 CHANGELOG 重复的 1.6.11 小节。
+
 ## [1.6.10] - 2026-08-14
 
 ### 文档

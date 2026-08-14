@@ -4,7 +4,7 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库路径：`e:/Github/MiAppClean`
-> 版本：`v1.6.10`
+> 版本：`v1.6.11`
 
 ## 目录结构
 
@@ -164,6 +164,38 @@ MIUI-lite-for-Letv-X600.bat
 > 原型为纯静态前端，所有数据来自根目录 `apk-data.js`（单一数据源），不会上传任何信息。
 > 设计规范与组件库见 `prototype/` 下的 `design-system/`、`components/`、`interaction/`。
 > 旧版网页原型（`xiaomi-apk-cleanup.*`）已归档至 `prototype/archive/`，仅供回溯，不再维护。
+
+## 推荐 ADB 工具
+
+除了官方命令行 `adb`，以下工具能显著降低精简门槛、提升操作安全性，
+按需选用（本项目脚本均为纯 `adb` 命令，与上述工具可配合使用）。
+
+### 桌面端图形工具
+
+- **[ADB AppControl](https://adbappcontrol.com/)**（Windows）
+  图形化禁用/卸载/冻结应用，内置厂商应用识别与备份恢复，适合不熟悉命令行的用户。
+- **[Linkji 甲虫 ADB 助手](https://github.com/modnars1/linkji-adb)**（全平台）
+  开源可视化工具，支持禁用/卸载、批量操作与一键备份，对小米/红米设备适配良好。
+- **[AADebug / Shizuku + 冰箱 IceBox](https://github.com/RikkaApps/Shizuku)**
+  Shizuku 以 ADB 权限代理运行，`冰箱` 可冻结应用且无需 root，适合日常留白管理。
+
+### 命令行 / 脚本增强
+
+- **[scrcpy](https://github.com/Genymobile/scrcpy)**（全平台）
+  无线投屏与键鼠控制，配合精简流程可实时观察设备状态、验证操作结果。
+- **[ADB Wireless / WiFi ADB](https://developer.android.com/tools/adb#wireless)**
+  通过 `adb tcpip 5555` + `adb connect <ip>:5555` 摆脱数据线，适合反复调试。
+- **[Android Platform-Tools](https://developer.android.com/tools/releases/platform-tools)**（官方）
+  官方 `adb` / `fastboot` 唯一可信来源，建议定期更新以获取最新设备兼容。
+
+### 备份与恢复
+
+- **[Swift Backup](https://swiftapps.org/)** / **[oandbackupx](https://github.com/jensstein/oandbackupx)**
+  在精简前对应用与数据做完整备份，误操作后可一键还原，降低变砖风险。
+
+> 提示：图形工具与本项目脚本并不冲突——可先用本项目 `prototype` 原型或脚本
+> 生成命令、确认包名，再在图形工具中执行或批量管理；精简前务必用
+> `xiaomi-apk-cleanup.py backup` 或上述备份工具留存快照。
 
 ## 命令说明
 
