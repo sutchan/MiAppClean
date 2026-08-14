@@ -2,6 +2,23 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.6.8] - 2026-08-14
+
+### 修复
+- 消除数据源歧义与重复隐患：
+  - 修正 `xiaomi-apk-cleanup.bat` 误导性注释「内置清单与 apk-data.js 一致」，改为明确
+    其为 `apk-data.js` 的安全包子集**离线镜像**，并标注「更新 apk-data.js 后需手动同步
+    内置清单」，避免维护者误以为二者自动一致导致数据漂移。
+  - 在 bat 内嵌清单区补充指向权威源 `apk-data.js` 的说明，保留无 Python/Node 环境的
+    纯 Windows 离线可用性。
+- 扩展 `README.md` 数据源关系说明：明确 `apk-data.js` 为唯一权威来源；界定三个可执行
+  入口定位（原型 html / py 数据源驱动 / bat 离线镜像）；说明各 `*.md` 清单为衍生展示
+  而非独立数据源。
+- 版本单一来源同步至 v1.6.8：VERSION、README、prototype/README.md、
+  `prototype/app/index.html`、`prototype/index.html` footer、`apk-data.js`、
+  `xiaomi-apk-cleanup.bat`（头注释 + TITLE）、`xiaomi-apk-cleanup.py`（头注释 + 打印）、
+  `精简小米手机MIUI及电视盒app命令.md` 头版本。
+
 ## [1.6.7] - 2026-08-14
 
 ### 变更

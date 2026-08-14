@@ -4,7 +4,7 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库路径：`e:/Github/MiAppClean`
-> 版本：`v1.6.7`
+> 版本：`v1.6.8`
 
 ## 目录结构
 
@@ -52,9 +52,15 @@ MiAppClean/
 | `小米13内置App清单.md` | 小米 13 出厂内置 App 包名清单 |
 | `小米平板5内置App清单.md` | 小米平板 5 出厂内置 App 包名清单 |
 | `HyperOS-App清单.md` | HyperOS（澎湃 OS）内置 App 包名清单 |
-| `apk-data.js` | ★ 各机型推荐精简包名数据与风险等级（safe/caution/danger），前端与脚本共用**单一数据源** |
+| `apk-data.js` | ★ **权威单一数据源**：各机型推荐精简包名与风险等级（safe/caution/danger）。前端原型（`prototype/app/`）、`xiaomi-apk-cleanup.py` 均直接消费它；请勿在多处维护包名副本 |
 | `prototype/` | 高保真原型 + 设计规范（纯 HTML，零依赖）：`index.html` 门户、`design-system/` 设计系统、`components/` 组件库、`interaction/` 交互标准、`app/` 可交互应用原型、`README.md` 原型说明 |
 | `prototype/archive/` | 历史归档：v1.3.0 旧版网页原型（`xiaomi-apk-cleanup.html/.css/.js` 与增强模块 `xiaomi-apk-cleanup.extra.js`），仅供回溯，不再维护 |
+
+> **数据源关系**：`apk-data.js` 为唯一权威来源。三个可执行入口定位如下——
+> - `prototype/app/index.html`：浏览器原型，直接读取 `apk-data.js`（适合查看/生成命令）。
+> - `xiaomi-apk-cleanup.py`：跨平台脚本，直接读取 `apk-data.js`（数据源驱动，推荐）。
+> - `xiaomi-apk-cleanup.bat`：Windows 便捷入口，**内嵌 apk-data.js 的安全包子集离线镜像**，适用于无 Python/Node 环境；更新 `apk-data.js` 后需手动同步其内置清单。
+> 各 `*.md` 清单为 `apk-data.js` 的**衍生展示**（人工可读 + 粘贴源），非独立数据源。
 
 各清单文件以 Markdown 列表逐行存储 Android 应用包名（`packageName`），
 可直接复制包名填入精简命令或脚本中执行。
