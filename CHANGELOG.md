@@ -2,6 +2,31 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.4.0] - 2026-08-14
+
+### 新增
+- 新增 `xiaomi-apk-cleanup.py`：跨平台精简脚本（Python），解析 `apk-data.js` 单一数据源，
+  macOS / Linux / Windows 通用，自动校验 adb 可用性并跳过 danger 级核心组件。
+- 新增 `.github/workflows/ci.yml`：提交/PR 时自动校验版本一致性与数据完整性。
+- 新增 `CONTRIBUTING.md`：贡献指南，约定数据格式与版本提交规范。
+
+### 变更
+- `apk-data.js` 各包名条目新增 `risk` 字段（safe / caution / danger），作为风险分级单一数据源。
+- 前端 `xiaomi-apk-cleanup.*` 联动 risk：渲染风险标签与配色，danger 级组件自动跳过并在输出中提示。
+- `xiaomi-apk-cleanup.bat` 更新风险分级说明，标注内置清单不含 danger 级核心组件。
+- `README.md` 补充 Python 脚本与风险分级说明。
+
+### 说明
+- 版本升级至 v1.4.0（在命名变更 v1.3.0 之上新增跨平台脚本与校验，向后兼容）。
+
+## [1.3.0] - 2026-08-14
+
+### 变更
+- 项目正式命名为 **MiAppClean**（原 `MIUI & MiBox Lite`），更新 `README.md` 标题、
+  仓库路径注释与目录树根名。
+- 保留原仓库目录名（`MIUI-and-MiBox-Lite`）不变，仅更新对外展示的项目名。
+- 版本升级至 v1.3.0（项目命名变更，minor 级）。
+
 ## [1.2.1] - 2026-08-14
 
 ### 修复

@@ -2,7 +2,7 @@
 CHCP 65001 >NUL
 REM ============================================================
 REM 小米安卓设备内置 APK 精简统一脚本（合并版）
-REM 版本：v1.2.0
+REM 版本：v1.4.0
 REM 作用：交互选择设备类型与操作模式，对精简清单逐个执行 adb 命令。
 REM 适用：小米手机 / 平板 / 电视盒（含乐视 X600 等搭载 MIUI TV 的盒子）
 REM 依赖：已安装 ADB 并加入 PATH；设备开启 USB 调试且已连接（adb devices 可见）
@@ -10,10 +10,12 @@ REM 用法：双击运行，按菜单选择；脚本仅生成并执行 adb 命�
 REM 安全：默认「禁用」模式（可 pm enable 恢复）；选择「卸载」请谨慎。
 REM 风险：包名含 system / framework / telephony / settings 的核心组件切勿精简，可能变砖。
 REM       电视盒精简后若丢失桌面（Launcher），用 `adb shell pm enable <包名>` 重新启用。
+REM 数据：内置清单与 apk-data.js 一致，已按风险分级（safe/caution），
+REM       不含 danger 级核心组件；caution 项精简后可能影响相关功能，请按需取舍。
 REM ============================================================
 
 SETLOCAL ENABLEDELAYEDEXPANSION
-TITLE 小米 APK 精简工具 v1.2.0
+TITLE 小米 APK 精简工具 v1.4.0
 
 :CHECK_ADB
 WHERE adb >NUL 2>NUL

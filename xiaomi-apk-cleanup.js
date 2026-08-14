@@ -1,11 +1,18 @@
 // 小米安卓设备内置 APK 清理命令页面逻辑
 // 依赖 apk-data.js 中的 APP_DATA
-// 路径: xiaomi-apk-cleanup.js  v1.2.0
+// 路径: xiaomi-apk-cleanup.js  v1.4.0
 
 const $ = (sel) => document.querySelector(sel);
 const categoryList = $("#categoryList");
 const output = $("#output");
 const customPkgs = $("#customPkgs");
+
+// 预扫描所有设备清单，建立 包名 -> risk 映射，供生成命令时判定风险
+const RISK_MAP = {};
+Object.values(APP_DATA).forEach((groups) =>
+  groups.forEach((g) => g.items.forEach((it) => { RISK_MAP[it.pkg] = it.risk || "safe"; }))
+);
+const RISK_LABEL = { safe: "安全", caution: "谨慎", danger: "危险" };
 
 function getDevice() {
   return document.querySelector('input[name="device"]:checked').value;
@@ -26,8 +33,9 @@ function renderCategories() {
     summary.textContent = `${group.cat}（${group.items.length}）`;
     details.appendChild(summary);
     group.items.forEach((it) => {
+      const risk = it.risk || "safe";
       const label = document.createElement("label");
-      label.className = "pkg-item";
+      label.className = `pkg-item risk-${risk}`;
       const cb = document.createElement("input");
       cb.type = "checkbox";
       cb.className = "pkg-check";
@@ -35,10 +43,13 @@ function renderCategories() {
       const name = document.createElement("span");
       name.className = "pkg-name";
       name.textContent = it.pkg;
+      const tag = document.createElement("span");
+      tag.className = `risk-tag risk-tag-${risk}`;
+      tag.textContent = RISK_LABEL[risk];
       const desc = document.createElement("span");
       desc.className = "pkg-desc";
       desc.textContent = it.desc;
-      label.append(cb, name, desc);
+      label.append(cb, name, tag, desc);
       details.appendChild(label);
     });
     categoryList.appendChild(details);
@@ -64,7 +75,22 @@ function generate() {
     output.textContent = "// 勾选应用或粘贴自定义包名后将在此生成 adb 命令";
     return;
   }
-  output.textContent = pkgs.map((p) => `${cmd} ${p}`).join("\n");
+  const lines = [];
+  const blocked = [];
+  pkgs.forEach((p) => {
+    const risk = RISK_MAP[p] || "safe";
+    if (risk === "danger") {
+      blocked.push(p); // 危险组件严禁精简，不生成命令
+      return;
+    }
+    const comment = risk === "caution" ? "  # 谨慎：可能影响相关功能" : "";
+    lines.push(`${cmd} ${p}${comment}`);
+  });
+  if (blocked.length) {
+    lines.push("");
+    lines.push(`// 已跳过危险组件（严禁精简，可能变砖）：${blocked.join(", ")}`);
+  }
+  output.textContent = lines.join("\n");
 }
 
 async function copyAll() {

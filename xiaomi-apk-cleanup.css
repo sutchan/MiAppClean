@@ -77,9 +77,24 @@ body {
 .category[open] > summary::before { content: "▾ "; }
 
 .pkg-item { display: flex; align-items: center; gap: 10px; padding: 7px 16px; border-top: 1px solid var(--border); }
+.pkg-item.risk-caution { background: #2a230f; }
+.pkg-item.risk-danger { background: #2a1414; }
 .pkg-item input { accent-color: var(--accent); }
 .pkg-name { font-family: ui-monospace, "Cascadia Code", monospace; font-size: 13px; }
 .pkg-desc { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+.risk-tag {
+  display: inline-block;
+  font-size: 11px;
+  line-height: 1;
+  padding: 3px 7px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 600;
+}
+.risk-tag-safe { color: #5fd38a; border-color: #5fd38a55; background: #5fd38a18; }
+.risk-tag-caution { color: #ffb454; border-color: #ffb45455; background: #ffb45418; }
+.risk-tag-danger { color: #ff6b6b; border-color: #ff6b6b55; background: #ff6b6b18; }
 
 .hint { color: var(--muted); font-size: 13px; }
 textarea {
