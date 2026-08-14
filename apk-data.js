@@ -1,6 +1,6 @@
 // 小米设备内置 APK 推荐精简清单数据
 // 数据来源于仓库精简命令文件中的推荐精简项（已验证可精简）
-// 路径: apk-data.js  v1.1.0
+// 路径: apk-data.js  v1.2.0
 // 结构：APP_DATA[设备类型] = [{ cat: 类别, items: [{ pkg, desc }] }]
 // 设备类型：phone(手机) / pad(平板,复用手机) / tv(电视盒)
 
@@ -92,7 +92,6 @@ const APP_DATA = {
       { pkg: "com.mediatek.providers.drm", desc: "MTK DRM" },
     ]},
   ],
-  pad: [], // 平板与手机共用推荐清单
   tv: [
     { cat: "电视盒应用", items: [
       { pkg: "com.mipay.wallet.tv", desc: "小米支付(电视)" },

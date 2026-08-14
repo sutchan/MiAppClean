@@ -4,7 +4,7 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库路径：`e:/Github/MIUI-and-MiBox-Lite`
-> 版本：`v1.0.0`
+> 版本：`v1.2.0`
 
 ## 目录结构
 
@@ -14,8 +14,9 @@ MIUI-and-MiBox-Lite/
 ├── VERSION                         # 项目版本号
 ├── CHANGELOG.md                    # 版本变更记录
 │
+├── xiaomi-apk-cleanup.bat             # 统一精简脚本（合并手机/平板/电视盒命令，交互菜单）
 ├── 精简小米手机MIUI及电视盒app命令.txt   # 通用精简命令模板（手机 + 盒子）
-├── MIUI-lite-for-Letv-X600.bat         # 乐视 X600 盒子专用精简脚本
+├── MIUI-lite-for-Letv-X600.bat         # 乐视 X600 盒子 ROM 精简脚本（历史/参考）
 │
 ├── 小米MIUI应用列表.txt             # 通用 MIUI 内置 App 包名清单
 ├── MIUI14-App清单.txt             # MIUI 14 内置 App 包名清单
@@ -33,8 +34,9 @@ MIUI-and-MiBox-Lite/
 
 | 文件 | 用途 |
 | --- | --- |
+| `xiaomi-apk-cleanup.bat` | 统一精简批处理脚本（合并多设备命令，交互选择设备/模式，连接设备后执行） |
 | `精简小米手机MIUI及电视盒app命令.txt` | 通用精简命令模板，含手机与电视盒两类设备命令示例 |
-| `MIUI-lite-for-Letv-X600.bat` | 乐视 X600 盒子一键精简批处理脚本 |
+| `MIUI-lite-for-Letv-X600.bat` | 乐视 X600 盒子 ROM 精简脚本（历史参考，删除 ROM 目录） |
 | `小米MIUI应用列表.txt` | 通用 MIUI 系统内置 App 包名清单（待精简候选） |
 | `MIUI14-App清单.txt` | MIUI 14 系统内置 App 包名清单 |
 | `小米13内置App清单.txt` | 小米 13 出厂内置 App 包名清单 |
@@ -66,11 +68,26 @@ MIUI-and-MiBox-Lite/
 参考 `精简小米手机MIUI及电视盒app命令.txt` 中的「电视盒」部分，
 或使用 `MIUI-lite-for-Letv-X600.bat`（仅适用于乐视 X600 盒子）。
 
+### 运行统一精简脚本（推荐）
+
+`xiaomi-apk-cleanup.bat` 合并了手机 / 平板 / 电视盒的精简命令，
+连接设备后双击运行，按菜单选择设备类型与操作模式即可：
+
+```bat
+xiaomi-apk-cleanup.bat
+```
+
+脚本内置与 `apk-data.js` 一致的推荐精简包名，逐条执行 `adb` 命令；
+默认「禁用」模式（可 `pm enable` 恢复），亦可选择「卸载」。
+
 ### 直接运行脚本（仅 X600）
 
 ```bat
 MIUI-lite-for-Letv-X600.bat
 ```
+
+> 注意：该脚本为历史 ROM 精简脚本，直接删除 ROM 目录文件，
+> 与上方"命令式禁用/卸载"思路不同，仅建议有 ROM 打包经验的用户使用。
 
 ### 使用清理命令网页（推荐）
 

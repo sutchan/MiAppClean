@@ -2,6 +2,24 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.2.0] - 2026-08-14
+
+### 新增
+- 新增 `xiaomi-apk-cleanup.bat`：统一精简脚本，合并原 `精简小米手机MIUI及电视盒app命令.txt`
+  与 `MIUI-lite-for-Letv-X600.bat` 的精简命令，交互选择设备类型（手机/平板/电视盒）与
+  操作模式（禁用/卸载），连接设备后逐条执行 `adb` 命令。
+- 脚本内置与 `apk-data.js` 一致的推荐精简包名，无需手动复制粘贴。
+
+### 修复
+- 修正 `MIUI-lite-for-Letv-X600.bat` 误导性注释（实为 ROM 目录删除脚本，非 `pm enable` 恢复），
+  并说明其需配合 ROM 解包目录使用。
+- 修正 `README.md` 遗留版本号 `v1.0.0` → `v1.2.0`。
+- 前端 `xiaomi-apk-cleanup.js` 包名渲染改用 `textContent`，消除潜在 XSS 注入风险。
+- 清理 `apk-data.js` 中冗余的 `pad: []` 数据（平板复用手机清单）。
+
+### 说明
+- 版本升级至 v1.2.0（新增统一脚本，向后兼容）。
+
 ## [1.1.0] - 2026-08-14
 
 ### 新增

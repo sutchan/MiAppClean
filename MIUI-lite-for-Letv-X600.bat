@@ -1,15 +1,17 @@
 @ECHO OFF
 REM ============================================================
-REM 乐视 X600 盒子 MIUI 精简脚本
-REM 版本：v1.0.0
-REM 适用：乐视电视盒 X600（搭载 MIUI TV 系统）
-REM 作用：循环对内置 App 包名执行 enable（恢复可用状态）。
-REM 用法：设备开启 USB 调试并 connect 后，双击运行本脚本。
-REM 注意：脚本使用 `pm enable`，用于在被精简后恢复应用可用状态；
-REM       如需精简请改用 `pm disable-user --user 0 <包名>`。
-REM 风险：请勿禁用系统桌面（Launcher），否则盒子将无界面。
+REM 乐视 X600 盒子 MIUI ROM 精简脚本（历史参考）
+REM 版本：v1.2.0
+REM 适用：乐视电视盒 X600（搭载 MIUI TV 系统），需配合 ROM 解包目录使用
+REM 作用：在 ROM 解包后的目录中，循环删除内置 App 目录/文件以精简系统镜像。
+REM       注意：本脚本直接删除 ROM 内 system/app 等目录文件（用于重新打包 ROM），
+REM       与"adb pm disable/uninstall"命令式精简不同，不做实时设备操作。
+REM 用法：将本脚本置于 ROM 解包根目录（含 system/、data/ 子目录）后运行。
+REM       原脚本含 `cd LETV_X600_AND_X608_MIUI7_6.4.22\` 步骤，请按实际解包目录调整。
+REM 风险：请勿删除系统桌面（Launcher）相关目录，否则盒子将无界面；
+REM       仅建议有 ROM 打包/解包经验的用户使用。
 REM ============================================================
-ECHO MIUI V7 Lite for Letv X600 
+ECHO MIUI V7 Lite for Letv X600 (ROM 精简脚本)
 ECHO Building in 2016.4.30
 ECHO by Sut
 COLOR CF

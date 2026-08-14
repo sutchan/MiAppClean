@@ -1,6 +1,6 @@
 // 小米安卓设备内置 APK 清理命令页面逻辑
 // 依赖 apk-data.js 中的 APP_DATA
-// 路径: xiaomi-apk-cleanup.js  v1.1.0
+// 路径: xiaomi-apk-cleanup.js  v1.2.0
 
 const $ = (sel) => document.querySelector(sel);
 const categoryList = $("#categoryList");
@@ -28,10 +28,17 @@ function renderCategories() {
     group.items.forEach((it) => {
       const label = document.createElement("label");
       label.className = "pkg-item";
-      label.innerHTML =
-        `<input type="checkbox" class="pkg-check" value="${it.pkg}" />` +
-        `<span class="pkg-name">${it.pkg}</span>` +
-        `<span class="pkg-desc">${it.desc}</span>`;
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.className = "pkg-check";
+      cb.value = it.pkg;
+      const name = document.createElement("span");
+      name.className = "pkg-name";
+      name.textContent = it.pkg;
+      const desc = document.createElement("span");
+      desc.className = "pkg-desc";
+      desc.textContent = it.desc;
+      label.append(cb, name, desc);
       details.appendChild(label);
     });
     categoryList.appendChild(details);
