@@ -48,11 +48,11 @@ MiAppClean/
 - 脚本（`bat`/`py`）保持零额外依赖，仅使用系统自带 `adb` 与标准库。
 - 关键逻辑添加中文注释；函数超过 20 行考虑拆分。
 - 源代码文件超过 200 行请拆分为更小的模块（按职责/关注点）。
-- 文件头部标注「路径 + 版本号」注释，如 `// 路径: apk-data.js v1.6.13`。
+- 文件头部标注「路径 + 版本号」注释，如 `// 路径: apk-data.js v1.7.0`。
 
 ## 版本管理
 
-- 版本号遵循 SemVer（`VERSION` 文件，当前 `v1.6.13`）。
+- 版本号遵循 SemVer（`VERSION` 文件，当前 `v1.7.0`）。
 - 任意文件修改均需 bump **patch** 版本；新增功能 bump minor；破坏性变更 bump major。
 - 提交前同步：
   1. `VERSION` 文件；
@@ -98,4 +98,4 @@ python3 -m py_compile scripts/xiaomi-apk-cleanup.py
 
 ---
 
-> 版本：`v1.6.13`
+> 版本：`v1.7.0`

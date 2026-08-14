@@ -2,7 +2,7 @@
 CHCP 65001 >NUL
 REM ============================================================
 REM 小米安卓设备内置 APK 精简统一脚本（合并版）
-REM 版本：v1.6.13
+REM 版本：v1.7.0
 REM 作用：交互选择设备类型与操作模式，对精简清单逐个执行 adb 命令。
 REM 适用：小米手机 / 平板 / 电视盒（含乐视 X600 等搭载 MIUI TV 的盒子）
 REM 依赖：已安装 ADB 并加入 PATH；设备开启 USB 调试且已连接（adb devices 可见）
@@ -17,7 +17,7 @@ REM       权威数据源见仓库根目录 apk-data.js（前端与 xiaomi-apk-c
 REM ============================================================
 
 SETLOCAL ENABLEDELAYEDEXPANSION
-TITLE 小米 APK 精简工具 v1.6.13
+TITLE 小米 APK 精简工具 v1.7.0
 
 :CHECK_ADB
 WHERE adb >NUL 2>NUL
@@ -133,7 +133,74 @@ com.modemdebug;^
 com.mediatek.floatmenu;^
 com.mediatek.mdmlsample;^
 com.mediatek.mtklogger;^
-com.mediatek.providers.drm"
+com.mediatek.providers.drm;^
+com.miui.cleanmaster;^
+com.miui.securitycenter;^
+com.miui.securitycore;^
+com.miui.securityadd;^
+com.miui.personalassistant;^
+com.miui.mediaeditor;^
+com.miui.notes;^
+com.miui.screenrecorder;^
+com.miui.screenshot;^
+com.miui.weather2;^
+com.miui.calculator;^
+com.miui.compass;^
+com.miui.gallery;^
+com.miui.player;^
+com.miui.hybrid;^
+com.miui.contentextension;^
+com.miui.contentcatcher;^
+com.miui.notification;^
+com.miui.phrase;^
+com.miui.voiceassist;^
+com.miui.carlink;^
+com.miui.mishare.connectivity;^
+com.miui.findmy;^
+com.miui.greenguard;^
+com.miui.guardprovider;^
+com.miui.backup;^
+com.miui.cloudbackup;^
+com.miui.cloudservice;^
+com.miui.micloudsync;^
+com.miui.newmidrive;^
+com.miui.rom;^
+com.miui.tsmclient;^
+com.miui.virtualsim;^
+com.xiaomi.account;^
+com.xiaomi.market;^
+com.xiaomi.shop;^
+com.xiaomi.mirror;^
+com.xiaomi.scanner;^
+com.xiaomi.misettings;^
+com.xiaomi.simactivate.service;^
+com.xiaomi.otrpbroker;^
+com.xiaomi.security.onetrack;^
+com.xiaomi.finddevice;^
+com.xiaomi.trustservice;^
+com.xiaomi.hypercomm;^
+com.xiaomi.metoknlp;^
+com.xiaomi.gnss.polaris;^
+com.xiaomi.continuity.sdkapp;^
+com.xiaomi.cameratools;^
+com.xiaomi.cameramind;^
+com.xiaomi.barrage;^
+com.xiaomi.aon;^
+com.xiaomi.aiasst.service;^
+com.xiaomi.aicr;^
+com.xiaomi.digitalkey;^
+com.xiaomi.xmsf;^
+com.xiaomi.xmsfkeeper;^
+com.miui.core;^
+com.miui.core.internal.services;^
+com.miui.uireporter;^
+com.xiaomi.ugd;^
+com.xiaomi.xaee;^
+com.google.android.gms;^
+com.google.android.gsf;^
+com.android.vending;^
+com.google.android.youtube;^
+com.google.android.webview"
 
 REM ---- 电视盒精简清单 ----
 SET "PKG_TV=^
@@ -142,6 +209,21 @@ com.xiaomi.mibox.gamecenter;^
 com.xiaomi.mitv.handbook;^
 com.xiaomi.mitv.pay;^
 com.xiaomi.mitv.payment;^
+com.mitv.account;^
+com.mitv.videoplayer;^
+com.xiaomi.mitv.gallery;^
+com.xiaomi.mitv.hotspot;^
+com.mitv.hotspot;^
+com.xiaomi.mitv.globalsetting;^
+com.mitv.globalSetting;^
+com.xiaomi.mitv.sysservice;^
+com.xiaomi.mitv.upgrade;^
+com.xiaomi.mitv.ovp;^
+com.xiaomi.mitv.mivision;^
+com.miui.tv.analytics;^
+com.xiaomi.mitv.abtest;^
+com.xiaomi.mitv.mitvsettings;^
+com.xiaomi.mitv.patchwall;^
 com.xiaomi.mitv.tvpush.tvpushservice"
 
 IF "%DEVICE%"=="tv" (SET LIST=%PKG_TV%) ELSE (SET LIST=%PKG_PHONE%)

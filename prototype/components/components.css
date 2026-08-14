@@ -1,5 +1,5 @@
 /* MiAppClean 组件库样式（可在原型与最终界面复用）
- * 路径: prototype/components/components.css  v1.6.13
+ * 路径: prototype/components/components.css  v1.7.0
  * 依赖 tokens.css 设计令牌。提供基础/复合/业务组件的可视化实现。
  */
 @import url("../design-system/tokens.css");

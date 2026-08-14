@@ -2,6 +2,22 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.7.0] - 2026-08-14
+
+### 新增
+- 线上工具 `index.html` 步骤③应用清单新增搜索框：支持按包名或描述实时过滤，
+  与原型 `prototype/app/index.html` 的搜索交互完全对齐（依赖 `app.js` 既有
+  `#search` 监听逻辑，无需改动原型代码）。
+
+### 修复
+- 完成 `scripts/xiaomi-apk-cleanup.bat` 离线精简清单与 `apk-data.js` 单一数据源的
+  对齐：补全 1.6.14 单向扩充时遗漏的手机端约 68 个、电视盒端 15 个包名，使 bat 内置
+  `PKG_PHONE`/`PKG_TV` 离线镜像与数据源安全子集（risk≠danger）完全一致。
+- 跨平台脚本 `xiaomi-apk-cleanup.py` 本就以 `apk-data.js` 为单一数据源，无需改动。
+
+### 其他
+- 版本单一来源同步至 v1.7.0。
+
 ## [1.6.13] - 2026-08-14
 
 ### 文档
