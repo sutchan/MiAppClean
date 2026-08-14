@@ -2,6 +2,26 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.10.0] - 2026-08-15
+
+### 新增
+- 中英文界面切换（feat，向后兼容，minor 升级）：
+  - 新增 `prototype/app/i18n.js` 国际化模块：内置 zh-CN / en-US 双语字典，
+    提供 `window.MiI18n`（`get` / `setLang` / `apply` / `t` / `riskLabel`），
+    语言偏好持久化于 `localStorage` 键 `miac-lang`。
+  - 顶栏新增语言切换按钮 `#langBtn`：循环切换「简体中文 / English」，
+    文案同步显示「EN」「中」；根页与原型页入口均已接入。
+  - 静态文案通过 `data-i18n` / `data-i18n-placeholder` / `data-i18n-html` 属性
+    驱动，切换语言时实时刷新页面文本、占位符与 `<html lang>`。
+  - 设置面板新增「界面语言」下拉（简体中文 / English），与顶栏按钮双向同步。
+  - 风险等级标签（安全 / 谨慎 / 危险）改为运行时从 i18n 模块实时取值，
+    确保语言切换后标签正确刷新。
+  - 语言切换事件 `langchange` 触发分类列表与命令输出重渲染，保持视图一致。
+
+### 其他
+- 全仓库版本展示（README、各 index.html、脚本、prototype 页面、apk-data.js、
+  JSON-LD softwareVersion）统一刷新至 `v1.10.0`。
+
 ## [1.9.1] - 2026-08-15
 
 ### 新增
@@ -15,7 +35,7 @@
 - `prototype/app/index.html`：移除对已删除 `app.js` 的脚本引用，改为拆分后的
   `app.state.js` + `app.ui.js`，并补挂 `i18n.js`，修复原型入口不可用问题。
 - 校正 `app.state.js` / `app.ui.js` / `i18n.js` / `settings.js` 头注释版本漂移
-  （v1.10.0 → v1.9.1），与 VERSION 单一来源保持一致。
+  （此前误标为 v1.10.0），回落至 v1.9.1，与 VERSION 单一来源保持一致。
 
 ## [1.9.0] - 2026-08-15
 

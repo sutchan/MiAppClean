@@ -1,7 +1,7 @@
 // MiAppClean 应用原型 · 交互与 UI 层
 // 依赖：app.state.js（window.MiState）、render.js（window.MiRender）、
 //       generate.js（window.MiGen）、settings.js（window.MiSettings）
-// 路径: prototype/app/app.ui.js  v1.9.1
+// 路径: prototype/app/app.ui.js  v1.10.0
 
 (function () {
   "use strict";

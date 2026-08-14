@@ -1,6 +1,6 @@
 // MiAppClean 国际化模块（中 / 英）
 // 依赖：无；对外暴露 window.MiI18n。
-// 路径: prototype/app/i18n.js  v1.9.1
+// 路径: prototype/app/i18n.js  v1.10.0
 
 (function () {
   "use strict";

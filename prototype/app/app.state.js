@@ -1,6 +1,6 @@
 // MiAppClean 应用原型 · 状态与数据层
 // 复用根目录 apk-data.js 的 APP_DATA 作为单一数据源（真实数据）
-// 路径: prototype/app/app.state.js  v1.9.1
+// 路径: prototype/app/app.state.js  v1.10.0
 
 (function () {
   "use strict";

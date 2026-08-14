@@ -1,5 +1,5 @@
 // MiAppClean 分类渲染模块（按设备/搜索过滤渲染可勾选应用列表）
-// 路径: prototype/app/render.js  v1.9.0
+// 路径: prototype/app/render.js  v1.10.0
 // 单一数据源：APP_DATA 由调用方传入，勾选状态由 checkedPkgs 集合维护。
 // 用法：先于 app.js 引入；对外暴露 window.MiRender。
 (function () {
