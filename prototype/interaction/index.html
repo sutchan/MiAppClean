@@ -18,7 +18,7 @@
   <div class="doc">
     <nav class="doc-nav">
       <p class="doc-brand">Mi<span>App</span>Clean</p>
-      <p class="doc-sub">交互标准 v1.8.3</p>
+      <p class="doc-sub">交互标准 v1.8.4</p>
       <div class="doc-nav-group">
         <h4>导航</h4>
         <a href="../index.html">原型门户</a>
@@ -84,6 +84,11 @@
             <p class="ix-note">非阻断提示，2s 自动消失</p>
           </div>
           <div class="ix-card">
+            <h4>命令复制反馈</h4>
+            <button class="btn btn-primary" onclick="ixToast('已复制到剪贴板，粘贴到终端执行 ✓')">复制 adb 命令</button>
+            <p class="ix-note">点击「复制」写入剪贴板后，须出现 Toast「已复制」反馈；不阻塞后续操作，不弹对话框。失败（无剪贴板权限）则提示错误并保留手动选择。</p>
+          </div>
+          <div class="ix-card">
             <h4>状态徽章</h4>
             <div style="display:flex;gap:var(--sp-2);flex-wrap:wrap">
               <span class="badge badge-safe">已生成</span>
@@ -132,6 +137,15 @@
 # 警告：com.miui.audioeffect 精简后可能影响音效</pre>
             <p class="ix-note">命令生成时失败项以注释说明，不中断</p>
           </div>
+          <div class="ix-card">
+            <h4>危险包名拦截</h4>
+            <div style="display:flex;gap:var(--sp-2);flex-wrap:wrap;align-items:center">
+              <span class="badge badge-danger">危险 严禁</span>
+              <code>com.android.settings</code>
+              <span style="color:var(--color-text-2);font-size:var(--fs-xs)">默认禁用勾选</span>
+            </div>
+            <p class="ix-note">risk=danger 的包名在 UI 默认禁用勾选、以危险色徽章标注；用户尝试勾选时被拦截并提示风险，生成命令绝不纳入，避免设备变砖。</p>
+          </div>
         </div>
       </div>
 
@@ -157,7 +171,7 @@
         </div>
       </div>
 
-      <footer class="doc-footer">MiAppClean 原型 · 交互标准 v1.8.3</footer>
+      <footer class="doc-footer">MiAppClean 原型 · 交互标准 v1.8.4</footer>
     </main>
   </div>
 

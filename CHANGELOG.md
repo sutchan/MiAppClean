@@ -2,6 +2,26 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.8.4] - 2026-08-15
+
+### 修复
+- 修复 `prototype/app/app.css` 头注释版本漂移（v1.8.1 → v1.8.4），消除 CI 版本校验风险。
+- 修复根 `index.html` 的 `<meta name="theme-color">` 硬编码蓝色（`#2a6df4`）与品牌橙
+  （`#ff6900`）脱节：默认值改为品牌橙，并新增 `theme.js` 在主题切换时同步该 meta，
+  使移动端状态栏/地址栏随浅色（橙）或深色（深背景）变化。
+
+### 文档
+- 新增 `openspec/specs/design-system/spec.md`：覆盖设计令牌单一来源、主题三态、组件库
+  可复用、风险语义统一、交互反馈规范、原型数据同源与版本标注，填补 prototype 无架构级
+  契约的缺口。
+- 更正 `openspec/specs/site/spec.md` 与 `openspec/project.md`：prototype 实为高保真核心
+  交付物（非「历史/参考原型」），并修正 theme.js 描述（持久化于 localStorage，非 URL 参数）。
+
+### 其他
+- 交互标准 `prototype/interaction/index.html` 补充「命令复制反馈」与「危险包名拦截」规范卡，
+  与 design-system 契约对齐。
+- 同步 VERSION 与各 CI 版本一致性覆盖文件至 v1.8.4。
+
 ## [1.8.3] - 2026-08-15
 
 ### 文档

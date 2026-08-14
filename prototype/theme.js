@@ -1,5 +1,5 @@
 // MiAppClean 原型主题切换（深浅色 + 跟随系统）
-// 路径: prototype/theme.js  v1.8.3
+// 路径: prototype/theme.js  v1.8.4
 // 单一数据源：视觉令牌见 prototype/design-system/tokens.css
 // 用法：在 <head> 末尾引入 <script src="theme.js"></script>（根页）或 "../theme.js"（子页）。
 // 为避免首屏闪烁，脚本同步执行，优先读取 localStorage 持久化的主题。
@@ -8,6 +8,20 @@
 
   var STORE_KEY = "miac-theme"; // 取值：light | dark | auto
   var root = document.documentElement;
+
+  // 各主题下的浏览器 UI 主题色（与 design-system/tokens.css 品牌色/背景对齐）：
+  // 浅色用品牌橙，深色用深背景，保证地址栏/状态栏与页面视觉一致。
+  var THEME_COLOR = { light: "#ff6900", dark: "#15171a" };
+
+  // 同步 <meta name="theme-color">，使移动端状态栏/地址栏随主题变化
+  function syncMetaTheme(resolved) {
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) return;
+    var isDark = resolved === "dark" ||
+      (resolved === null && window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    meta.setAttribute("content", isDark ? THEME_COLOR.dark : THEME_COLOR.light);
+  }
 
   function systemPrefersDark() {
     return window.matchMedia &&
@@ -29,6 +43,7 @@
     } else {
       root.setAttribute("data-theme", resolved);
     }
+    syncMetaTheme(resolved);
   }
 
   // 首屏立即应用，避免闪烁

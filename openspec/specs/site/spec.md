@@ -55,5 +55,10 @@
 - **Then** `index.html` 含 `vX.Y.Z`
 
 ## 实现细节（参考）
-- `prototype/` 为历史/参考原型，非线上入口；其版本可独立，但建议与主线保持接近。
-- `theme.js` 读取 URL 主题参数实现明暗切换，不影响数据源契约。
+- `prototype/` 是高保真、可交互的设计原型与设计系统（含 `app/`、`design-system/`、
+  `components/`、`interaction/`、`index.html` 门户），复用同一份 `apk-data.js`，
+  是核心交付物而非历史归档；其版本须与主线 `VERSION` 保持一致（CI 版本校验覆盖）。
+- `theme.js` 提供浅色/深色/跟随系统三态循环，主题持久化于 `localStorage`（键
+  `miac-theme`），并在 `data-theme` 变化时同步 `<meta name="theme-color">`；
+  视觉令牌单一来源为 `prototype/design-system/tokens.css`。详见
+  `specs/design-system/spec.md`。

@@ -22,6 +22,8 @@ MiAppClean 是一个开源的小米设备内置应用（预装 App）精简工�
   脚本仅依赖系统自带 `adb` 与 Python 标准库。
 - **风险分级强制**：每条包名记录必须标注 `risk`（safe/caution/danger）；
   danger 级在命令生成时自动排除。
+- **设计系统单一来源**：视觉令牌集中于 `prototype/design-system/tokens.css`，
+  组件库与交互标准见 `openspec/specs/design-system/spec.md`。
 - **可恢复优先**：默认推荐 `disable-user`（可 `pm enable` 恢复），
   `uninstall` 仅作谨慎选项。
 
@@ -36,7 +38,7 @@ MiAppClean 是一个开源的小米设备内置应用（预装 App）精简工�
 | `docs/lists/*.md` | 各机型内置 App 包名清单（人类可读来源） |
 | `docs/commands.md` | 通用 adb 命令模板 |
 | `docs/governance/` | 社区治理（CODE_OF_CONDUCT / CONTRIBUTING / LICENSE / SECURITY / SUPPORT） |
-| `prototype/` | 历史/参考原型（仅供本地查阅，非线上入口） |
+| `prototype/` | 高保真设计原型与设计系统（`app/` 应用原型、`design-system/` 令牌与规范、`components/` 组件库、`interaction/` 交互标准、`index.html` 门户），复用同一数据源，为核心交付物 |
 | `openspec/` | 本规范目录（能力 specs + 变更 changes） |
 
 ## 4. 版本与发布
