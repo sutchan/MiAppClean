@@ -6,15 +6,21 @@
 
 ```
 MiAppClean/
-├── apk-data.js                    # 唯一数据源：各设备推荐精简包名与风险等级
-├── xiaomi-apk-cleanup.html/.css/.js  # 旧版静态前端（已归档至 prototype/archive/）
+├── apk-data.js                    # ★ 唯一数据源：各设备推荐精简包名与风险等级
 ├── xiaomi-apk-cleanup.bat         # Windows 统一精简脚本，复用同一数据源
 ├── xiaomi-apk-cleanup.py          # 跨平台精简脚本（Python），复用同一数据源
 ├── 精简小米手机MIUI及电视盒app命令.md  # 通用命令模板参考
 ├── MIUI-lite-for-Letv-X600.bat    # 乐视 X600 盒子 ROM 精简历史脚本
+├── 小米MIUI应用列表.md             # 通用 MIUI 内置 App 包名清单
+├── MIUI14-App清单.md             # MIUI 14 内置 App 包名清单
+├── 小米13内置App清单.md           # 小米 13 内置 App 包名清单
+├── 小米平板5内置App清单.md         # 小米平板 5 内置 App 包名清单
+├── HyperOS-App清单.md            # HyperOS 内置 App 包名清单
+├── index.html                     # 静态站点首页（零依赖，GitHub Pages 部署）
+├── theme.js                       # 站点主题切换逻辑（读取 URL 主题参数）
 ├── README.md / VERSION / CHANGELOG.md  # 项目说明与版本单一来源
 ├── CONTRIBUTING.md                # 本文件
-└── prototype/                     # 网页原型（app/ 现行版本，archive/ 旧版归档）
+└── .github/workflows/             # CI（ci.yml 校验）/ 部署（deploy.yml 发布站点）
 ```
 
 > 核心原则：**单一数据源**。`apk-data.js` 是唯一包名来源，前端与脚本均从中读取，
@@ -108,6 +114,11 @@ PY
 ```
 
 推送后 GitHub Actions（`.github/workflows/ci.yml`）会自动校验：
-- `VERSION` 与 `CHANGELOG.md` / `README.md` 版本号一致性
-- `apk-data.js` 数据结构与 `risk` 取值合法性
+- 版本一致性：扫描 `VERSION`，并断言以下文件均含 `v<VERSION>`：
+  - `CHANGELOG.md`、`README.md`、`index.html`（站点首页）
+  - `xiaomi-apk-cleanup.bat`（窗口标题 `TITLE`）、`apk-data.js`（头注释）
+  - `xiaomi-apk-cleanup.py`（头注释与运行打印）、`精简小米手机MIUI及电视盒app命令.md`
+  - `prototype/app/index.html`、`prototype/README.md`
+- `apk-data.js` 数据结构与 `risk` 取值合法性（Python 解析 + 全条目含 `risk`）
 - 源文件是否超出 200 行阈值（超出则提示拆分）
+- `xiaomi-apk-cleanup.py` 语法检查（`python3 -m py_compile`）

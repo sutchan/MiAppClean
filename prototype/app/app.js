@@ -1,6 +1,6 @@
 // MiAppClean 应用原型交互逻辑
 // 复用根目录 apk-data.js 的 APP_DATA 作为单一数据源（真实数据）
-// 路径: prototype/app/app.js  v1.6.9
+// 路径: prototype/app/app.js  v1.6.10
 
 (function () {
   "use strict";

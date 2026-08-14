@@ -2,6 +2,39 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.6.10] - 2026-08-14
+
+### 文档
+- 统一全仓库版本展示至 `v1.6.10`：同步 `prototype/README.md`、清单模板
+  `精简小米手机MIUI及电视盒app命令.md`、`xiaomi-apk-cleanup.py` 头注释与运行
+  打印版本（此前滞后为 `v1.6.8`）。
+- 更新 `CONTRIBUTING.md` 项目结构图：反映实际布局（`.md` 清单、`index.html`
+  静态站点、`theme.js`、`.github/workflows/` 部署流程），移除已归档的旧版
+  `.html/.css/.js` 前端引用。
+- 完善 `CONTRIBUTING.md` CI 校验说明：列出版本一致性覆盖的全部文件。
+- `README.md` 本地忽略建议已含 `.code-workspace` 等条目（确认同步）。
+
+### 变更
+- 增强 `.github/workflows/ci.yml` 版本校验断言：新增对 `index.html`、`xiaomi-apk-cleanup.py`、
+  `精简小米手机MIUI及电视盒app命令.md`、`prototype/README.md` 的版本覆盖，
+  防止头注释/展示版本再次遗漏。
+
+## [1.6.10] - 2026-08-14
+
+### 文档
+- 完善 `CONTRIBUTING.md` 贡献指南：
+  - 目录结构图补充各 `*.md` 包名清单、`index.html` 站点首页、`theme.js` 主题逻辑，
+    并将 `.github/workflows/` 单独列出（CI 校验 + 部署）。
+  - 明确 CI 版本一致性校验的扫描范围：CHANGELOG / README / index.html /
+    `xiaomi-apk-cleanup.bat` / `apk-data.js` / `xiaomi-apk-cleanup.py` /
+    `精简小米手机MIUI及电视盒app命令.md` / `prototype/app/index.html` /
+    `prototype/README.md`，并补充 `python3 -m py_compile` 语法检查项。
+- 版本单一来源同步至 v1.6.10：VERSION、README、`index.html`、
+  `prototype/app/index.html`、`xiaomi-apk-cleanup.bat`（头注释 + TITLE）、
+  `apk-data.js`、`xiaomi-apk-cleanup.py`（头注释 + 打印）、
+  `精简小米手机MIUI及电视盒app命令.md`、`prototype/README.md`、
+  `prototype/index.html` footer 与 prototype 各组件头注释。
+
 ## [1.6.9] - 2026-08-14
 
 ### 新增
