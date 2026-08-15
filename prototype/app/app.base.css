@@ -1,5 +1,5 @@
 /* MiAppClean 应用原型样式 · 基础布局层
- * 路径: prototype/app/app.base.css  v1.10.1
+ * 路径: prototype/app/app.base.css  v1.12.0
  * 基于设计令牌 tokens.css（须最先导入），承载布局骨架与顶栏/步骤区等结构样式。
  * 组件级样式见同目录 app.components.css。
  */
@@ -67,6 +67,32 @@ body {
 .hero h1 { font-size: var(--fs-2xl); letter-spacing: var(--ls-tight); margin: 0 0 var(--sp-2); }
 .hero p { color: var(--color-text-2); margin: 0 auto; max-width: 52ch; }
 .hero .chips { display: flex; gap: var(--sp-2); justify-content: center; flex-wrap: wrap; margin-top: var(--sp-4); }
+
+/* 顶部简易使用步骤概览 */
+html { scroll-behavior: smooth; }
+.steps-overview {
+  display: flex; gap: var(--sp-3); justify-content: center; flex-wrap: wrap;
+  max-width: var(--container-md); margin: 0 auto var(--sp-8); padding: 0 var(--sp-4);
+}
+.step-card {
+  display: flex; align-items: center; gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4); border: 1px solid var(--color-border);
+  border-radius: var(--radius-full); background: var(--color-surface);
+  color: var(--color-text); text-decoration: none; font-size: var(--fs-sm);
+  transition: border-color var(--t-fast), background var(--t-fast), transform var(--t-fast);
+}
+.step-card:hover { border-color: var(--color-primary-border); background: var(--color-surface-2); transform: translateY(-1px); }
+.step-card:focus-visible { outline: 2px solid var(--color-primary-border); outline-offset: 2px; }
+.step-card-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: var(--radius-full);
+  background: var(--color-primary); color: var(--color-on-primary, #fff);
+  font-size: var(--fs-xs); font-weight: var(--fw-bold); flex: none;
+}
+@media (max-width: 640px) {
+  .steps-overview { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; -webkit-overflow-scrolling: touch; }
+  .step-card { flex: 0 0 auto; }
+}
 
 /* ===== 步骤区 ===== */
 .step { margin-bottom: var(--sp-5); }
