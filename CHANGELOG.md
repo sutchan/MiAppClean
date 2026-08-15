@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.10.1] - 2026-08-15
+
+### 优化
+- 图标统一为单色描边 SVG，替换原型与应用代码中全部彩色 emoji（📱📺📟⚠️⛔🌓⚙📋），
+  遵循 `prototype/design-system/icon.html` 规范，支持 `currentColor` 随主题/语义着色。
+- 新增内联 SVG sprite（`icon-phone/tablet/tv/warning/ban/copy/theme/settings`）与各页
+  `.icon` 基础类，设备选择、主题切换、设置、注意事项、危险警告、复制反馈等改用单色图标。
+- `theme.js` 浮动按钮 `🌓` 改为内联单色主题图标；`i18n.js` 设备文案与确认弹窗去除 emoji 前缀。
+
+### 文档
+- `design-system/icon.html` 补充「禁止彩色 emoji 充当图标」「纯文本对勾字符可保留」规范。
+
 ## [1.10.0] - 2026-08-15
 
 ### 新增

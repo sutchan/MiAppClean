@@ -1,5 +1,5 @@
 // MiAppClean 原型主题切换（深浅色 + 跟随系统）
-// 路径: prototype/theme.js  v1.9.0
+// 路径: prototype/theme.js  v1.10.1
 // 单一数据源：视觉令牌见 prototype/design-system/tokens.css
 // 用法：在 <head> 末尾引入 <script src="theme.js"></script>（根页）或 "../theme.js"（子页）。
 // 为避免首屏闪烁，脚本同步执行，优先读取 localStorage 持久化的主题。
@@ -93,7 +93,7 @@
     fab.id = "themeBtn";
     fab.setAttribute("aria-label", "切换主题（浅色/深色/跟随系统）");
     fab.title = "切换主题";
-    fab.textContent = "🌓";
+    fab.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13.5A8 8 0 0 1 10.5 4 8 8 0 1 0 20 13.5Z"/></svg>';
     fab.addEventListener("click", cycleTheme);
     document.body.appendChild(fab);
   }

@@ -8,13 +8,26 @@
   <script src="../theme.js"></script>
 </head>
 <body>
+  <!-- 单色图标精灵（symbol 定义，遵循 prototype/design-system/icon.html） -->
+  <svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><line x1="10.5" y1="18.5" x2="13.5" y2="18.5"/></symbol>
+    <symbol id="icon-tablet" viewBox="0 0 24 24"><rect x="4.5" y="3" width="15" height="18" rx="2.5"/><line x1="10.5" y1="18.5" x2="13.5" y2="18.5"/></symbol>
+    <symbol id="icon-tv" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="12.5" rx="2"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="17" x2="12" y2="20"/></symbol>
+    <symbol id="icon-theme" viewBox="0 0 24 24"><path d="M20 13.5A8 8 0 0 1 10.5 4 8 8 0 1 0 20 13.5Z"/></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.8"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5 5l2.1 2.1M16.9 16.9 19 19M19 5l-2.1 2.1M7.1 16.9 5 19"/></symbol>
+  </svg>
+
   <header class="topbar">
     <div class="brand"><a href="../index.html" aria-label="返回原型门户"><img class="brand-logo" src="/assets/logo.svg" alt="" width="22" height="22" aria-hidden="true" />Mi<span>App</span>Clean</a></div>
     <div class="topbar-actions">
       <a href="../index.html" class="nav-btn" data-i18n="nav.portal" aria-label="原型门户">门户</a>
       <button type="button" id="langBtn" class="icon-btn" aria-label="切换界面语言">EN</button>
-      <button type="button" id="themeBtn" class="icon-btn" aria-label="切换主题（浅色/深色/跟随系统）" title="切换主题">🌓</button>
-      <button type="button" id="settingsBtn" class="icon-btn" aria-label="打开设置" aria-haspopup="dialog" aria-expanded="false">⚙</button>
+      <button type="button" id="themeBtn" class="icon-btn" aria-label="切换主题（浅色/深色/跟随系统）" title="切换主题">
+        <svg class="icon" aria-hidden="true"><use href="#icon-theme" /></svg>
+      </button>
+      <button type="button" id="settingsBtn" class="icon-btn" aria-label="打开设置" aria-haspopup="dialog" aria-expanded="false">
+        <svg class="icon" aria-hidden="true"><use href="#icon-settings" /></svg>
+      </button>
     </div>
   </header>
 
@@ -34,9 +47,9 @@
       <div class="step-head"><span class="step-num">1</span><h2 data-i18n="step.1.title">选择设备类型</h2></div>
       <div class="panel">
         <div class="segmented" id="deviceSeg" role="radiogroup" aria-label="设备类型">
-          <label><input type="radio" name="device" value="phone" checked /><span data-i18n="device.phone">📱 手机</span></label>
-          <label><input type="radio" name="device" value="pad" /><span data-i18n="device.pad">📟 平板</span></label>
-          <label><input type="radio" name="device" value="tv" /><span data-i18n="device.tv">📺 电视盒</span></label>
+          <label><input type="radio" name="device" value="phone" checked /><span><svg class="icon" aria-hidden="true"><use href="#icon-phone" /></svg><span data-i18n="device.phone">手机</span></span></label>
+          <label><input type="radio" name="device" value="pad" /><span><svg class="icon" aria-hidden="true"><use href="#icon-tablet" /></svg><span data-i18n="device.pad">平板</span></span></label>
+          <label><input type="radio" name="device" value="tv" /><span><svg class="icon" aria-hidden="true"><use href="#icon-tv" /></svg><span data-i18n="device.tv">电视盒</span></span></label>
         </div>
         <p class="ix-note" style="color:var(--color-text-3);font-size:var(--fs-sm);margin:var(--sp-3) 0 0" data-i18n="device.note">平板复用手机清单；电视盒使用独立精简集合。</p>
       </div>
@@ -98,7 +111,7 @@
 
     <!-- 风险提示 -->
     <div class="notice">
-      <span data-i18n="notice.title">⚠️</span>
+      <span class="ico"><svg class="icon" aria-hidden="true"><use href="#icon-warning" /></svg></span>
       <ul>
         <li data-i18n="notice.1">操作前请备份设备数据；优先使用「禁用」模式（可 <code>pm enable</code> 恢复）。</li>
         <li data-i18n="notice.2">包名含 <code>system</code> / <code>framework</code> / <code>settings</code> 的核心组件切勿精简，可能变砖。</li>
@@ -108,7 +121,7 @@
 
     <footer class="legal">
       <p data-i18n="legal.disclaimer">免责声明：本页面仅供学习与技术研究使用。因使用其中命令导致的设备损坏、数据丢失等后果，作者与贡献者不承担任何责任。</p>
-      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.10.0</span></p>
+      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.10.1</span></p>
     </footer>
   </div>
 

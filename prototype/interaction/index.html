@@ -15,10 +15,15 @@
   </style>
 </head>
 <body>
+  <!-- 单色图标精灵（symbol 定义，遵循 prototype/design-system/icon.html） -->
+  <svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15"/><line x1="5" y1="15" x2="5" y2="19"/></symbol>
+  </svg>
+
   <div class="doc">
     <nav class="doc-nav">
       <p class="doc-brand">Mi<span>App</span>Clean</p>
-      <p class="doc-sub">交互标准 v1.9.0</p>
+      <p class="doc-sub">交互标准 v1.10.1</p>
       <div class="doc-nav-group">
         <h4>导航</h4>
         <a href="../index.html">原型门户</a>
@@ -155,7 +160,7 @@
           <div class="ix-card" style="grid-column:1/-1">
             <h4>无勾选项</h4>
             <div class="card" style="text-align:center;padding:var(--sp-10);border-style:dashed">
-              <div style="font-size:32px;margin-bottom:var(--sp-3)">📋</div>
+              <div style="margin-bottom:var(--sp-3);color:var(--color-text-3)"><svg class="icon" style="width:32px;height:32px" aria-hidden="true"><use href="#icon-copy" /></svg></div>
               <p class="card-title">尚未选择任何应用</p>
               <p class="card-desc">勾选上方应用或粘贴自定义包名后，将在此生成 adb 命令。</p>
               <button class="btn btn-primary" style="margin-top:var(--sp-4)">全选推荐项</button>
@@ -171,7 +176,7 @@
         </div>
       </div>
 
-      <footer class="doc-footer">MiAppClean 原型 · 交互标准 v1.9.0</footer>
+      <footer class="doc-footer">MiAppClean 原型 · 交互标准 v1.10.1</footer>
     </main>
   </div>
 

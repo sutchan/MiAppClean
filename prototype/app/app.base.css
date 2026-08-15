@@ -1,5 +1,5 @@
 /* MiAppClean 应用原型样式 · 基础布局层
- * 路径: prototype/app/app.base.css  v1.9.1
+ * 路径: prototype/app/app.base.css  v1.10.1
  * 基于设计令牌 tokens.css（须最先导入），承载布局骨架与顶栏/步骤区等结构样式。
  * 组件级样式见同目录 app.components.css。
  */
@@ -32,6 +32,19 @@ body {
 .brand span { color: var(--color-primary); }
 .nav-btn { display: inline-flex; align-items: center; padding: 6px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text-2); font-size: var(--fs-sm); text-decoration: none; }
 .nav-btn:hover { border-color: var(--color-primary-border); color: var(--color-primary-text); text-decoration: none; }
+
+/* ===== 单色图标 Icon（遵循 design-system/icon.html 规范） =====
+   图标统一描边线性、继承 currentColor、不单独设色。
+   symbol 定义见 index.html 内联的 <svg class="icon-sprite">。 */
+.icon-sprite { display: none; }
+.icon {
+  width: 1.25em; height: 1.25em; flex: none;
+  stroke: currentColor; fill: none; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+  vertical-align: -0.2em;
+}
+.icon-btn .icon { width: 20px; height: 20px; }
+.segmented .icon { width: 20px; height: 20px; }
 
 /* ===== 顶栏操作区（主题切换 + 设置）===== */
 .topbar-actions { display: flex; align-items: center; gap: var(--sp-2); margin-left: auto; }

@@ -1,5 +1,5 @@
 // MiAppClean 命令生成模块（adb 命令拼装 / 自定义包名解析 / HTML 转义）
-// 路径: prototype/app/generate.js  v1.9.0
+// 路径: prototype/app/generate.js  v1.10.1
 // 单一数据源：风险映射 RISK_MAP 由调用方（app.js）传入，保证单一事实来源。
 // 用法：先于 app.js 引入；对外暴露 window.MiGen。
 (function () {
@@ -54,7 +54,7 @@
     }).join("\n");
 
     if (skipped.length) {
-      html += `\n\n<span class="c-skip">// ⛔ 已自动跳过危险组件（严禁精简，可能变砖）：\n// ${skipped.map(escapeHtml).join(", ")}</span>`;
+      html += `\n\n<span class="c-skip">// 已自动跳过危险组件（严禁精简，可能变砖）：\n// ${skipped.map(escapeHtml).join(", ")}</span>`;
     }
     outputEl.innerHTML = html;
     statEl.textContent = `已选 ${pkgs.length}`;

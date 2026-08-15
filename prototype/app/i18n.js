@@ -1,6 +1,6 @@
 // MiAppClean 国际化模块（中 / 英）
 // 依赖：无；对外暴露 window.MiI18n。
-// 路径: prototype/app/i18n.js  v1.10.0
+// 路径: prototype/app/i18n.js  v1.10.1
 
 (function () {
   "use strict";
@@ -32,9 +32,9 @@
     "step.5.title": { "zh-CN": "生成的命令", "en-US": "Generated commands" },
 
     // —— 设备类型 ——
-    "device.phone": { "zh-CN": "📱 手机", "en-US": "📱 Phone" },
-    "device.pad": { "zh-CN": "📟 平板", "en-US": "📟 Tablet" },
-    "device.tv": { "zh-CN": "📺 电视盒", "en-US": "📺 TV Box" },
+    "device.phone": { "zh-CN": "手机", "en-US": "Phone" },
+    "device.pad": { "zh-CN": "平板", "en-US": "Tablet" },
+    "device.tv": { "zh-CN": "电视盒", "en-US": "TV Box" },
     "device.note": {
       "zh-CN": "平板复用手机清单；电视盒使用独立精简集合。",
       "en-US": "Tablet reuses the phone list; TV Box uses a dedicated set."
@@ -77,7 +77,7 @@
     },
 
     // —— 风险提示 ——
-    "notice.title": { "zh-CN": "⚠️", "en-US": "⚠️" },
+    "notice.title": { "zh-CN": "", "en-US": "" },
     "notice.1": {
       "zh-CN": "操作前请务必备份设备数据！优先使用「禁用」模式（可 pm enable 恢复）。",
       "en-US": "Back up your device data before any operation! Prefer Disable mode (recoverable via pm enable)."
@@ -124,12 +124,12 @@
 
     // —— 弹窗 ——
     "confirm.uninstallCopy": {
-      "zh-CN": "⚠️ 警告：当前命令包含「卸载（uninstall）」，会真正移除系统应用且不可恢复，\n可能导致无法开机、失去 OTA 能力或功能异常。\n\n是否仍要复制这些命令？\n（建议优先使用「禁用」模式，可随时 pm enable 恢复）",
-      "en-US": "⚠️ Warning: commands include Uninstall, which truly removes system apps and is irreversible,\nand may cause boot failure, loss of OTA, or malfunction.\n\nStill copy these commands?\n(Prefer Disable mode, recoverable anytime via pm enable)"
+      "zh-CN": "警告：当前命令包含「卸载（uninstall）」，会真正移除系统应用且不可恢复，\n可能导致无法开机、失去 OTA 能力或功能异常。\n\n是否仍要复制这些命令？\n（建议优先使用「禁用」模式，可随时 pm enable 恢复）",
+      "en-US": "Warning: commands include Uninstall, which truly removes system apps and is irreversible,\nand may cause boot failure, loss of OTA, or malfunction.\n\nStill copy these commands?\n(Prefer Disable mode, recoverable anytime via pm enable)"
     },
     "confirm.switchUninstall": {
-      "zh-CN": "⚠️ 危险操作确认：卸载（uninstall）会真正移除系统应用，不可恢复！\n可能导致设备无法开机、失去 OTA 更新能力或系统功能异常。\n\n确定要切换到卸载模式吗？\n（建议优先使用「禁用」模式，可随时 pm enable 恢复）",
-      "en-US": "⚠️ Dangerous operation: Uninstall truly removes system apps and is irreversible!\nMay cause boot failure, loss of OTA updates, or malfunction.\n\nSwitch to Uninstall mode?\n(Prefer Disable mode, recoverable anytime via pm enable)"
+      "zh-CN": "危险操作确认：卸载（uninstall）会真正移除系统应用，不可恢复！\n可能导致设备无法开机、失去 OTA 更新能力或系统功能异常。\n\n确定要切换到卸载模式吗？\n（建议优先使用「禁用」模式，可随时 pm enable 恢复）",
+      "en-US": "Dangerous operation: Uninstall truly removes system apps and is irreversible!\nMay cause boot failure, loss of OTA updates, or malfunction.\n\nSwitch to Uninstall mode?\n(Prefer Disable mode, recoverable anytime via pm enable)"
     }
   };
 

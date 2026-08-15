@@ -1,5 +1,5 @@
 /* MiAppClean 组件库样式（可在原型与最终界面复用）
- * 路径: prototype/components/components.css  v1.9.0
+ * 路径: prototype/components/components.css  v1.10.1
  * 依赖 tokens.css 设计令牌。提供基础/复合/业务组件的可视化实现。
  */
 @import url("../design-system/tokens.css");
@@ -144,3 +144,30 @@ body {
 
 /* ===== 业务：命令行输出 ===== */
 .cmd-output { background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--sp-4); font-family: var(--font-mono); font-size: var(--fs-sm); white-space: pre-wrap; word-break: break-all; color: var(--color-text); max-height: 280px; overflow: auto; margin: 0; }
+
+/* ===== 单色图标 Icon（遵循 design-system/icon.html 规范） =====
+   图标统一描边线性、继承 currentColor、不单独设色。
+   用法：<svg class="icon"><use href="#icon-phone" /></svg>
+   symbol 定义见各页内联的 <svg class="icon-sprite">。 */
+.icon-sprite { display: none; }
+.icon {
+  width: 1.25em; height: 1.25em; flex: none;
+  stroke: currentColor; fill: none; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+  vertical-align: -0.2em;
+}
+/* 图标按钮：44×44 触控热区，图标本身保持 20–24px */
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; padding: 0;
+  border: 1px solid var(--color-border); border-radius: var(--radius-md);
+  background: var(--color-surface); color: var(--color-text);
+  cursor: pointer; line-height: 1; transition: background var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard);
+}
+.icon-btn:hover { background: var(--color-surface-2); }
+.icon-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.icon-btn .icon { width: 22px; height: 22px; }
+/* 警示条内的图标 */
+.ico { display: inline-flex; font-size: 20px; line-height: 1; color: var(--color-danger); }
+.ico .icon { width: 22px; height: 22px; }
+
