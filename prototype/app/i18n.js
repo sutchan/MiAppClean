@@ -1,10 +1,22 @@
 // MiAppClean 国际化模块（中 / 英）
 // 依赖：无；对外暴露 window.MiI18n。
-// 路径: prototype/app/i18n.js  v1.10.1
+// 路径: prototype/app/i18n.js  v1.11.0
 
 (function () {
   "use strict";
 
+  // —— 降级 stub：先于真实逻辑注册，确保即使本模块后续任意环节抛错，
+  //    window.MiI18n 始终存在且提供安全实现，绝不导致宿主应用崩溃。——
+  window.MiI18n = {
+    t: function (k) { return k; },
+    riskLabel: function (r) { return r || "safe"; },
+    apply: function () {},
+    setLang: function () {},
+    getLang: function () { return "zh-CN"; },
+    SUPPORTED: ["zh-CN", "en-US"]
+  };
+
+  try {
   var LANG_KEY = "miac-lang";          // 持久化键：zh-CN | en-US
   var SUPPORTED = ["zh-CN", "en-US"];  // 支持的语言
 
@@ -107,6 +119,8 @@
     "opt.theme.light": { "zh-CN": "浅色", "en-US": "Light" },
     "opt.theme.dark": { "zh-CN": "深色", "en-US": "Dark" },
     "opt.theme.auto": { "zh-CN": "跟随系统", "en-US": "Follow system" },
+    "opt.lang.zh": { "zh-CN": "简体中文", "en-US": "简体中文" },
+    "opt.lang.en": { "zh-CN": "English", "en-US": "English" },
 
     // —— 风险等级标签（供 app.state.js 使用）——
     "risk.safe": { "zh-CN": "安全", "en-US": "Safe" },
@@ -145,31 +159,59 @@
 
   var current = detectLang();
 
+  // 安全取文案：即使 DICT 缺失 / 数据格式异常也不抛错，回退到 key 或中文兜底
   function t(key) {
-    var entry = DICT[key];
-    if (!entry) return key;
-    return entry[current] != null ? entry[current] : entry["zh-CN"];
+    try {
+      var entry = DICT[key];
+      if (!entry || typeof entry !== "object") return key;
+      if (entry[current] != null) return entry[current];
+      if (entry["zh-CN"] != null) return entry["zh-CN"];
+      return key;
+    } catch (e) {
+      return key;
+    }
   }
 
   function riskLabel(risk) {
     return t("risk." + (risk || "safe"));
   }
 
-  // 将字典应用到所有 [data-i18n] 元素（含 data-i18n-placeholder / data-i18n-html）
-  function apply() {
-    document.documentElement.setAttribute("lang", current);
+  // 单个元素的安全翻译：某元素异常不影响其余
+  function translateEl(el) {
+    try {
+      var key = el.getAttribute("data-i18n");
+      if (key) el.textContent = t(key);
+    } catch (e) {}
+  }
+  function translatePlaceholder(el) {
+    try {
+      var key = el.getAttribute("data-i18n-placeholder");
+      if (key) el.setAttribute("placeholder", t(key));
+    } catch (e) {}
+  }
+  function translateHtml(el) {
+    try {
+      var key = el.getAttribute("data-i18n-html");
+      if (key) el.innerHTML = t(key);
+    } catch (e) {}
+  }
 
-    document.querySelectorAll("[data-i18n]").forEach(function (el) {
-      el.textContent = t(el.getAttribute("data-i18n"));
-    });
-    document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
-      el.setAttribute("placeholder", t(el.getAttribute("data-i18n-placeholder")));
-    });
-    document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
-      el.innerHTML = t(el.getAttribute("data-i18n-html"));
-    });
-    // 触发语言变更事件，供其它模块（如已渲染列表）刷新
-    window.dispatchEvent(new CustomEvent("langchange", { detail: { lang: current } }));
+  // 将字典应用到所有 [data-i18n] 元素（含 data-i18n-placeholder / data-i18n-html）
+  // 整体包 try/catch：即使国际化子系统异常，也绝不让页面崩溃。
+  function apply() {
+    try {
+      document.documentElement.setAttribute("lang", current);
+
+      document.querySelectorAll("[data-i18n]").forEach(translateEl);
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(translatePlaceholder);
+      document.querySelectorAll("[data-i18n-html]").forEach(translateHtml);
+
+      // 触发语言变更事件，供其它模块（如已渲染列表）刷新
+      window.dispatchEvent(new CustomEvent("langchange", { detail: { lang: current } }));
+    } catch (e) {
+      // 国际化应用失败不应阻断应用其余功能
+      if (window.console) console.warn("[MiI18n] apply 失败，已降级：", e);
+    }
   }
 
   function setLang(lang) {
@@ -181,6 +223,7 @@
 
   function getLang() { return current; }
 
+  // 真实实现覆盖降级 stub（若上方 try 内任意步骤抛错，则保留 stub，应用不崩）
   window.MiI18n = {
     t: t,
     riskLabel: riskLabel,
@@ -189,4 +232,8 @@
     getLang: getLang,
     SUPPORTED: SUPPORTED
   };
+  } catch (e) {
+    // 国际化模块初始化失败：已保留降级 stub，宿主应用可继续运行（仅文案降级为 key）。
+    if (window.console) console.warn("[MiI18n] 初始化失败，已降级运行：", e);
+  }
 })();

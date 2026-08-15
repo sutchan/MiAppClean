@@ -1,5 +1,5 @@
 // MiAppClean 设置模块（主题 / 默认模式 / 勾选记忆 / 提示开关）
-// 路径: prototype/app/settings.js  v1.10.0
+// 路径: prototype/app/settings.js  v1.11.0
 // 单一数据源：视觉令牌见 ../design-system/tokens.css；主题持久化复用 theme.js 的 STORE_KEY。
 // 用法：先于 app.js 引入；对外暴露 window.MiSettings。
 (function () {
@@ -72,38 +72,38 @@
 
     panel.innerHTML =
       '<div class="settings-head">' +
-        '<h3>设置</h3>' +
+        '<h3 data-i18n="settings.title">设置</h3>' +
         '<button type="button" class="icon-btn settings-close" aria-label="关闭设置">✕</button>' +
       '</div>' +
       '<div class="settings-body">' +
         '<label class="settings-row">' +
-          '<span class="settings-label">外观主题</span>' +
+          '<span class="settings-label" data-i18n="settings.theme">外观主题</span>' +
           '<select id="setTheme" class="select">' +
-            '<option value="light">浅色</option>' +
-            '<option value="dark">深色</option>' +
-            '<option value="auto">跟随系统</option>' +
+            '<option value="light" data-i18n="opt.theme.light">浅色</option>' +
+            '<option value="dark" data-i18n="opt.theme.dark">深色</option>' +
+            '<option value="auto" data-i18n="opt.theme.auto">跟随系统</option>' +
           '</select>' +
         '</label>' +
         '<label class="settings-row">' +
-          '<span class="settings-label">默认操作模式</span>' +
+          '<span class="settings-label" data-i18n="settings.mode">默认操作模式</span>' +
           '<select id="setMode" class="select">' +
-            '<option value="disable">禁用（推荐·可恢复）</option>' +
-            '<option value="uninstall">卸载（移除·谨慎）</option>' +
+            '<option value="disable" data-i18n="mode.disable">禁用（推荐·可恢复）</option>' +
+            '<option value="uninstall" data-i18n="mode.uninstall">卸载（移除·谨慎）</option>' +
           '</select>' +
         '</label>' +
         '<label class="settings-row settings-switch">' +
-          '<span class="settings-label">记忆上次勾选</span>' +
+          '<span class="settings-label" data-i18n="settings.remember">记忆上次勾选</span>' +
           '<input id="setRemember" type="checkbox" />' +
         '</label>' +
         '<label class="settings-row settings-switch">' +
-          '<span class="settings-label">复制成功后提示</span>' +
+          '<span class="settings-label" data-i18n="settings.toast">复制成功后提示</span>' +
           '<input id="setToast" type="checkbox" />' +
         '</label>' +
         '<label class="settings-row">' +
           '<span class="settings-label" data-i18n="settings.lang">界面语言</span>' +
           '<select id="setLang" class="select">' +
-            '<option value="zh-CN">简体中文</option>' +
-            '<option value="en-US">English</option>' +
+            '<option value="zh-CN" data-i18n="opt.lang.zh">简体中文</option>' +
+            '<option value="en-US" data-i18n="opt.lang.en">English</option>' +
           '</select>' +
         '</label>' +
       '</div>';
@@ -111,6 +111,9 @@
     overlay.appendChild(panel);
     document.body.appendChild(overlay);
     panelEl = overlay;
+
+    // 面板动态构建于 apply() 之后，需补翻译其中 data-i18n 元素，确保语言一致
+    if (window.MiI18n) window.MiI18n.apply();
 
     // 初始值回填
     panel.querySelector("#setTheme").value = get("theme");
