@@ -1,7 +1,7 @@
 // MiAppClean 应用原型 · 交互与 UI 层
 // 依赖：app.state.js（window.MiState）、render.js（window.MiRender）、
 //       generate.js（window.MiGen）、settings.js（window.MiSettings）
-// 路径: prototype/app/app.ui.js  v1.10.0
+// 路径: prototype/app/app.ui.js  v1.13.0
 
 (function () {
   "use strict";
@@ -94,8 +94,12 @@
       }
     }
     try {
-      await navigator.clipboard.writeText(output.textContent);
-      toast(I("toast.copied"));
+      // 组装「命令 + 分析分享链接 + 随机宣传文案」一并复制，提升项目传播力
+      const shareText = window.MiShare
+        ? window.MiShare.buildShareText(output.textContent)
+        : output.textContent;
+      await navigator.clipboard.writeText(shareText);
+      toast(I("toast.copiedShare"));
     } catch (e) {
       // 降级方案：选中文本
       const range = document.createRange();

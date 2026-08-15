@@ -26,6 +26,9 @@ MiAppClean 是一个开源的小米设备内置应用（预装 App）精简工�
   组件库与交互标准见 `openspec/specs/design-system/spec.md`。
 - **可恢复优先**：默认推荐 `disable-user`（可 `pm enable` 恢复），
   `uninstall` 仅作谨慎选项。
+- **分享传播增强**：复制命令时一并写入「分析分享链接 + 随机项目宣传文案」，
+  宣传文案池多语言、可随机抽取（详见 `openspec/specs/site/spec.md` 的
+  「分享复制增强」Requirement 与 `app.share.js`）。
 
 ## 3. 目录与职责
 
@@ -39,6 +42,7 @@ MiAppClean 是一个开源的小米设备内置应用（预装 App）精简工�
 | `docs/commands.md` | 通用 adb 命令模板 |
 | `docs/governance/` | 社区治理（CODE_OF_CONDUCT / CONTRIBUTING / LICENSE / SECURITY / SUPPORT） |
 | `prototype/` | 高保真设计原型与设计系统（`app/` 应用原型、`design-system/` 令牌与规范、`components/` 组件库、`interaction/` 交互标准、`index.html` 门户），复用同一数据源，为核心交付物 |
+| `prototype/app/app.share.js` | 分享增强模块（纯函数）：随机选宣传文案、组装「命令+分享链接+宣传文案」剪贴板文本 |
 | `openspec/` | 本规范目录（能力 specs + 变更 changes） |
 
 ## 4. 版本与发布

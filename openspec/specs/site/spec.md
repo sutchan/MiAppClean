@@ -54,6 +54,24 @@
 - **When** CI 校验
 - **Then** `index.html` 含 `vX.Y.Z`
 
+### Requirement: 分享复制增强
+「复制全部命令」须将生成的 adb 命令、**分析分享链接**与一条**随机选取的项目宣传文案**一并写入剪贴板，提升项目传播力。
+
+#### Scenario: 复制附带分享文案
+- **Given** 已生成命令且用户点击「复制全部命令」
+- **When** 复制成功
+- **Then** 剪贴板内容 = 命令 + 分享链接 + 随机宣传文案；每次复制文案随机抽取，不重复
+
+#### Scenario: 多语言宣传文案
+- **Given** 当前界面语言为 `en-US`
+- **When** 复制
+- **Then** 宣传文案取自英文池，缺失时回退中文池，绝不抛错
+
+#### Scenario: i18n 失效降级
+- **Given** `window.MiI18n` 未加载（初始化失败）
+- **When** 复制
+- **Then** 分享文案回退中文默认池，复制功能正常，应用不崩
+
 ## 实现细节（参考）
 - `prototype/` 是高保真、可交互的设计原型与设计系统（含 `app/`、`design-system/`、
   `components/`、`interaction/`、`index.html` 门户），复用同一份 `apk-data.js`，

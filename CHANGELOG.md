@@ -2,6 +2,24 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.13.0] - 2026-08-15
+
+### 新增
+- 分享复制增强：点击「复制全部命令」时，剪贴板内容由原本仅 adb 命令，
+  扩展为「命令 + 分析分享链接（当前页面地址）+ 随机项目宣传文案」，
+  提升项目传播力；每次复制随机选取一条文案，不重复。
+- 新增独立分享模块 `prototype/app/app.share.js`（纯函数，暴露 `window.MiShare`）：
+  `pickPromo()` 按当前语言从文案池随机抽取一条；`buildShareText()` 组装完整剪贴板文本。
+- 宣传文案池接入 i18n（`share.promo.1`~`share.promo.5`），支持中/英双语；新增
+  `share.linkLabel` 链接前缀与 `toast.copiedShare` 复制成功提示。
+- 分享模块与 i18n 同样采用顶层降级 stub：i18n 未加载或本模块初始化失败时，
+  退化为仅复制命令，应用不崩。
+
+### 规范
+- 新增 OpenSpec 变更提案 `changes/enhance-share-copy/`（proposal.md + tasks.md）。
+- `openspec/specs/site/spec.md` 新增「分享复制增强」Requirement 与对应 Scenario。
+- `openspec/project.md` 架构原则与目录职责补充分享增强说明。
+
 ## [1.12.0] - 2026-08-15
 
 ### 新增

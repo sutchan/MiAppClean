@@ -1,6 +1,6 @@
 // MiAppClean 国际化模块（中 / 英）
 // 依赖：无；对外暴露 window.MiI18n。
-// 路径: prototype/app/i18n.js  v1.11.0
+// 路径: prototype/app/i18n.js  v1.13.0
 
 (function () {
   "use strict";
@@ -127,9 +127,33 @@
     "risk.caution": { "zh-CN": "谨慎", "en-US": "Caution" },
     "risk.danger": { "zh-CN": "危险", "en-US": "Danger" },
 
+    // —— 分享增强：宣传文案池（随机选取，多条）——
+    "share.linkLabel": { "zh-CN": "🔗 我的小米精简方案：", "en-US": "🔗 My Xiaomi debloat plan:" },
+    "share.promo.1": {
+      "zh-CN": "MiAppClean · 按机型分类、风险分级，一键生成 adb 精简命令，危险组件自动拦截。安全去冗余，开源免费！",
+      "en-US": "MiAppClean · Curated by device, risk-graded, one-click adb debloat commands with auto-blocked risky packages. Safe & open-source!"
+    },
+    "share.promo.2": {
+      "zh-CN": "还在手动 adb 删系统应用？试试 MiAppClean，勾选即生成可恢复的禁用命令，小白也能安全精简小米手机。",
+      "en-US": "Tired of manual adb uninstall? MiAppClean generates reversible disable commands by ticking boxes — safe debloating for everyone."
+    },
+    "share.promo.3": {
+      "zh-CN": "预装应用太多太卡？MiAppClean 帮你按风险等级精简小米/红米设备，禁用优先、随时 pm enable 恢复。",
+      "en-US": "Too many bloat apps? MiAppClean helps you debloat Xiaomi/Redmi by risk level — disable-first, recoverable anytime via pm enable."
+    },
+    "share.promo.4": {
+      "zh-CN": "开源小米精简工具 MiAppClean：平板/电视盒通用，危险核心组件自动拦截，拒绝变砖。",
+      "en-US": "Open-source Xiaomi debloater MiAppClean: works on tablets & TV boxes, auto-blocks core packages to avoid bricking."
+    },
+    "share.promo.5": {
+      "zh-CN": "把小米设备交还给用户。MiAppClean 让预装应用精简变得可控、可恢复、可分享。",
+      "en-US": "Give your Xiaomi device back to you. MiAppClean makes bloatware removal controllable, reversible and shareable."
+    },
+
     // —— Toast 提示 ——
     "toast.nothing": { "zh-CN": "暂无可复制的命令", "en-US": "Nothing to copy yet" },
     "toast.copied": { "zh-CN": "已复制全部命令 ✓", "en-US": "All commands copied ✓" },
+    "toast.copiedShare": { "zh-CN": "已复制命令 + 分享文案 ✓", "en-US": "Commands + share text copied ✓" },
     "toast.copyFallback": { "zh-CN": "已选中命令，请按 Ctrl/Cmd+C 复制", "en-US": "Commands selected, press Ctrl/Cmd+C to copy" },
     "toast.cancelDanger": { "zh-CN": "已取消复制（高危操作）", "en-US": "Copy cancelled (high-risk)" },
     "toast.selectAll": { "zh-CN": "已全选推荐项（危险组件已排除）", "en-US": "All recommended selected (danger excluded)" },
