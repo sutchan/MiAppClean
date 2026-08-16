@@ -1,7 +1,7 @@
 /* MiAppClean 应用原型样式 · 组件层
- * 路径: prototype/app/app.components.css  v1.9.0
+ * 路径: app/app.components.css  v1.9.0
  * 承载具体 UI 组件样式（类别分组、包名行、徽章、按钮、Toast、设置面板等）。
- * 基础布局与令牌见同目录 app.base.css 与 ../design-system/tokens.css。
+ * 基础布局与令牌见同目录 app.base.css 与 /prototype/design-system/tokens.css。
  */
 
 /* ===== 类别分组 ===== */

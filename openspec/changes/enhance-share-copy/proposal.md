@@ -10,7 +10,7 @@
 
 ## 方案
 
-- 新增纯函数模块 `prototype/app/app.share.js`（暴露 `window.MiShare`），职责单一：
+- 新增纯函数模块 `app/app.share.js`（暴露 `window.MiShare`），职责单一：
   - `buildShareText(commands, opts)`：组合 `命令 + 分享链接 + 随机宣传文案`，返回完整剪贴板文本；
   - `pickPromo(lang)`：从宣传文案池（`promos`）按当前语言随机选取一条；
   - 文案池数据内聚于本模块，避免污染 UI 模块。
@@ -21,7 +21,7 @@
 
 ## 影响范围
 
-- 改动文件（均在 `prototype/app/`，被根 `index.html` 复用，故线上站点同步受益）：
+- 改动文件（均在 `app/`，被根 `index.html` 复用，故线上站点同步受益）：
   - `app.share.js`（新增，纯函数 ≤200 行）
   - `app.ui.js`（编排 `copyAll`）
   - `i18n.js`（新增 `share.promo.*` / `share.linkLabel` / `toast.copiedShare`）

@@ -10,6 +10,10 @@
     `_fetch_online.ps1`、`_o_*.js`、`_online_*.js`、`_online_*.html`）。
   - 删除一次性调试脚本 `scripts/_check_bat.mjs` 及其输出 `scripts/_check_out.txt`。
 - 统一版本号至 v1.13.4（VERSION + CI 8 个扫描点）。
+- 目录重构：应用代码 `prototype/app/` 整体迁移至仓库根 `/app`，
+  `prototype/` 仅保留项目原型与设计原型文档；`/app` 内对
+  `/prototype/design-system/`、`/prototype/theme.js`、`/apk-data.js` 的
+  引用统一改为绝对路径，CI 版本校验脚本同步指向 `app/index.html`。
 
 ## [1.13.3] - 2026-08-16
 

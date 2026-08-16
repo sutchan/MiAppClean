@@ -1,7 +1,7 @@
 // MiAppClean 分享增强模块（纯函数）
 // 依赖：i18n.js（window.MiI18n，可选；缺失时安全降级）
 // 对外暴露：window.MiShare
-// 路径: prototype/app/app.share.js  v1.13.3
+// 路径: app/app.share.js  v1.13.4
 
 (function () {
   "use strict";

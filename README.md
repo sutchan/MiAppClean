@@ -78,14 +78,14 @@ MiAppClean/
 | `docs/lists/xiaomi-13-app-list.md` | 小米 13 出厂内置 App 包名清单 |
 | `docs/lists/xiaomi-pad5-app-list.md` | 小米平板 5 出厂内置 App 包名清单 |
 | `docs/lists/hyperos-app-list.md` | HyperOS（澎湃 OS）内置 App 包名清单 |
-| `apk-data.js` | ★ **权威单一数据源**：各机型推荐精简包名与风险等级（safe/caution/danger）。前端原型（`prototype/app/`）、`scripts/xiaomi-apk-cleanup.py` 均直接消费它；请勿在多处维护包名副本 |
+| `apk-data.js` | ★ **权威单一数据源**：各机型推荐精简包名与风险等级（safe/caution/danger）。前端应用（`app/`）、`scripts/xiaomi-apk-cleanup.py` 均直接消费它；请勿在多处维护包名副本 |
 | `docs/governance/` | 开源治理文件：`CODE_OF_CONDUCT.md`（行为准则）、`LICENSE`（MIT）、`SECURITY.md`（安全政策）、`SUPPORT.md`（支持渠道） |
 | `prototype/` | 高保真原型 + 设计规范（纯 HTML，零依赖）：`index.html` 门户、`design-system/` 设计系统、`components/` 组件库、`interaction/` 交互标准、`app/` 可交互应用原型、`README.md` 原型说明 |
 | `prototype/archive/` | 历史归档：v1.3.0 旧版网页原型（`xiaomi-apk-cleanup.html/.css/.js` 与增强模块 `xiaomi-apk-cleanup.extra.js`），仅供回溯，不再维护 |
 | `CONTRIBUTING.md` | 贡献指南：项目结构、数据规范、编码与版本管理要求 |
 
 > **数据源关系**：`apk-data.js` 为唯一权威来源。三个可执行入口定位如下——
-> - `prototype/app/index.html`：浏览器原型，直接读取 `apk-data.js`（适合查看/生成命令）。
+> - `app/index.html`：浏览器应用，直接读取 `apk-data.js`（适合查看/生成命令）。
 > - `scripts/xiaomi-apk-cleanup.py`：跨平台脚本，直接读取 `apk-data.js`（数据源驱动，推荐）。
 > - `scripts/xiaomi-apk-cleanup.bat`：Windows 便捷入口，**内嵌 apk-data.js 的安全包子集离线镜像**，适用于无 Python/Node 环境；更新 `apk-data.js` 后需手动同步其内置清单。
 > 各 `*.md` 清单为 `apk-data.js` 的**衍生展示**（人工可读 + 粘贴源），非独立数据源。
@@ -117,8 +117,8 @@ MiAppClean/
 4. 部署完成后在 EdgeOne 控制台获得预览/生产域名；如需自定义域名，在控制台绑定并开启加速。
 
 > 部署工作流见 `.github/workflows/deploy.yml`，托管目录为仓库根 `.`，
-> 零构建、零运行时依赖。首页 `index.html` 复用 `prototype/app/app.css` 与
-> `prototype/app/app.js` 实现工具交互。
+> 零构建、零运行时依赖。首页 `index.html` 复用 `app/app.css` 与
+> `app/` 下的应用脚本实现工具交互。
 
 ### 本地预览
 
@@ -200,7 +200,7 @@ scripts\MIUI-lite-for-Letv-X600.bat
 
 ### 使用高保真原型（推荐）
 
-打开 `prototype/index.html` 进入原型门户，点击**应用原型**（`prototype/app/index.html`）：
+打开 `prototype/index.html` 进入原型门户，点击**应用原型**（`app/index.html`）：
 
 1. 选择设备类型：**手机 / 平板 / 电视盒**（平板复用手机清单）。
 2. 选择操作模式：**禁用（推荐·可恢复）** 或 **卸载（移除·谨慎）**。

@@ -57,5 +57,5 @@ prototype/
 
 直接双击打开 `prototype/index.html` 即可。无需服务器、无需构建。
 
-- 主应用原型：`prototype/app/index.html`
+- 主应用原型：`app/index.html`
 - 设计规范：从门户进入「设计规范」三张卡片

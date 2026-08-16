@@ -60,7 +60,7 @@
 - **Then** 出现短暂 Toast「已复制」反馈，不阻塞后续操作
 
 ### Requirement: 原型数据同源
-`prototype/app/` 应用原型读取的包名须来自仓库根 `apk-data.js`，与线上站点、脚本同源。
+`app/` 应用原型读取的包名须来自仓库根 `apk-data.js`，与线上站点、脚本同源。
 
 #### Scenario: 数据源新增即同步
 - **Given** `apk-data.js` 新增某设备分组

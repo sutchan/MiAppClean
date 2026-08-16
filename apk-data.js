@@ -210,7 +210,7 @@ const APP_DATA = {
   ],
 };
 
-// 暴露为全局，确保 prototype/app/index.html 在 file:// 下跨脚本可读取
+// 暴露为全局，确保 app/index.html 在 file:// 下跨脚本可读取
 if (typeof window !== "undefined") {
   window.APP_DATA = APP_DATA;
 }

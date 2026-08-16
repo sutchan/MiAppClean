@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MiAppClean · 应用原型</title>
   <link rel="stylesheet" href="app.css" />
-  <script src="../theme.js"></script>
+  <script src="/prototype/theme.js"></script>
 </head>
 <body>
   <!-- 单色图标精灵（symbol 定义，遵循 prototype/design-system/icon.html） -->
@@ -18,9 +18,9 @@
   </svg>
 
   <header class="topbar">
-    <div class="brand"><a href="../index.html" aria-label="返回原型门户"><img class="brand-logo" src="/assets/logo.svg" alt="" width="22" height="22" aria-hidden="true" />Mi<span>App</span>Clean</a></div>
+    <div class="brand"><a href="/prototype/index.html" aria-label="返回原型门户"><img class="brand-logo" src="/assets/logo.svg" alt="" width="22" height="22" aria-hidden="true" />Mi<span>App</span>Clean</a></div>
     <div class="topbar-actions">
-      <a href="../index.html" class="nav-btn" data-i18n="nav.portal" aria-label="原型门户">门户</a>
+      <a href="/prototype/index.html" class="nav-btn" data-i18n="nav.portal" aria-label="原型门户">门户</a>
       <button type="button" id="langBtn" class="icon-btn" aria-label="切换界面语言">EN</button>
       <button type="button" id="themeBtn" class="icon-btn" aria-label="切换主题（浅色/深色/跟随系统）" title="切换主题">
         <svg class="icon" aria-hidden="true"><use href="#icon-theme" /></svg>
@@ -130,12 +130,12 @@
 
     <footer class="legal">
       <p data-i18n="legal.disclaimer">免责声明：本页面仅供学习与技术研究使用。因使用其中命令导致的设备损坏、数据丢失等后果，作者与贡献者不承担任何责任。</p>
-      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.13.3</span></p>
+      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.13.4</span></p>
     </footer>
   </div>
 
-  <!-- 数据源：相对路径引用，保证本文件作为独立静态 HTML 本地双击即可使用 -->
-  <script src="../../apk-data.js"></script>
+  <!-- 数据源：以仓库根为托管根，绝对路径引用单一数据源 /apk-data.js -->
+  <script src="/apk-data.js"></script>
   <script src="generate.js"></script>
   <script src="render.js"></script>
   <script src="settings.js"></script>

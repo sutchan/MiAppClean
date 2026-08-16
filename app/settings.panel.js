@@ -1,5 +1,5 @@
 // MiAppClean 设置面板 UI 构建
-// 路径: prototype/app/settings.panel.js  v1.13.3
+// 路径: app/settings.panel.js  v1.13.4
 // 职责：纯 DOM 构建与事件绑定（构建设置抽屉内的主题/模式/记忆/提示/语言控件）。
 // 数据读写委托给 settings.js（window.MiSettings），文案取用 MiI18n.I。
 // 拆分自 settings.js，使「存储逻辑」与「面板 UI」各自独立，主文件 <200 行。

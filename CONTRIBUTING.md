@@ -52,14 +52,14 @@ MiAppClean/
 
 ## 版本管理
 
-- 版本号遵循 SemVer（`VERSION` 文件，当前 `v1.13.3`）。
+- 版本号遵循 SemVer（`VERSION` 文件，当前 `v1.13.4`）。
 - 任意文件修改均需 bump **patch** 版本；新增功能 bump minor；破坏性变更 bump major。
 - 提交前同步：
   1. `VERSION` 文件；
   2. `CHANGELOG.md`（新增对应版本小节）；
   3. 被改动文件的头注释版本号（未改动文件**不**批量刷写）；
   4. `README.md` 顶部展示版本；
-  5. `index.html` / `prototype/app/index.html` / `prototype/index.html` 展示版本；
+  5. `index.html` / `app/index.html` / `prototype/index.html` 展示版本；
   6. `scripts/xiaomi-apk-cleanup.bat` 标题、`.py` 头注释与运行打印、`docs/commands.md` 与 `docs/lists/*.md` 版本。
 
 ## 提交规范
@@ -85,7 +85,7 @@ python3 -m py_compile scripts/xiaomi-apk-cleanup.py
   - `CHANGELOG.md`、`README.md`、`index.html`（站点首页）
   - `scripts/xiaomi-apk-cleanup.bat`（窗口标题 `TITLE`）、`apk-data.js`（头注释）
   - `scripts/xiaomi-apk-cleanup.py`（头注释与运行打印）、`docs/commands.md`
-  - `prototype/app/index.html`、`prototype/README.md`
+  - `app/index.html`、`prototype/README.md`
 - `apk-data.js` 数据结构与 `risk` 取值合法性（Python 解析 + 全条目含 `risk`）
 - 源文件是否超出 200 行阈值（超出则提示拆分）
 - `scripts/xiaomi-apk-cleanup.py` 语法检查（`python3 -m py_compile`）
