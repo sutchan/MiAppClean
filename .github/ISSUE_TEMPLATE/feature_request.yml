@@ -1,0 +1,39 @@
+name: 功能建议 / Feature Request
+description: 提出新功能、机型清单补充或优化建议
+title: "[feat]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢建议！请描述你的需求与预期效果。
+  - type: textarea
+    id: need
+    attributes:
+      label: 需求背景
+      description: 为什么要这个能力？解决了什么痛点？
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议方案
+      description: 你期望如何实现？（可附草图或参考）
+    validations:
+      required: false
+  - type: textarea
+    id: list
+    attributes:
+      label: 机型清单补充
+      description: 若是补充可精简应用，请按 "包名 | 风险 | 说明" 提供
+      placeholder: |
+        com.example.app | safe | 示例应用描述
+    validations:
+      required: false
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 前置确认
+      options:
+        - label: 已搜索现有 Issue，确认无重复建议
+        - label: 已阅读 README 与 CONTRIBUTING

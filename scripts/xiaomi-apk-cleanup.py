@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # 小米安卓设备内置 APK 精简统一脚本（跨平台版）
-# 路径: scripts/xiaomi-apk-cleanup.py  v1.13.0
+# 路径: scripts/xiaomi-apk-cleanup.py  v1.13.1
 # 作用：交互选择设备类型与操作模式，复用 ../apk-data.js 数据源逐条执行 adb 命令。
 # 适用：小米手机 / 平板 / 电视盒（含乐视 X600 等搭载 MIUI TV 的盒子）
 # 依赖：Python 3.8+；已安装 ADB 并加入 PATH；设备开启 USB 调试且已连接。
@@ -67,7 +67,7 @@ def cmd_clean():
     if shutil.which("adb") is None:
         sys.exit("[错误] 未检测到 adb，请先安装 Android Platform-Tools 并加入 PATH。")
     print("=" * 40)
-    print("小米 APK 精简工具 v1.13.0")
+    print("小米 APK 精简工具 v1.13.1")
     print("=" * 40)
     os.system("adb devices")
 

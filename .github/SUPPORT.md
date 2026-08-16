@@ -6,7 +6,7 @@
 
 - 阅读 [`README.md`](./README.md)：包含项目介绍、使用方法、命令说明与 ADB 工具推荐。
 - 查看 [`CHANGELOG.md`](./CHANGELOG.md)：确认当前版本与历史变更。
-- 数据来源与机型清单见 `apk-data.js` 及各 `*-App清单.md` / `*.md` 文件。
+- 数据来源与机型清单见 `apk-data.js` 及各 `docs/lists/*.md` 清单文件。
 
 ## 获取帮助
 
@@ -17,7 +17,7 @@
 | Security Advisory | 仅限安全漏洞（见 [`SECURITY.md`](./SECURITY.md)）|
 
 > 提交 Issue 前请先搜索是否已有相同问题，并附上：设备型号、系统版本
-> （MIUI / HyperOS）、脚本版本（`v1.9.0`）、复现步骤与错误输出。
+> （MIUI / HyperOS）、脚本版本（`v1.13.1`）、复现步骤与错误输出。
 
 ## 贡献与协作
 

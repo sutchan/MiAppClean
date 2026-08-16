@@ -2,6 +2,18 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.13.1] - 2026-08-16
+
+### 文档
+- 补全仓库社区健康文件（Community Health Files）：
+  - 根目录新增 `LICENSE`（MIT，供 GitHub 识别 License 徽章）。
+  - `.github/` 新增 `CODE_OF_CONDUCT.md`、`SECURITY.md`、`SUPPORT.md`、
+    `FUNDING.yml`、`PULL_REQUEST_TEMPLATE.md` 与
+    `ISSUE_TEMPLATE/`（bug_report.yml、feature_request.yml）。
+  - `SECURITY.md` 支持版本表更新为 `v1.13.x`（最新）/ `< v1.13.0`（停止支持）。
+- 修复文档版本号漂移：`CONTRIBUTING.md` 与 `docs/governance/` 四份治理文件
+  由 `v1.9.0` 回填至实际版本 `v1.13.1`，与 `VERSION` 单一来源保持一致。
+
 ## [1.13.0] - 2026-08-15
 
 ### 新增
