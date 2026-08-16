@@ -2,7 +2,7 @@
 
 Xiaomi Phone and AndroidBox MIUI App Liter
 
-> 版本：v1.13.4
+> 版本：v1.14.0
 > 作用：提供手机与电视盒两类设备的预装应用精简命令示例模板。
 > 用法：将下方 `<包名>` 替换为对应清单（如 [lists/xiaomi-miui-app-list.md](lists/xiaomi-miui-app-list.md)）中的包名后逐条执行。
 > 建议：优先使用 `disable-user`（可一键恢复），慎用 `uninstall --user 0`（真正移除难恢复）。

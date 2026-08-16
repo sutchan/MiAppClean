@@ -1,6 +1,6 @@
 // MiAppClean 应用原型 · 状态与数据层
 // 复用根目录 apk-data.js 的 APP_DATA 作为单一数据源（真实数据）
-// 路径: app/app.state.js  v1.13.4
+// 路径: app/app.state.js  v1.13.5
 
 (function () {
   "use strict";
@@ -46,10 +46,92 @@
 
   // 当前选中设备 / 操作模式（读取分段控件）
   function getDevice() {
-    return document.querySelector('input[name="device"]:checked').value;
+    const el = document.querySelector('input[name="device"]:checked');
+    return el ? el.value : "phone";
   }
   function getMode() {
-    return document.querySelector('input[name="mode"]:checked').value;
+    const el = document.querySelector('input[name="mode"]:checked');
+    return el ? el.value : "disable";
+  }
+
+  // 当前风险筛选（render 层消费）：取 DOM 高亮态，缺省全部
+  function getRiskFilter() {
+    const active = document.querySelector(".risk-legend .badge.active");
+    return active ? active.dataset.filter || "all" : "all";
+  }
+
+  // 当前搜索关键词
+  let _search = "";
+  function getSearch() {
+    return _search;
+  }
+
+  // 危险组件严禁勾选：danger 等级始终不可进入勾选集合
+  function isSelectable(pkg) {
+    return RISK_MAP[pkg] !== "danger";
+  }
+
+  // 勾选 / 取消勾选：danger 等级忽略，避免误禁核心组件
+  function check(pkg) {
+    if (!isSelectable(pkg)) return false;
+    checkedPkgs.add(pkg);
+    if (window.MiSettings) window.MiSettings.saveChecked([...checkedPkgs]);
+    return true;
+  }
+  function uncheck(pkg) {
+    checkedPkgs.delete(pkg);
+    if (window.MiSettings) window.MiSettings.saveChecked([...checkedPkgs]);
+  }
+  function clearChecked() {
+    checkedPkgs.clear();
+    if (window.MiSettings) window.MiSettings.saveChecked([]);
+  }
+  // 全选当前设备清单下的「推荐项」（safe/caution，排除 danger）
+  function selectAllRecommended() {
+    const device = getDevice();
+    const groups = APP_DATA[device] || [];
+    groups.forEach((g) =>
+      g.items.forEach((it) => {
+        if (it.risk !== "danger") checkedPkgs.add(it.pkg);
+      })
+    );
+    if (window.MiSettings) window.MiSettings.saveChecked([...checkedPkgs]);
+  }
+
+  // 设置类（供 UI 事件调用）
+  function setDevice(value) {
+    const el = document.querySelector('input[name="device"][value="' + value + '"]');
+    if (el) el.checked = true;
+  }
+  function setMode(value) {
+    const el = document.querySelector('input[name="mode"][value="' + value + '"]');
+    if (el) el.checked = true;
+  }
+  function setRiskFilter(filter) {
+    _search = _search; // no-op，仅保持接口稳定性
+    document.querySelectorAll(".risk-legend .badge").forEach((b) => {
+      const on = b.dataset.filter === filter;
+      b.classList.toggle("active", on);
+      if (b.hasAttribute("aria-pressed")) b.setAttribute("aria-pressed", String(on));
+    });
+  }
+  function setSearch(term) {
+    _search = term || "";
+  }
+
+  // 派生查询
+  function getChecked() {
+    return [...checkedPkgs];
+  }
+  function getModeSafe() {
+    const m = getMode();
+    return m === "disable" || m === "uninstall" ? m : "disable";
+  }
+  function hasDangerSelected() {
+    for (const pkg of checkedPkgs) {
+      if (RISK_MAP[pkg] === "danger") return true;
+    }
+    return false;
   }
 
   // 勾选集合变更后持久化（受「记忆上次勾选」开关控制）
@@ -65,6 +147,20 @@
     checkedPkgs,
     getDevice,
     getMode,
+    getRiskFilter,
+    getSearch,
+    isSelectable,
+    check,
+    uncheck,
+    clearChecked,
+    selectAllRecommended,
+    setDevice,
+    setMode,
+    setRiskFilter,
+    setSearch,
+    getChecked,
+    getModeSafe,
+    hasDangerSelected,
     syncRemember,
   };
 })();

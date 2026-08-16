@@ -1,5 +1,5 @@
 // MiAppClean 交互处理函数（纯行为，无事件绑定）
-// 路径: app/app.ui.handlers.js  v1.13.4
+// 路径: app/app.ui.handlers.js  v1.13.5
 // 职责：将 app.ui.js 中的交互处理函数抽离为纯模块，便于复用与测试。
 // 依赖：window.MiState / MiRender / MiGen / MiSettings / MiI18n / MiShare。
 // app.ui.js 仅负责 init 编排与 DOM 事件绑定，调用本模块的 exported handlers。
@@ -46,18 +46,11 @@
     var gen = window.MiGen;
     if (!gen) return "";
     var selected = Array.from(state.getChecked());
-    var customRaw = document.getElementById("customPkgs");
-    var customLines = customRaw ? customRaw.value.split("\n") : [];
-    var custom = [];
-    customLines.forEach(function (line) {
-      var pkg = line.trim();
-      if (!pkg || pkg.startsWith("#")) return;
-      custom.push(pkg);
-    });
+    // 注意：自定义包名 textarea 的 DOM id 为 "custom"（见 index.html），
+    // generate() 内部会自动解析它，此处仅传入勾选项与模式。
     var mode = state.getModeSafe();
-    var out = gen.generate(selected, custom, mode);
-    var box = document.getElementById("output");
-    if (box) box.value = out;
+    // generate 内部直接写入 #output / #stat，返回生成的命令文本
+    var out = gen.generate(selected, null, mode);
     return out;
   }
 
@@ -66,7 +59,8 @@
     var state = window.MiState;
     var box = document.getElementById("output");
     if (!box) return Promise.resolve();
-    var text = box.value;
+    // #output 为 <pre> 元素，命令文本存于 textContent
+    var text = box.textContent || "";
     if (!text.trim()) {
       toast(I("toast.nothing", null));
       return Promise.resolve();
@@ -78,11 +72,11 @@
         return Promise.resolve();
       }
     }
-    var share = window.MiShare ? window.MiShare.buildShareText(text) : "";
-    var payload = share ? text + "\n\n" + share : text;
+    // buildShareText 在命令后附加分享文案，返回完整可复制内容
+    var payload = window.MiShare ? window.MiShare.buildShareText(text) : text;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       return navigator.clipboard.writeText(payload).then(function () {
-        toast(share ? I("toast.copiedShare", null) : I("toast.copied", null));
+        toast(window.MiShare ? I("toast.copiedShare", null) : I("toast.copied", null));
       }).catch(function () {
         fallbackCopy(box, payload);
       });
@@ -92,12 +86,17 @@
   }
 
   function fallbackCopy(box, payload) {
-    box.removeAttribute("readonly");
-    box.value = payload;
-    box.focus();
-    box.select();
+    // #output 为只读 <pre>，降级复制通过临时读写 textContent + 选区实现
+    var prev = box.textContent;
+    box.textContent = payload;
+    var range = document.createRange();
+    range.selectNodeContents(box);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
     try { document.execCommand("copy"); } catch (e) {}
-    box.setAttribute("readonly", "");
+    box.textContent = prev;
+    sel.removeAllRanges();
     toast(I("toast.copyFallback", null));
   }
 

@@ -2,6 +2,14 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H2TWCM7S6K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H2TWCM7S6K');
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MiAppClean · 应用原型</title>
   <link rel="stylesheet" href="app.css" />
@@ -46,8 +54,8 @@
     <a class="step-card" href="#step-1"><span class="step-card-num">1</span><span class="step-card-label" data-i18n="step.1.title">选择设备类型</span></a>
     <a class="step-card" href="#step-2"><span class="step-card-num">2</span><span class="step-card-label" data-i18n="step.2.title">选择操作模式</span></a>
     <a class="step-card" href="#step-3"><span class="step-card-num">3</span><span class="step-card-label" data-i18n="step.3.title">勾选要清理的应用</span></a>
-    <a class="step-card" href="#step-4"><span class="step-card-num">4</span><span class="step-card-label" data-i18n="step.4.title">生成 ADB 命令</span></a>
-    <a class="step-card" href="#step-5"><span class="step-card-num">5</span><span class="step-card-label" data-i18n="step.5.title">连接设备并执行</span></a>
+    <a class="step-card" href="#step-4"><span class="step-card-num">4</span><span class="step-card-label" data-i18n="step.4.title">自定义包名（可选）</span></a>
+    <a class="step-card" href="#step-5"><span class="step-card-num">5</span><span class="step-card-label" data-i18n="step.5.title">生成的命令</span></a>
   </nav>
 
   <div class="wrap">
@@ -130,9 +138,35 @@
 
     <footer class="legal">
       <p data-i18n="legal.disclaimer">免责声明：本页面仅供学习与技术研究使用。因使用其中命令导致的设备损坏、数据丢失等后果，作者与贡献者不承担任何责任。</p>
-      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.13.4</span></p>
+      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.14.0</span></p>
     </footer>
   </div>
+
+  <!-- 设置抽屉（外观 / 模式 / 记忆 / 提示 / 语言） -->
+  <div class="settings-overlay" id="settingsOverlay" hidden>
+    <div class="settings-panel" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="settings-head">
+        <h2 id="settingsTitle" data-i18n="settings.title">设置</h2>
+        <button class="settings-close" id="settingsClose" type="button" aria-label="关闭设置">✕</button>
+      </div>
+      <div class="settings-body" id="settingsPanel"></div>
+    </div>
+  </div>
+
+  <!-- 卸载风险提示弹层 -->
+  <div class="uninstall-warn" id="uninstallWarn" hidden role="alertdialog" aria-modal="true" aria-labelledby="uninstallWarnTitle">
+    <div class="uninstall-warn-card">
+      <h3 id="uninstallWarnTitle" data-i18n="warn.uninstall.title">卸载高危提示</h3>
+      <p data-i18n="warn.uninstall.desc">你选择了含「谨慎 / 危险」等级的包名，卸载可能导致系统功能异常甚至变砖。是否仍继续？</p>
+      <div class="uninstall-warn-actions">
+        <button type="button" id="uninstallWarnCancel" data-i18n="btn.cancel">取消</button>
+        <button type="button" id="uninstallWarnOk" data-i18n="btn.continue">继续</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 轻提示 -->
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
   <!-- 数据源：以仓库根为托管根，绝对路径引用单一数据源 /apk-data.js -->
   <script src="/apk-data.js"></script>

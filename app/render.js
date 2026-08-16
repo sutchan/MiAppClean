@@ -1,28 +1,54 @@
 // MiAppClean 分类渲染模块（按设备/搜索过滤渲染可勾选应用列表）
-// 路径: app/render.js  v1.13.4
+// 路径: app/render.js  v1.13.5
 // 单一数据源：APP_DATA 由调用方传入，勾选状态由 checkedPkgs 集合维护。
 // 用法：先于 app.js 引入；对外暴露 window.MiRender。
 (function () {
   "use strict";
 
   // 渲染分类列表
-  // opts: { device, term, checkedPkgs:Set, catListEl, appData, riskLabel, riskFilter }
+  // 支持两种签名，保证调用方迁移期间兼容：
+  //   新：render({ device, term, checkedPkgs, catListEl, appData, riskLabel, riskFilter })
+  //   旧：render(list, device, riskFilter) —— list 为设备分组数组
   // riskFilter: "all" | "safe" | "caution" | "danger"
-  function render(opts) {
-    const { device, term, checkedPkgs, catListEl, appData, riskLabel, riskFilter } = opts;
+  function render(arg0, arg1, arg2) {
+    let opts;
+    if (Array.isArray(arg0)) {
+      // 旧签名兼容：render(list, device, riskFilter)
+      opts = {
+        list: arg0,
+        device: arg1,
+        riskFilter: arg2,
+        checkedPkgs: window.MiState ? window.MiState.checkedPkgs : new Set(),
+        catListEl: document.querySelector("#catList"),
+        appData: window.MiState ? window.MiState.APP_DATA : {},
+        riskLabel: window.MiState ? window.MiState.RISK_LABEL : null,
+      };
+    } else {
+      opts = arg0 || {};
+    }
+    const {
+      device,
+      term,
+      checkedPkgs = window.MiState ? window.MiState.checkedPkgs : new Set(),
+      catListEl = document.querySelector("#catList"),
+      appData = window.MiState ? window.MiState.APP_DATA : {},
+      riskLabel = window.MiState ? window.MiState.RISK_LABEL : null,
+      riskFilter,
+      list,
+    } = opts;
     // riskLabel 兼容两种形态：函数 (risk)=>text，或含 .of 的取值器，或 {risk:"text"} 静态表
     const labelOf = (risk) => {
       if (typeof riskLabel === "function") return riskLabel(risk);
       if (riskLabel && typeof riskLabel.of === "function") return riskLabel.of(risk);
       return (riskLabel && riskLabel[risk]) || "安全";
     };
-    const list = device === "pad" ? appData.phone : appData[device];
-    const q = (term || "").trim().toLowerCase();
+    const resolvedList = list || (device === "pad" ? appData.phone : appData[device]) || [];
+    const q = (term || (window.MiState && window.MiState.getSearch ? window.MiState.getSearch() : "") || "").trim().toLowerCase();
     const rf = riskFilter || "all";
     catListEl.innerHTML = "";
     let totalShown = 0;
 
-    list.forEach((group, gi) => {
+    resolvedList.forEach((group, gi) => {
       // 按包名或描述过滤（大小写不敏感）
       let items = q
         ? group.items.filter(

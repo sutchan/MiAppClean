@@ -52,7 +52,7 @@ MiAppClean/
 
 ## 版本管理
 
-- 版本号遵循 SemVer（`VERSION` 文件，当前 `v1.13.4`）。
+- 版本号遵循 SemVer（`VERSION` 文件，当前 `v1.14.0`）。
 - 任意文件修改均需 bump **patch** 版本；新增功能 bump minor；破坏性变更 bump major。
 - 提交前同步：
   1. `VERSION` 文件；

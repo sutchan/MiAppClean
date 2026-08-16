@@ -1,5 +1,5 @@
 // MiAppClean 应用原型 · 交互与 UI 层（编排 + 事件绑定）
-// 路径: app/app.ui.js  v1.13.4
+// 路径: app/app.ui.js  v1.13.5
 // 职责：初始化装配、DOM 事件绑定、语言/主题刷新编排。
 // 文案刷新委托 MiUiLabels，交互处理委托 MiUiHandlers，二者均独立成模块。
 // 依赖顺序：apk-data → generate → render → settings → i18n → app.state → app.share → app.ui
@@ -36,7 +36,7 @@
 
   // 自定义包名变化时重新生成
   function bindCustom() {
-    var custom = document.getElementById("customPkgs");
+    var custom = document.getElementById("custom");
     if (custom) custom.addEventListener("input", function () { H().generate(); });
   }
 

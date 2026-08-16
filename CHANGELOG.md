@@ -2,6 +2,33 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.14.0] - 2026-08-16
+
+### 新增
+- 全站接入 Google Analytics 4（衡量 ID `G-H2TWCM7S6K`）：
+  在 15 个 HTML 页面（根 `index.html`、`app/index.html`、`prototype/` 门户与各
+  设计规范/组件/交互页、archive 页）的 `<head>` 统一注入 GA4 gtag 跟踪片段，
+  用于衡量站点流量与页面访问。
+
+## [1.13.5] - 2026-08-16
+
+### 修复
+- 修复原型核心交互全面失效：补齐 `app.state.js` 缺失的状态层方法
+  （`check/uncheck/setDevice/setMode/setSearch/setRiskFilter/getRiskFilter/
+  getChecked/getModeSafe/hasDangerSelected/selectAllRecommended/clearChecked`），
+  使勾选/设备切换/搜索/风险筛选/全选清空/高危拦截恢复可用。
+- 修复 `render.js`/`generate.js` 签名契约：兼容旧三参调用，并自动从 DOM
+  选取 `#output`/`#stat`/`#custom` 元素，消除渲染与命令生成崩溃。
+- 修复 i18n 失效：`app.ui.labels.js` 改为 `data-i18n` 属性驱动刷新，
+  移除对不存在 id 的依赖，多语言真正生效。
+- 修正自定义包名 textarea 引用 `customPkgs`→`custom`（与 index.html 一致）。
+- 修复分享文案重复拼接：移除 `copyAll` 中 `buildShareText` 结果的二次拼接。
+- 修复 `settings.js`：读取上次勾选返回数组（原为 `{}`，会导致
+  `new Set({})` 抛 `TypeError`）。
+- 补充 index.html 缺失的已接线 DOM 骨架：设置抽屉、卸载高危提示、
+  轻提示 toast，使对应功能可用。
+- 同步概览步骤文案与步骤标题一致（step-4/step-5）。
+
 ## [1.13.4] - 2026-08-16
 
 ### 杂项
