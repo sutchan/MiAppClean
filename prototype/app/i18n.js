@@ -1,5 +1,5 @@
 // MiAppClean 国际化运行模块
-// 路径: prototype/app/i18n.js  v1.13.2
+// 路径: prototype/app/i18n.js  v1.13.3
 // 职责：语言持久化（localStorage 'miac-lang'）+ 文本取用 I(key)。
 // 与 i18n.dict.js（纯词典数据）分离：本文件仅含「读取/选择/取用」逻辑，
 // 词典内容集中在 i18n.dict.js，二者通过 window.MiI18nDict 解耦。

@@ -15,7 +15,7 @@
 
 ### Requirement: 子命令
 Python 脚本至少支持以下子命令（以 `argparse` 暴露）：
-- `interactive`（默认）：交互式精简
+- `clean`（默认）：交互式精简（无参数运行时进入该子命令）
 - `check`：预检设备连接与包名存在性
 - `backup`：备份当前设备已安装包名快照（写入 `backup-*.txt`）
 

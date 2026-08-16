@@ -27,8 +27,8 @@
 - **Then** 校验失败并退出（防止契约破坏）
 
 ### Requirement: 设备与分组结构
-`APP_DATA` 按设备（如 `xiaomi13`、`pad5`、`hyperos`、`mibox`）分组，
-每组含 `items` 数组；`items` 每项至少含 `name`/`pkg`/`risk`，可选 `note`。
+`APP_DATA` 按设备类型（如 `phone`、`pad`、`tv`）分组，
+每组含 `items` 数组；`items` 每项至少含 `desc`/`pkg`/`risk`，可选 `note`。
 
 #### Scenario: 新增机型
 - **Given** 需支持新机型 `deviceX`
