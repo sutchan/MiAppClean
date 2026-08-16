@@ -2,6 +2,24 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.13.2] - 2026-08-16
+
+### 重构
+- 拆分超 200 行源代码文件，落实 openspec/project.md「按职责拆分」规则：
+  - `i18n.js`（264→约 60 行）：词典数据抽离至 `i18n.dict.js`。
+  - `settings.js`（201→约 150 行）：面板 DOM 构建抽离至 `settings.panel.js`。
+  - `app.ui.js`（239→约 120 行）：交互处理抽离至 `app.ui.handlers.js`，
+    文案刷新抽离至 `app.ui.labels.js`。
+- 两个 `index.html`（根 / prototype/app）同步补充新增模块的脚本引用与依赖顺序。
+- 规范硬契约文件（`apk-data.js` / `index.html` / `tokens.css`）按 openspec
+  project.md「特定契约优先」条款保留不拆分。
+
+### 修复
+- 校正头注释版本漂移（`theme.js` / `render.js` / `generate.js` / `app.css` 等
+  v1.10.x / v1.9.0 → v1.13.2），与 `VERSION` 单一来源保持一致。
+- 为 `prototype/app/index.html` 五个步骤 section 补充语义化 `id="step-1..5"`，
+  与步骤概览锚点跳转匹配。
+
 ## [1.13.1] - 2026-08-16
 
 ### 文档

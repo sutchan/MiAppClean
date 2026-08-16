@@ -52,7 +52,7 @@
 
   <div class="wrap">
     <!-- 步骤 1：设备 -->
-    <section class="step">
+    <section class="step" id="step-1">
       <div class="step-head"><span class="step-num">1</span><h2 data-i18n="step.1.title">选择设备类型</h2></div>
       <div class="panel">
         <div class="segmented" id="deviceSeg" role="radiogroup" aria-label="设备类型">
@@ -65,7 +65,7 @@
     </section>
 
     <!-- 步骤 2：模式 -->
-    <section class="step">
+    <section class="step" id="step-2">
       <div class="step-head"><span class="step-num">2</span><h2 data-i18n="step.2.title">选择操作模式</h2></div>
       <div class="panel">
         <div class="segmented" id="modeSeg" role="radiogroup" aria-label="操作模式">
@@ -76,7 +76,7 @@
     </section>
 
     <!-- 步骤 3：勾选 -->
-    <section class="step">
+    <section class="step" id="step-3">
       <div class="step-head"><span class="step-num">3</span><h2 data-i18n="step.3.title">勾选要清理的应用</h2></div>
       <div class="panel">
         <div class="risk-legend" role="group" aria-label="按风险等级筛选">
@@ -94,7 +94,7 @@
     </section>
 
     <!-- 步骤 4：自定义 -->
-    <section class="step">
+    <section class="step" id="step-4">
       <div class="step-head"><span class="step-num">4</span><h2 data-i18n="step.4.title">自定义包名（可选）</h2></div>
       <div class="panel">
         <div class="field">
@@ -105,7 +105,7 @@
     </section>
 
     <!-- 步骤 5：生成 -->
-    <section class="step">
+    <section class="step" id="step-5">
       <div class="step-head"><span class="step-num">5</span><h2 data-i18n="step.5.title">生成的命令</h2></div>
       <div class="panel">
         <div class="toolbar">
@@ -130,7 +130,7 @@
 
     <footer class="legal">
       <p data-i18n="legal.disclaimer">免责声明：本页面仅供学习与技术研究使用。因使用其中命令导致的设备损坏、数据丢失等后果，作者与贡献者不承担任何责任。</p>
-      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.13.1</span></p>
+      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.13.2</span></p>
     </footer>
   </div>
 
@@ -139,9 +139,13 @@
   <script src="generate.js"></script>
   <script src="render.js"></script>
   <script src="settings.js"></script>
+  <script src="settings.panel.js"></script>
+  <script src="i18n.dict.js"></script>
   <script src="i18n.js"></script>
   <script src="app.state.js"></script>
   <script src="app.share.js"></script>
+  <script src="app.ui.handlers.js"></script>
+  <script src="app.ui.labels.js"></script>
   <script src="app.ui.js"></script>
 </body>
 </html>
