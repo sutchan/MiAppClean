@@ -28,11 +28,19 @@ MiAppClean/
 ├── README.md                       # 本文件（项目说明）
 ├── VERSION                         # 项目版本号（单一来源）
 ├── CHANGELOG.md                    # 版本变更记录
+├── LICENSE                         # MIT 许可证（根目录，供 GitHub 识别 License 徽章）
 ├── index.html                      # ★ 站点首页（EO 托管根，直接承载精简工具）
 ├── theme.js                        # 站点主题切换（读取 URL 主题参数）
 ├── apk-data.js                     # ★ 各机型推荐精简包名数据（单一数据源，原型与脚本共用）
-├── .github/workflows/ci.yml        # CI：提交/PR 时校验版本一致性与数据完整性
-├── .github/workflows/deploy.yml     # CD：推送 master/main 时自动部署到腾讯云 EdgeOne
+├── .github/
+│   ├── workflows/ci.yml            #   CI：提交/PR 时校验版本一致性与数据完整性
+│   ├── workflows/deploy.yml        #   CD：推送 master/main 时自动部署到腾讯云 EdgeOne
+│   ├── CODE_OF_CONDUCT.md          #   行为准则（Contributor Covenant v2.1）
+│   ├── SECURITY.md                 #   安全政策（漏洞私密举报流程）
+│   ├── SUPPORT.md                  #   支持渠道与自助排查指引
+│   ├── FUNDING.yml                 #   赞助配置
+│   ├── PULL_REQUEST_TEMPLATE.md    #   PR 模板
+│   └── ISSUE_TEMPLATE/             #   Issue 模板（bug_report / feature_request）
 │
 ├── CONTRIBUTING.md                # 贡献指南（数据/编码/版本/CI 规范）
 │
@@ -55,14 +63,14 @@ MiAppClean/
 │       ├── SECURITY.md                    #   安全政策（漏洞私密举报流程）
 │       └── SUPPORT.md                     #   支持渠道与自助排查指引
 │
-└── prototype/                     # 高保真原型 + 设计规范（纯 HTML，零依赖）
-    ├── index.html                 #   原型门户（入口，仅供本地查阅）
+└── prototype/                     # 原型门户 + 设计规范（纯 HTML，仅供本地查阅）
+    ├── index.html                 #   原型门户（入口）
     ├── design-system/             #   设计系统（tokens.css 设计令牌单一来源）
     ├── components/                #   组件库（基础/复合/业务组件）
     ├── interaction/               #   交互标准（模式/反馈/错误/空状态）
-    ├── app/                       #   高保真可交互应用原型（真实数据）
     ├── archive/                   #   历史归档（v1.3.0 旧版网页原型）
     └── README.md                  #   原型说明
+    # 注：可交互应用原型已迁移至仓库根 /app（见 CONTRIBUTING 项目结构）
 ```
 
 ## 文件说明

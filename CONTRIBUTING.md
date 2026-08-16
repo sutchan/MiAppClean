@@ -9,7 +9,9 @@
 MiAppClean/
 ├── apk-data.js                    # ★ 唯一数据源：各设备推荐精简包名与风险等级
 ├── index.html                     # 静态站点首页（零依赖，GitHub Pages 部署）
+├── app/                           # 高保真可交互应用原型（已从 prototype/app 迁移，真实数据）
 ├── theme.js                       # 站点主题切换逻辑（读取 URL 主题参数）
+├── LICENSE                        # MIT 许可证（根目录，供 GitHub 识别 License 徽章）
 ├── README.md / VERSION / CHANGELOG.md  # 项目说明与版本单一来源
 ├── CONTRIBUTING.md                # 本文件
 ├── scripts/                       # 精简脚本（统一入口）
@@ -24,12 +26,20 @@ MiAppClean/
 │   │   ├── xiaomi-13-app-list.md          #   小米 13 内置 App 包名清单
 │   │   ├── xiaomi-pad5-app-list.md        #   小米平板 5 内置 App 包名清单
 │   │   └── hyperos-app-list.md            #   HyperOS 内置 App 包名清单
-│   └── governance/                     #   开源治理文件
+│   └── governance/                     #   开源治理文件（归档副本，权威版见 .github/）
 │       ├── CODE_OF_CONDUCT.md              #   行为准则
 │       ├── LICENSE                        #   MIT 许可证
 │       ├── SECURITY.md                    #   安全政策
 │       └── SUPPORT.md                     #   支持渠道
-└── .github/workflows/             # CI（ci.yml 校验）/ 部署（deploy.yml 发布站点）
+├── prototype/                     # 原型门户与设计规范（纯 HTML，仅供本地查阅）
+└── .github/                       # 社区健康文件 + CI/CD
+    ├── workflows/                     #   CI（ci.yml 校验）/ 部署（deploy.yml 发布站点）
+    ├── CODE_OF_CONDUCT.md             #   行为准则（权威版）
+    ├── SECURITY.md                    #   安全政策（权威版）
+    ├── SUPPORT.md                     #   支持渠道（权威版）
+    ├── FUNDING.yml                    #   赞助配置
+    ├── PULL_REQUEST_TEMPLATE.md       #   PR 模板
+    └── ISSUE_TEMPLATE/                #   Issue 模板（bug_report / feature_request）
 ```
 
 ## 数据规范
