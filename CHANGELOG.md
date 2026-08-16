@@ -2,6 +2,21 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.13.3] - 2026-08-16
+
+### 文档
+- 更正 `openspec/specs/data-source/spec.md`：包名条目字段由 `name` 改为 `desc`，
+  设备分组示例由机型名（xiaomi13/pad5/hyperos/mibox）改为设备类型（phone/pad/tv），
+  与 `apk-data.js` 实际结构一致。
+- 更正 `openspec/specs/scripts/spec.md`：Python 脚本默认子命令由 `interactive` 改为
+  `clean`，并补充 `clean` 到子命令列表，与 `xiaomi-apk-cleanup.py` 实现一致。
+- 修正 `scripts/xiaomi-apk-cleanup.py` 用法注释（默认进入 `clean` 子命令）。
+
+### 修复
+- 对齐全局版本至 v1.13.3：修复 prototype 各页（门户/交互/app 子模块/components/
+  base.css 等）头注与 footer 版本漂移（此前滞后至 v1.10.0~v1.13.2），满足 design-system
+  规范中「prototype/\*\* 含 v<VERSION>」的一致性约束。
+
 ## [1.13.2] - 2026-08-16
 
 ### 重构
