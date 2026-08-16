@@ -2,6 +2,15 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.13.4] - 2026-08-16
+
+### 杂项
+- 清理根目录与 scripts/ 下的临时/调试文件（共 16 个）：
+  - 删除抓取线上对比用的临时脚本与快照（`_cmp.js`、`_diff_online.js`、
+    `_fetch_online.ps1`、`_o_*.js`、`_online_*.js`、`_online_*.html`）。
+  - 删除一次性调试脚本 `scripts/_check_bat.mjs` 及其输出 `scripts/_check_out.txt`。
+- 统一版本号至 v1.13.4（VERSION + CI 8 个扫描点）。
+
 ## [1.13.3] - 2026-08-16
 
 ### 文档
@@ -13,7 +22,7 @@
 - 修正 `scripts/xiaomi-apk-cleanup.py` 用法注释（默认进入 `clean` 子命令）。
 
 ### 修复
-- 对齐全局版本至 v1.13.3：修复 prototype 各页（门户/交互/app 子模块/components/
+- 对齐全局版本至 v1.13.4：修复 prototype 各页（门户/交互/app 子模块/components/
   base.css 等）头注与 footer 版本漂移（此前滞后至 v1.10.0~v1.13.2），满足 design-system
   规范中「prototype/\*\* 含 v<VERSION>」的一致性约束。
 
