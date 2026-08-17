@@ -1,5 +1,5 @@
 // MiAppClean 应用原型 · 交互与 UI 层（编排 + 事件绑定）
-// 路径: app/app.ui.js  v1.13.5
+// 路径: app/app.ui.js  v1.14.0
 // 职责：初始化装配、DOM 事件绑定、语言/主题刷新编排。
 // 文案刷新委托 MiUiLabels，交互处理委托 MiUiHandlers，二者均独立成模块。
 // 依赖顺序：apk-data → generate → render → settings → i18n → app.state → app.share → app.ui
@@ -54,7 +54,17 @@
       r.addEventListener("change", function () {
         if (!r.checked) return;
         window.MiState.setMode(r.value);
-        H().toggleUninstallWarn();
+        if (r.value === "uninstall") {
+          // 切换到卸载模式：弹窗二次确认，确认前临时回退禁用模式
+          H().confirmUninstallWarn(function () {
+            H().toggleUninstallWarn();
+            H().generate();
+          });
+          // 用户取消时（change 已发生），保持卸载态但弹窗可再次触发
+          H().toggleUninstallWarn();
+        } else {
+          H().toggleUninstallWarn();
+        }
         H().generate();
       });
     });

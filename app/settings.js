@@ -1,5 +1,5 @@
 // MiAppClean 设置与持久化模块
-// 路径: app/settings.js  v1.13.5
+// 路径: app/settings.js  v1.14.0
 // 职责：localStorage 持久化（主题 miac-theme / 默认模式 / 记忆勾选 / 复制提示），
 // 提供 get/set* API 与外部抽屉开关绑定；面板 DOM 构建委托给 settings.panel.js。
 // 与 design-system/spec.md「外观」要求对齐：三态主题 + miac-theme 键 + theme-color 同步。

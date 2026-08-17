@@ -1,5 +1,5 @@
 // MiAppClean 交互处理函数（纯行为，无事件绑定）
-// 路径: app/app.ui.handlers.js  v1.13.5
+// 路径: app/app.ui.handlers.js  v1.14.0
 // 职责：将 app.ui.js 中的交互处理函数抽离为纯模块，便于复用与测试。
 // 依赖：window.MiState / MiRender / MiGen / MiSettings / MiI18n / MiShare。
 // app.ui.js 仅负责 init 编排与 DOM 事件绑定，调用本模块的 exported handlers。
@@ -37,7 +37,7 @@
   function syncStat() {
     var state = window.MiState;
     var stat = document.getElementById("stat");
-    if (stat) stat.textContent = I("stat.selected", null) + "：" + state.getChecked().size;
+    if (stat) stat.textContent = I("stat.selected", null) + "：" + state.getChecked().length;
   }
 
   // 生成命令：合并内置勾选 + 自定义包名，按模式生成
@@ -125,11 +125,37 @@
     clearAll();
   }
 
-  // 卸载警告条切换（mode=uninstall 时显示）
+  // 卸载警告弹层切换（mode=uninstall 时显示）
   function toggleUninstallWarn() {
     var state = window.MiState;
     var warn = document.getElementById("uninstallWarn");
-    if (warn) warn.style.display = state.getModeSafe() === "uninstall" ? "block" : "none";
+    if (!warn) return;
+    var show = state.getModeSafe() === "uninstall";
+    if (show) warn.removeAttribute("hidden");
+    else warn.setAttribute("hidden", "");
+  }
+
+  // 关闭卸载警告弹层
+  function closeUninstallWarn() {
+    var warn = document.getElementById("uninstallWarn");
+    if (warn) warn.setAttribute("hidden", "");
+  }
+
+  // 卸载模式确认：弹窗「继续」后执行业务回调
+  function confirmUninstallWarn(onConfirm) {
+    var warn = document.getElementById("uninstallWarn");
+    if (!warn) { if (onConfirm) onConfirm(); return; }
+    warn.removeAttribute("hidden");
+    var ok = document.getElementById("uninstallWarnOk");
+    var cancel = document.getElementById("uninstallWarnCancel");
+    function cleanup() {
+      if (ok) ok.removeEventListener("click", onOk);
+      if (cancel) cancel.removeEventListener("click", onCancel);
+    }
+    function onOk() { cleanup(); closeUninstallWarn(); if (onConfirm) onConfirm(); }
+    function onCancel() { cleanup(); closeUninstallWarn(); }
+    if (ok) ok.addEventListener("click", onOk);
+    if (cancel) cancel.addEventListener("click", onCancel);
   }
 
   window.MiUiHandlers = {
@@ -141,6 +167,8 @@
     selectAll: selectAll,
     clearAll: clearAll,
     deselectAll: deselectAll,
-    toggleUninstallWarn: toggleUninstallWarn
+    toggleUninstallWarn: toggleUninstallWarn,
+    closeUninstallWarn: closeUninstallWarn,
+    confirmUninstallWarn: confirmUninstallWarn
   };
 })();
