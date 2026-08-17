@@ -2,6 +2,20 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.14.1] - 2026-08-17
+
+### 文档
+- 同步 prototype 与项目代码版本标注：将 `prototype/theme.js`、
+  `prototype/components/components.css`、`prototype/index.html`、
+  `prototype/interaction/index.html`、`prototype/README.md`、
+  `CONTRIBUTING.md`、根 `index.html` 滞后的 `v1.13.3` 头注与页脚统一修正为 `v1.14.1`。
+- 更新 `prototype/README.md` 的 `app/` 目录结构描述，反映实际拆分的
+  14 个 JS 模块（render/generate/settings/app.state/app.share/app.ui.* 等），
+  并修正打开方式说明：主应用原型 `app/index.html` 使用绝对路径，
+  需经 HTTP 服务托管，而非直接双击打开。
+- 调整根 `index.html` 脚本加载顺序为 `generate → render`，对齐
+  `app/app.ui.js` 文件头声明的依赖顺序契约。
+
 ## [1.14.0] - 2026-08-16
 
 ### 新增
