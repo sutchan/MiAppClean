@@ -2,6 +2,27 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.15.1] - 2026-08-19
+
+### fix
+- 修复应用原型 `app/index.html` 轻提示永久不可见：此前 `#toast` 初始带
+  `hidden` 属性，而 `toast()` 仅用 `.show` 类控制显隐、未移除 `hidden`，
+  导致复制成功等提示在 `app/index.html` 中无法显示。与根 `index.html`
+  行为对齐，移除初始 `hidden`。
+- 修复应用原型 `app/index.html` 卸载模式常驻警告条缺失：步骤 2 内缺少
+  `#uninstallBanner`，导致 `toggleUninstallWarn()` 在 `app/index.html` 中
+  静默 `return`、卸载模式无常驻风险提示。已补齐常驻红色警告条（与根站点
+  及规格「卸载模式常驻红色警告」要求对齐）。
+
+### docs
+- 修正 `README.md` 目录结构中对 `theme.js` 的过时描述：根 `theme.js` 已在
+  v1.15.0 移除（改内联防闪烁脚本，主题单一数据源统一为 `app/settings.js`），
+  README 不再将其列为站点主题切换文件。
+- 补齐语义化 id：`app/index.html` 新增 `mainWrap` / `resultToolbar` /
+  `riskNotice` / `searchRow`，便于调试定位与无障碍锚点。
+- 统一所有源文件头注与全局展示位版本至 `v1.15.1`（对齐用户编码规范与
+  `CONTRIBUTING` 版本管理要求）。
+
 ## [1.15.0] - 2026-08-19
 
 ### feat

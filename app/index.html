@@ -59,7 +59,7 @@
     <a class="step-card" href="#step-5"><span class="step-card-num">5</span><span class="step-card-label" data-i18n="step.5.title">生成的命令</span></a>
   </nav>
 
-  <div class="wrap">
+  <div class="wrap" id="mainWrap">
     <!-- 步骤 1：设备 -->
     <section class="step" id="step-1">
       <div class="step-head"><span class="step-num">1</span><h2 data-i18n="step.1.title">选择设备类型</h2></div>
@@ -81,6 +81,8 @@
           <label><input type="radio" name="mode" value="disable" checked /><span data-i18n="mode.disable">禁用（推荐·可恢复）</span></label>
           <label><input type="radio" name="mode" value="uninstall" /><span data-i18n="mode.uninstall">卸载（移除·谨慎）</span></label>
         </div>
+        <!-- 卸载模式常驻红色警告条：选中“卸载”时显示（toggleUninstallWarn 控制）。对应确认弹层为 #uninstallWarn（命名已区分，避免 ID 冲突）。 -->
+        <div class="uninstall-banner warn-banner hidden" id="uninstallBanner" role="note" data-i18n="warn.uninstall.banner">⚠ 卸载模式：将真正移除应用且难以恢复，请仅对确认无用且非核心组件执行。</div>
       </div>
     </section>
 
@@ -94,7 +96,7 @@
           <button type="button" class="badge badge-danger" data-filter="danger" data-i18n="filter.danger">危险 · 严禁精简</button>
           <button type="button" class="badge badge-all active" data-filter="all" aria-pressed="true" data-i18n="filter.all">全部</button>
         </div>
-        <div class="search-row">
+        <div class="search-row" id="searchRow">
           <input id="search" class="input" type="search" data-i18n-placeholder="search.placeholder" placeholder="搜索包名或描述…" aria-label="搜索应用" />
           <button id="deselectBtn" type="button" class="btn btn-ghost search-action" data-i18n="btn.deselect">取消全选</button>
         </div>
@@ -117,7 +119,7 @@
     <section class="step" id="step-5">
       <div class="step-head"><span class="step-num">5</span><h2 data-i18n="step.5.title">生成的命令</h2></div>
       <div class="panel">
-        <div class="toolbar">
+        <div class="toolbar" id="resultToolbar">
           <button id="copyBtn" class="btn btn-primary" data-i18n="btn.copy">复制全部命令</button>
           <button id="selectAllBtn" class="btn btn-secondary" data-i18n="btn.selectAll">全选推荐项</button>
           <button id="clearBtn" class="btn btn-ghost" data-i18n="btn.clear">清空勾选</button>
@@ -128,7 +130,7 @@
     </section>
 
     <!-- 风险提示 -->
-    <div class="notice">
+    <div class="notice" id="riskNotice">
       <span class="ico"><svg class="icon" aria-hidden="true"><use href="#icon-warning" /></svg></span>
       <ul>
         <li data-i18n="notice.1">操作前请备份设备数据；优先使用「禁用」模式（可 <code>pm enable</code> 恢复）。</li>
@@ -139,7 +141,7 @@
 
     <footer class="legal">
       <p data-i18n="legal.disclaimer">免责声明：本页面仅供学习与技术研究使用。因使用其中命令导致的设备损坏、数据丢失等后果，作者与贡献者不承担任何责任。</p>
-      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.15.0</span></p>
+      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.15.1</span></p>
     </footer>
   </div>
 
@@ -166,8 +168,8 @@
     </div>
   </div>
 
-  <!-- 轻提示 -->
-  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <!-- 轻提示（由 toast() 通过 .show 类控制显隐，初始不写 hidden，与根 index.html 行为对齐） -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <!-- 数据源：以仓库根为托管根，绝对路径引用单一数据源 /apk-data.js -->
   <script src="/apk-data.js"></script>

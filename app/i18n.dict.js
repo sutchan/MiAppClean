@@ -1,5 +1,5 @@
 // MiAppClean 国际化词典（中 / 英）
-// 路径: app/i18n.dict.js  v1.15.0
+// 路径: app/i18n.dict.js  v1.15.1
 // 纯数据模块：仅导出 window.MiI18nDict，供 i18n.js 读取，无任何逻辑依赖。
 // 拆分自 i18n.js，使词典与运行逻辑各自独立、便于维护。
 
@@ -70,7 +70,7 @@ window.MiI18nDict = {
   },
 
   // —— 风险提示 ——
-  "notice.title": { "zh-CN": "", "en-US": "" },
+  "notice.title": { "zh-CN": "风险提示", "en-US": "Risk Notice" },
   "notice.1": {
     "zh-CN": "操作前请务必备份设备数据！优先使用「禁用」模式（可 pm enable 恢复）。",
     "en-US": "Back up your device data before any operation! Prefer Disable mode (recoverable via pm enable)."

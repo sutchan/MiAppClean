@@ -1,5 +1,5 @@
 /* MiAppClean 应用原型样式 · 编排入口
- * 路径: app/app.css  v1.13.4
+ * 路径: app/app.css  v1.15.1
  * 按职责拆分为基础布局层 app.base.css 与组件层 app.components.css，
  * 设计令牌单一来源仍由 app.base.css 引入 /prototype/design-system/tokens.css。
  */

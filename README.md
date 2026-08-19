@@ -4,7 +4,7 @@
 并提供基于 `adb shell pm` 的精简命令模板，帮助用户移除/禁用预装应用，释放存储空间。
 
 > 仓库地址：[github.com/sutchan/MiAppClean](https://github.com/sutchan/MiAppClean)
-> 版本：`v1.15.0`
+> 版本：`v1.15.1`
 
 ## 目录
 
@@ -30,7 +30,6 @@ MiAppClean/
 ├── CHANGELOG.md                    # 版本变更记录
 ├── LICENSE                         # MIT 许可证（根目录，供 GitHub 识别 License 徽章）
 ├── index.html                      # ★ 站点首页（EO 托管根，直接承载精简工具）
-├── theme.js                        # 站点主题切换（读取 URL 主题参数）
 ├── apk-data.js                     # ★ 各机型推荐精简包名数据（单一数据源，原型与脚本共用）
 ├── .github/
 │   ├── workflows/ci.yml            #   CI：提交/PR 时校验版本一致性与数据完整性
