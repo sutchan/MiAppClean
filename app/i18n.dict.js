@@ -1,5 +1,5 @@
 // MiAppClean 国际化词典（中 / 英）
-// 路径: app/i18n.dict.js  v1.13.4
+// 路径: app/i18n.dict.js  v1.15.0
 // 纯数据模块：仅导出 window.MiI18nDict，供 i18n.js 读取，无任何逻辑依赖。
 // 拆分自 i18n.js，使词典与运行逻辑各自独立、便于维护。
 
@@ -97,6 +97,9 @@ window.MiI18nDict = {
   "settings.remember": { "zh-CN": "记忆上次勾选", "en-US": "Remember selection" },
   "settings.toast": { "zh-CN": "复制成功后提示", "en-US": "Toast on copy" },
   "settings.lang": { "zh-CN": "界面语言", "en-US": "Language" },
+  "settings.reset": { "zh-CN": "恢复默认设置", "en-US": "Reset settings" },
+  "btn.reset": { "zh-CN": "恢复默认", "en-US": "Reset" },
+  "confirm.reset": { "zh-CN": "将清除已保存的主题、语言与勾选记忆，恢复默认设置？", "en-US": "Clear saved theme, language and selection memory, and restore defaults?" },
   "opt.theme.light": { "zh-CN": "浅色", "en-US": "Light" },
   "opt.theme.dark": { "zh-CN": "深色", "en-US": "Dark" },
   "opt.theme.auto": { "zh-CN": "跟随系统", "en-US": "Follow system" },

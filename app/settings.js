@@ -1,5 +1,5 @@
 // MiAppClean 设置与持久化模块
-// 路径: app/settings.js  v1.14.0
+// 路径: app/settings.js  v1.15.0
 // 职责：localStorage 持久化（主题 miac-theme / 默认模式 / 记忆勾选 / 复制提示），
 // 提供 get/set* API 与外部抽屉开关绑定；面板 DOM 构建委托给 settings.panel.js。
 // 与 design-system/spec.md「外观」要求对齐：三态主题 + miac-theme 键 + theme-color 同步。
@@ -77,6 +77,22 @@
     state.toast = !!v;
   }
 
+  // 恢复默认设置：清除所有持久化（勾选记忆 / 主题 / 语言），重置内存状态
+  function resetAll() {
+    state.theme = "light";
+    state.mode = "disable";
+    state.remember = false;
+    state.toast = true;
+    try {
+      localStorage.removeItem("miac-checked");
+      localStorage.removeItem(THEME_KEY);
+      localStorage.removeItem("miac-lang");
+    } catch (e) {}
+    applyTheme(state.theme);
+    if (window.MiI18n) window.MiI18n.setLang("zh-CN");
+    document.dispatchEvent(new CustomEvent("miac:reset", { detail: {} }));
+  }
+
   // 主题应用：三态 + 跟随系统 + 动态 theme-color（design-system/spec.md 要求）
   function applyTheme(theme) {
     var resolved = theme;
@@ -134,6 +150,7 @@
     setMode: setMode,
     setRemember: setRemember,
     setToast: setToast,
+    resetAll: resetAll,
     applyTheme: applyTheme,
     bindDrawer: bindDrawer
   };

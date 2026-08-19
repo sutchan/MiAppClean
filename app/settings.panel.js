@@ -1,5 +1,5 @@
 // MiAppClean 设置面板 UI 构建
-// 路径: app/settings.panel.js  v1.13.4
+// 路径: app/settings.panel.js  v1.15.0
 // 职责：纯 DOM 构建与事件绑定（构建设置抽屉内的主题/模式/记忆/提示/语言控件）。
 // 数据读写委托给 settings.js（window.MiSettings），文案取用 MiI18n.I。
 // 拆分自 settings.js，使「存储逻辑」与「面板 UI」各自独立，主文件 <200 行。
@@ -106,6 +106,21 @@
       b.addEventListener("click", function () {
         if (window.MiI18n) window.MiI18n.setLang(b.dataset.lang);
       });
+    });
+
+    // 恢复默认设置
+    var resetRow = document.createElement("div");
+    resetRow.className = "settings-row settings-row-actions";
+    resetRow.innerHTML =
+      '<label>' + I("settings.reset", lang) + "</label>" +
+      '<button type="button" class="btn btn-ghost" data-action="reset">' + I("btn.reset", lang) + "</button>";
+    panel.appendChild(resetRow);
+    resetRow.querySelector('button[data-action="reset"]').addEventListener("click", function () {
+      if (window.confirm && !window.confirm(I("confirm.reset", lang))) return;
+      s.resetAll();
+      buildPanel(panel);
+      if (window.__miacSyncTopbar) window.__miacSyncTopbar();
+      if (window.MiUiLabels) window.MiUiLabels.refreshLabels();
     });
   }
 

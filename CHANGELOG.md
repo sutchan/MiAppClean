@@ -2,6 +2,20 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.15.0] - 2026-08-19
+
+### feat
+- 设置面板新增「恢复默认设置」选项（清除已保存的主题 / 语言 / 勾选记忆，
+  恢复出厂默认），并补 `settings.reset` / `btn.reset` / `confirm.reset` 文案。
+- 顶栏设置按钮（#settingsBtn）原有抽屉交互保留，右上角设置入口可用。
+
+### fix
+- 修复顶栏「语言切换」「主题切换」按钮失效：此前 `app.ui.js` 的 `init()`
+  从未为 `#langBtn` / `#themeBtn` 绑定点击事件，按钮沦为死按钮。
+  新增 `bindTopbar()`：语言按钮调用 `MiI18n.toggleLang()`；主题按钮三态
+  循环（浅色→深色→跟随系统）调用 `MiSettings.setTheme()`。
+  语言/主题广播监听现同步顶栏按钮文字与状态。
+
 ## [1.14.2] - 2026-08-19
 
 ### fix
