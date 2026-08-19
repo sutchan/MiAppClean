@@ -1,5 +1,5 @@
 // MiAppClean 分类渲染模块（按设备/搜索过滤渲染可勾选应用列表）
-// 路径: app/render.js  v1.14.0
+// 路径: app/render.js  v1.14.2
 // 单一数据源：APP_DATA 由调用方传入，勾选状态由 checkedPkgs 集合维护。
 // 用法：先于 app.js 引入；对外暴露 window.MiRender。
 (function () {
@@ -12,8 +12,19 @@
   // riskFilter: "all" | "safe" | "caution" | "danger"
   function render(arg0, arg1, arg2) {
     let opts;
-    if (Array.isArray(arg0)) {
-      // 旧签名兼容：render(list, device, riskFilter)
+    if (arg0 && arg0.nodeType === 1) {
+      // 旧签名兼容：render(catListEl, device, riskFilter)
+      // 调用方（app.ui.js / handlers）传入的是 #catList DOM 元素，数据从 MiState.APP_DATA 取
+      opts = {
+        catListEl: arg0,
+        device: arg1,
+        riskFilter: arg2,
+        checkedPkgs: window.MiState ? window.MiState.checkedPkgs : new Set(),
+        appData: window.MiState ? window.MiState.APP_DATA : {},
+        riskLabel: window.MiState ? window.MiState.RISK_LABEL : null,
+      };
+    } else if (Array.isArray(arg0)) {
+      // 旧签名另一形态：render(list, device, riskFilter) —— list 为数据数组
       opts = {
         list: arg0,
         device: arg1,

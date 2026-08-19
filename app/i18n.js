@@ -1,5 +1,5 @@
 // MiAppClean 国际化运行模块
-// 路径: app/i18n.js  v1.13.4
+// 路径: app/i18n.js  v1.14.2
 // 职责：语言持久化（localStorage 'miac-lang'）+ 文本取用 I(key)。
 // 与 i18n.dict.js（纯词典数据）分离：本文件仅含「读取/选择/取用」逻辑，
 // 词典内容集中在 i18n.dict.js，二者通过 window.MiI18nDict 解耦。
@@ -55,13 +55,19 @@
     return entry[code] != null ? entry[code] : (entry["zh-CN"] != null ? entry["zh-CN"] : key);
   }
 
+  // 风险等级标签：risk.safe / risk.caution / risk.danger（app.state.RISK_LABEL 依赖此方法）
+  function riskLabel(risk) {
+    return I("risk." + risk);
+  }
+
   window.MiI18n = {
     DICT: DICT,
     getLang: getLang,
     setLang: setLang,
     toggleLang: toggleLang,
     applyLang: applyLang,
-    I: I
+    I: I,
+    riskLabel: riskLabel
   };
 
   // 首次加载时应用语言（不改变已存值，仅同步 DOM 与广播）

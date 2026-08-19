@@ -2,6 +2,16 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.14.2] - 2026-08-19
+
+### fix
+- 修复包名列表不显示：
+  - `app/render.js` 旧签名未识别第一个参数为 `#catList` DOM 元素，
+    导致 `device` 取值为 undefined、`appData[undefined]` 为空，列表渲染为空。
+    现识别 `arg0.nodeType === 1` 的 DOM 元素形态，数据改从 `MiState.APP_DATA` 取。
+  - `app/i18n.js` 缺失 `riskLabel()` 方法，而 `app.state.RISK_LABEL` 依赖
+    `MiI18n.riskLabel` 取风险标签，渲染时抛错中断。新增 `riskLabel` 委托 `I("risk.*")`。
+
 ## [1.14.1] - 2026-08-17
 
 ### 文档
