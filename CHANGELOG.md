@@ -15,6 +15,22 @@
   新增 `bindTopbar()`：语言按钮调用 `MiI18n.toggleLang()`；主题按钮三态
   循环（浅色→深色→跟随系统）调用 `MiSettings.setTheme()`。
   语言/主题广播监听现同步顶栏按钮文字与状态。
+- 补全根 `index.html` 缺失的关键 DOM：此前线上站点仅有 `#settingsBtn` /
+  `#langBtn`，但缺少设置抽屉（`#settingsOverlay` / `#settingsDrawer` /
+  `#settingsPanel` / `#settingsClose`）、卸载确认弹层 `#uninstallWarn` 与
+  轻提示 `#toast`，导致 `MiSettings.bindDrawer()` 与
+  `confirmUninstallWarn()` 静默失效。现已对齐 `app/index.html` 结构补齐。
+- 消除主题系统双实现冲突：移除根 `index.html` `<head>` 中外链的
+  `/prototype/theme.js`（独立橙色主题逻辑，与 `app/settings.js` 共用
+  `miac-theme` 键相互覆盖），改为内联防闪烁脚本，主题单一数据源统一为
+  `app/settings.js`；并为根站补 `#themeBtn` 以接管主题切换。
+- 修复卸载警告 ID 冲突：步骤 2 内联常驻警告条由 `#uninstallWarn` 更名为
+  `#uninstallBanner`，独立确认弹层保留 `#uninstallWarn`（带 `#uninstallWarnOk`
+  / `#uninstallWarnCancel`），二者不再互相干扰。
+- 修复设置抽屉显隐逻辑错位：`settings.js` 的 `bindDrawer` 原本给 `#settingsOverlay`
+  加 `.show` 而 CSS 由 `.settings-overlay.open` 控制显隐，导致抽屉无法打开。
+  现统一为对 `#settingsOverlay` 切换 `.open` 类并兼容 `hidden` 属性。
+- 删除 `app/app.state.js` 中 `setRiskFilter` 的 `_search = _search` 死代码 no-op。
 
 ## [1.14.2] - 2026-08-19
 

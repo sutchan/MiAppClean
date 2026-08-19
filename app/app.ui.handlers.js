@@ -1,5 +1,5 @@
 // MiAppClean 交互处理函数（纯行为，无事件绑定）
-// 路径: app/app.ui.handlers.js  v1.14.0
+// 路径: app/app.ui.handlers.js  v1.15.0
 // 职责：将 app.ui.js 中的交互处理函数抽离为纯模块，便于复用与测试。
 // 依赖：window.MiState / MiRender / MiGen / MiSettings / MiI18n / MiShare。
 // app.ui.js 仅负责 init 编排与 DOM 事件绑定，调用本模块的 exported handlers。
@@ -125,27 +125,32 @@
     clearAll();
   }
 
-  // 卸载警告弹层切换（mode=uninstall 时显示）
+  // 卸载模式常驻警告条切换（mode=uninstall 时显示 #uninstallBanner 内联条）
   function toggleUninstallWarn() {
     var state = window.MiState;
-    var warn = document.getElementById("uninstallWarn");
-    if (!warn) return;
+    var banner = document.getElementById("uninstallBanner");
+    if (!banner) return;
     var show = state.getModeSafe() === "uninstall";
-    if (show) warn.removeAttribute("hidden");
-    else warn.setAttribute("hidden", "");
+    if (show) banner.removeAttribute("hidden");
+    else banner.setAttribute("hidden", "");
   }
 
-  // 关闭卸载警告弹层
+  // 关闭卸载确认弹层 #uninstallWarn（独立 alertdialog）
   function closeUninstallWarn() {
     var warn = document.getElementById("uninstallWarn");
-    if (warn) warn.setAttribute("hidden", "");
+    if (!warn) return;
+    warn.classList.remove("open");
+    warn.setAttribute("hidden", "");
   }
 
   // 卸载模式确认：弹窗「继续」后执行业务回调
+  // 操作独立确认弹层 #uninstallWarn（含 #uninstallWarnOk / #uninstallWarnCancel），
+  // 与步骤 2 内联的常驻警告条 #uninstallBanner 互不干扰。
   function confirmUninstallWarn(onConfirm) {
     var warn = document.getElementById("uninstallWarn");
     if (!warn) { if (onConfirm) onConfirm(); return; }
     warn.removeAttribute("hidden");
+    warn.classList.add("open");
     var ok = document.getElementById("uninstallWarnOk");
     var cancel = document.getElementById("uninstallWarnCancel");
     function cleanup() {

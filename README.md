@@ -88,7 +88,7 @@ MiAppClean/
 | `docs/lists/hyperos-app-list.md` | HyperOS（澎湃 OS）内置 App 包名清单 |
 | `apk-data.js` | ★ **权威单一数据源**：各机型推荐精简包名与风险等级（safe/caution/danger）。前端应用（`app/`）、`scripts/xiaomi-apk-cleanup.py` 均直接消费它；请勿在多处维护包名副本 |
 | `docs/governance/` | 开源治理文件：`CODE_OF_CONDUCT.md`（行为准则）、`LICENSE`（MIT）、`SECURITY.md`（安全政策）、`SUPPORT.md`（支持渠道） |
-| `prototype/` | 高保真原型 + 设计规范（纯 HTML，零依赖）：`index.html` 门户、`design-system/` 设计系统、`components/` 组件库、`interaction/` 交互标准、`app/` 可交互应用原型、`README.md` 原型说明 |
+| `prototype/` | 高保真原型 + 设计规范（纯 HTML，零依赖）：`index.html` 门户、`design-system/` 设计系统、`components/` 组件库、`interaction/` 交互标准、`archive/` 历史归档、`README.md` 原型说明（应用原型已迁移至仓库根 `/app/`） |
 | `prototype/archive/` | 历史归档：v1.3.0 旧版网页原型（`xiaomi-apk-cleanup.html/.css/.js` 与增强模块 `xiaomi-apk-cleanup.extra.js`），仅供回溯，不再维护 |
 | `CONTRIBUTING.md` | 贡献指南：项目结构、数据规范、编码与版本管理要求 |
 
@@ -206,9 +206,10 @@ scripts\MIUI-lite-for-Letv-X600.bat
 > 注意：该脚本为历史 ROM 精简脚本，直接删除 ROM 目录文件，
 > 与上方"命令式禁用/卸载"思路不同，仅建议有 ROM 打包经验的用户使用。
 
-### 使用高保真原型（推荐）
+### 使用应用工具（推荐）
 
-打开 `prototype/index.html` 进入原型门户，点击**应用原型**（`app/index.html`）：
+应用工具即站点首页 `index.html`（线上）或可交互原型 `/app/index.html`（本地预览），
+二者代码同源、数据均来自根目录 `apk-data.js`：
 
 1. 选择设备类型：**手机 / 平板 / 电视盒**（平板复用手机清单）。
 2. 选择操作模式：**禁用（推荐·可恢复）** 或 **卸载（移除·谨慎）**。
@@ -217,8 +218,8 @@ scripts\MIUI-lite-for-Letv-X600.bat
 5. 点击 **复制全部命令**，粘贴到已连接设备的终端执行；或用 **全选推荐项** 快速选取。
 6. `danger` 级核心组件自动禁用勾选并在命令生成时跳过，规避变砖风险。
 
-> 原型为纯静态前端，所有数据来自根目录 `apk-data.js`（单一数据源），不会上传任何信息。
-> 设计规范与组件库见 `prototype/` 下的 `design-system/`、`components/`、`interaction/`。
+> 应用为纯静态前端，所有数据来自根目录 `apk-data.js`（单一数据源），不会上传任何信息。
+> 设计规范与组件库见 `prototype/` 下的 `design-system/`、`components/`、`interaction/`（仅供设计参考）。
 > 旧版网页原型（`xiaomi-apk-cleanup.*`）已归档至 `prototype/archive/`，仅供回溯，不再维护。
 
 ## 推荐 ADB 工具

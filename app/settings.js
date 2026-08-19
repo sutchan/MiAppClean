@@ -116,6 +116,8 @@
   }
 
   // 抽屉开关绑定（点击 #settingsBtn 打开，#settingsClose / 遮罩关闭）
+  // 注：显隐由 #settingsOverlay 的 .open 类控制（见 app.base.css）；
+  // 同时兼容 #settingsOverlay 上的 hidden 属性，避免初始化时残留可见。
   function bindDrawer() {
     var btn = document.getElementById("settingsBtn");
     var drawer = document.getElementById("settingsDrawer");
@@ -123,14 +125,16 @@
     var overlay = document.getElementById("settingsOverlay");
 
     function openPanel() {
-      if (!drawer) return;
+      if (!overlay) return;
       if (window.MiSettingsPanel) window.MiSettingsPanel.buildPanel(document.getElementById("settingsPanel"));
-      drawer.classList.add("open");
-      if (overlay) overlay.classList.add("show");
+      overlay.removeAttribute("hidden");
+      overlay.classList.add("open");
     }
     function closePanel() {
-      if (drawer) drawer.classList.remove("open");
-      if (overlay) overlay.classList.remove("show");
+      if (overlay) {
+        overlay.classList.remove("open");
+        overlay.setAttribute("hidden", "");
+      }
     }
 
     if (btn) btn.addEventListener("click", openPanel);

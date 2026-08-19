@@ -48,8 +48,23 @@
     .ico .icon { width: 22px; height: 22px; }
     .warn-banner .ico { color: var(--color-danger-text); }
   </style>
-  <!-- 主题切换：同步执行避免首屏闪烁（数据源见 /prototype/design-system/tokens.css） -->
-  <script src="/prototype/theme.js"></script>
+  <!-- 主题防闪烁：在首屏同步 data-theme，逻辑与 app/settings.js 一致（单一数据源 miac-theme） -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("miac-theme");
+        if (t !== "light" && t !== "dark" && t !== "auto") t = "light";
+        var resolved = t;
+        if (t === "auto") {
+          resolved = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", resolved);
+        document.documentElement.setAttribute("data-theme-choice", t);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", resolved === "dark" ? "#0d0d0d" : "#ffffff");
+      } catch (e) {}
+    })();
+  </script>
 
   <!-- JSON-LD：结构化数据，便于搜索引擎与生成式引擎（GEO）理解站点 -->
   <script type="application/ld+json">
@@ -127,6 +142,9 @@
     </div>
     <div class="topbar-actions">
       <button type="button" id="langBtn" class="icon-btn" aria-label="切换界面语言">EN</button>
+      <button type="button" id="themeBtn" class="icon-btn" aria-label="切换主题（浅色/深色/跟随系统）" title="主题：浅色">
+        <svg class="icon" aria-hidden="true"><use href="#icon-theme" /></svg>
+      </button>
       <button type="button" id="settingsBtn" class="icon-btn" aria-label="打开设置" aria-haspopup="dialog" aria-expanded="false">
         <svg class="icon" aria-hidden="true"><use href="#icon-settings" /></svg>
       </button>
@@ -174,7 +192,7 @@
           <label><input type="radio" name="mode" value="disable" checked /><span data-i18n="mode.disable">禁用（推荐·可恢复）</span></label>
           <label><input type="radio" name="mode" value="uninstall" /><span data-i18n="mode.uninstall">卸载（移除·谨慎）</span></label>
         </div>
-        <div class="warn-banner hidden" id="uninstallWarn" role="alert">
+        <div class="warn-banner hidden" id="uninstallBanner" role="alert">
           <span class="ico"><svg class="icon" aria-hidden="true"><use href="#icon-ban" /></svg></span>
           <span><strong data-i18n="warn.uninstall.title">危险操作：卸载（uninstall）会真正移除系统应用，不可恢复！</strong>
           <span data-i18n="warn.uninstall.desc">可能导致无法开机、失去 OTA 更新能力或系统功能异常。强烈建议优先使用「禁用」模式（可随时 <code>pm enable</code> 恢复）。</span></span>
@@ -259,6 +277,32 @@
       <p class="ver-line">MiAppClean · <span id="ver">v1.15.0</span></p>
     </footer>
   </div>
+
+  <!-- 设置抽屉（外观 / 模式 / 记忆 / 提示 / 语言） -->
+  <div class="settings-overlay" id="settingsOverlay" hidden>
+    <div class="settings-panel" id="settingsDrawer" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="settings-head">
+        <h3 id="settingsTitle" data-i18n="settings.title">设置</h3>
+        <button class="settings-close" id="settingsClose" type="button" aria-label="关闭设置">✕</button>
+      </div>
+      <div class="settings-body" id="settingsPanel"></div>
+    </div>
+  </div>
+
+  <!-- 卸载风险提示弹层（独立 alertdialog，区别于步骤 2 内联常驻警告条 #uninstallBanner） -->
+  <div class="uninstall-warn" id="uninstallWarn" hidden role="alertdialog" aria-modal="true" aria-labelledby="uninstallWarnTitle">
+    <div class="uninstall-warn-card">
+      <h3 id="uninstallWarnTitle" data-i18n="warn.uninstall.title">卸载高危提示</h3>
+      <p data-i18n="warn.uninstall.desc">你选择了含「谨慎 / 危险」等级的包名，卸载可能导致系统功能异常甚至变砖。是否仍继续？</p>
+      <div class="uninstall-warn-actions">
+        <button type="button" id="uninstallWarnCancel" data-i18n="btn.cancel">取消</button>
+        <button type="button" id="uninstallWarnOk" data-i18n="btn.continue">继续</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 轻提示 -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <!-- 数据源：以仓库根为托管根，绝对路径引用单一数据源 /apk-data.js -->
   <script src="/apk-data.js"></script>
