@@ -1,5 +1,5 @@
 /* MiAppClean 应用原型样式 · 组件层
- * 路径: app/app.components.css  v1.9.0
+ * 路径: app/app.components.css  v1.15.2
  * 承载具体 UI 组件样式（类别分组、包名行、徽章、按钮、Toast、设置面板等）。
  * 基础布局与令牌见同目录 app.base.css 与 /prototype/design-system/tokens.css。
  */
@@ -81,8 +81,10 @@
 .empty .ico { font-size: 30px; margin-bottom: var(--sp-2); }
 .empty p { margin: 0; }
 
-/* Toast */
-.toast { position: fixed; left: 50%; bottom: var(--sp-6); transform: translateX(-50%); background: var(--color-text); color: var(--color-bg); padding: 10px 16px; border-radius: var(--radius-md); font-size: var(--fs-sm); box-shadow: var(--shadow-md); z-index: var(--z-toast); animation: toastIn var(--dur-base) var(--ease-decelerate); }
+/* Toast：默认隐藏（opacity:0 + pointer-events:none），由 toast() 添加 .show 揭示，1.8s 后移除消失。
+   与根 index.html 行为对齐；修复 v1.15.1 移除初始 hidden 后 toast 常驻空框的问题。 */
+.toast { position: fixed; left: 50%; bottom: var(--sp-6); transform: translateX(-50%); background: var(--color-text); color: var(--color-bg); padding: 10px 16px; border-radius: var(--radius-md); font-size: var(--fs-sm); box-shadow: var(--shadow-md); z-index: var(--z-toast); opacity: 0; pointer-events: none; transition: opacity var(--dur-base) var(--ease-decelerate); }
+.toast.show { opacity: 1; }
 @keyframes toastIn { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
 
 footer.legal { text-align: center; color: var(--color-text-3); font-size: var(--fs-sm); margin-top: var(--sp-10); padding: 0 var(--sp-4); }

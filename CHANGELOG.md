@@ -2,6 +2,25 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.15.2] - 2026-08-19
+
+### fix
+- 修复轻提示（toast）常驻空框：v1.15.1 移除 `#toast` 初始 `hidden` 后，
+  因 `app.components.css` 的 `.toast` 既无默认隐藏态、也无 `.toast.show`
+  揭示规则，导致 toast 由「永不显示」变为「常驻显示空灰框」。已补
+  `opacity:0`（默认隐藏）+ `.toast.show{opacity:1}`，与 `toast()` 的
+  `.show` 类控制对齐（根 `index.html` 与 `app/index.html` 共用该样式，均受益）。
+- 修复卸载模式常驻警告条永不显示：`app/ui.html` 与根 `index.html` 的
+  `#uninstallBanner` 初始用 class `.hidden`（CSS `.warn-banner.hidden{display:none}`），
+  而 `toggleUninstallWarn()` 此前操作 `hidden` 属性、未移除 class，切到卸载时
+  警告条不显示。现统一走 `classList.toggle("hidden", !show)`，与 CSS 契约一致。
+- 修复根 `index.html` JSON-LD `softwareVersion` 版本遗漏（仍为 1.15.0），
+  已同步至 1.15.2，满足 `openspec/specs/site` 版本同步要求。
+
+### docs
+- 统一全部源文件头注与全局展示位版本至 `v1.15.2`（`app/app.components.css`
+  头注由 v1.9.0 一次性校正，其余 app/*.js 自 v1.15.1 升级）。
+
 ## [1.15.1] - 2026-08-19
 
 ### fix
