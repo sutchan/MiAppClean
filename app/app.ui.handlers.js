@@ -1,5 +1,5 @@
 // MiAppClean 交互处理函数（纯行为，无事件绑定）
-// 路径: app/app.ui.handlers.js  v1.15.3
+// 路径: app/app.ui.handlers.js  v1.15.4
 // 职责：将 app.ui.js 中的交互处理函数抽离为纯模块，便于复用与测试。
 // 依赖：window.MiState / MiRender / MiGen / MiSettings / MiI18n / MiShare。
 // app.ui.js 仅负责 init 编排与 DOM 事件绑定，调用本模块的 exported handlers。
@@ -159,8 +159,19 @@
       if (cancelBtn) cancelBtn.removeEventListener("click", onCancelClick);
       if (warn) warn.removeEventListener("keydown", onKey);
     }
-    function onOk() { cleanup(); closeUninstallWarn(opener); if (onConfirm) onConfirm(); }
-    function onCancelClick() { cleanup(); closeUninstallWarn(opener); if (onCancel) onCancel(); }
+    function onOk() {
+      cleanup();
+      closeUninstallWarn(opener);
+      if (onConfirm) onConfirm();
+      // 通知设置面板等监听者：模式已确定（含取消回退），刷新高亮态
+      document.dispatchEvent(new CustomEvent("miac:mode-change", { detail: {} }));
+    }
+    function onCancelClick() {
+      cleanup();
+      closeUninstallWarn(opener);
+      if (onCancel) onCancel();
+      document.dispatchEvent(new CustomEvent("miac:mode-change", { detail: {} }));
+    }
     function onKey(e) {
       if (e.key === "Escape") { e.preventDefault(); onCancelClick(); return; }
       if (e.key === "Tab") {

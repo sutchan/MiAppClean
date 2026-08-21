@@ -1,5 +1,5 @@
 // MiAppClean 设置面板 UI 构建
-// 路径: app/settings.panel.js  v1.15.2
+// 路径: app/settings.panel.js  v1.15.4
 // 职责：纯 DOM 构建与事件绑定（构建设置抽屉内的主题/模式/记忆/提示/语言控件）。
 // 数据读写委托给 settings.js（window.MiSettings），文案取用 MiI18n.I。
 // 拆分自 settings.js，使「存储逻辑」与「面板 UI」各自独立，主文件 <200 行。
@@ -9,14 +9,22 @@
   var I = function (k, l) { return window.MiI18n ? window.MiI18n.I(k, l) : k; };
   var S = function () { return window.MiSettings; };
 
+  // 模式变更后刷新设置面板高亮（如从主界面或确认弹窗改变模式）。
+  // 用模块级引用保存 handler，便于在每次 buildPanel 前注销旧监听，避免重复绑定。
+  var onModeChange = null;
+
   // 构建设置面板内部控件（每次打开时调用，保证状态最新）
   function buildPanel(panel) {
     if (!panel) return;
     var s = S();
     var lang = window.MiI18n ? window.MiI18n.getLang() : "zh-CN";
+    // cur.mode 以主界面实际选中态为准（MiState.getModeSafe 读 DOM 分段控件）
     var cur = s.get();
+    cur.mode = window.MiState ? window.MiState.getModeSafe() : cur.mode;
 
     panel.innerHTML = "";
+    // 重建前注销旧模式监听，避免每次打开叠加重复绑定
+    if (onModeChange) document.removeEventListener("miac:mode-change", onModeChange);
 
     // 外观主题
     var themeRow = document.createElement("div");
@@ -79,14 +87,21 @@
       });
     });
 
-    // 模式切换
+    // 模式切换：复用主界面 mode 分段控件的 change 逻辑（含卸载二次确认），
+    // 而非仅更新内存态。直接触发对应 radio 的 click，确保确认弹窗与主界面
+    // 选中态一致，避免从设置面板绕过确认进入高危卸载模式。
+    var mainRadios = document.querySelectorAll('input[name="mode"]');
     modeRow.querySelectorAll("button[data-mode]").forEach(function (b) {
       b.classList.toggle("active", b.dataset.mode === cur.mode);
       b.addEventListener("click", function () {
-        s.setMode(b.dataset.mode);
-        modeRow.querySelectorAll("button").forEach(function (x) {
-          x.classList.toggle("active", x === b);
-        });
+        var radio = document.querySelector('input[name="mode"][value="' + b.dataset.mode + '"]');
+        if (radio && !radio.checked) {
+          radio.click(); // 触发 bindSegment 的 change/确认逻辑
+        } else {
+          modeRow.querySelectorAll("button").forEach(function (x) {
+            x.classList.toggle("active", x === b);
+          });
+        }
       });
     });
 
@@ -123,6 +138,16 @@
       if (window.MiUiLabels) window.MiUiLabels.refreshLabels();
     });
   }
+
+  // 模式变更后同步设置面板高亮（如主界面切换或卸载确认取消回退）
+  onModeChange = function () {
+    if (!panel) return;
+    var curMode = window.MiState ? window.MiState.getModeSafe() : "disable";
+    panel.querySelectorAll("button[data-mode]").forEach(function (b) {
+      b.classList.toggle("active", b.dataset.mode === curMode);
+    });
+  };
+  document.addEventListener("miac:mode-change", onModeChange);
 
   window.MiSettingsPanel = { buildPanel: buildPanel };
 })();

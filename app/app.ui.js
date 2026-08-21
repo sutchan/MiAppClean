@@ -1,5 +1,5 @@
 // MiAppClean 应用原型 · 交互与 UI 层（编排 + 事件绑定）
-// 路径: app/app.ui.js  v1.15.3
+// 路径: app/app.ui.js  v1.15.4
 // 职责：初始化装配、DOM 事件绑定、语言/主题刷新编排。
 // 文案刷新委托 MiUiLabels，交互处理委托 MiUiHandlers，二者均独立成模块。
 // 依赖顺序：apk-data → generate → render → settings → i18n → app.state → app.share → app.ui
@@ -73,6 +73,7 @@
           window.MiState.setMode(r.value);
           H().toggleUninstallWarn();
           H().generate();
+          document.dispatchEvent(new CustomEvent("miac:mode-change", { detail: {} }));
         }
       });
     });

@@ -2,6 +2,20 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.15.4] - 2026-08-21
+
+### fix
+- 修复设置面板「默认操作模式」与主页模式分段控件状态不一致：面板切模式仅更新内存态
+  `state.mode`，未同步主页 `input[name="mode"]` 选中态。改为驱动对应 radio 的 `click()`，
+  复用 `bindSegment` 的卸载二次确认逻辑，杜绝从设置面板绕过确认进入高危卸载模式。
+- 设置面板切到卸载模式被取消时，新增 `miac:mode-change` 事件（由 `confirmUninstallWarn`
+  确认/取消后派发，主页直接切非卸载模式也派发），面板监听该事件刷新模式按钮高亮，
+  保证视觉与真实选中态一致。
+
+### docs
+- 同步全局展示位版本至 `v1.15.4`（VERSION / README / `index.html` JSON-LD 与页脚 /
+  `app/index.html` 页脚 / `prototype/README.md` / `docs/commands.md`）。
+
 ## [1.15.3] - 2026-08-21
 
 ### refactor
