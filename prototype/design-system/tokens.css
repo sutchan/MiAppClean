@@ -1,5 +1,5 @@
 /* MiAppClean 设计令牌（Design Tokens）
- * 路径: prototype/design-system/tokens.css  v1.9.0
+ * 路径: prototype/design-system/tokens.css  v1.15.2
  * 单一数据源：所有原型与界面代码统一引用本文件变量，确保视觉一致性。
  * 设计原则：极简（minimal）、克制、高对比、留白充足、移动优先。
  */
@@ -215,4 +215,14 @@
   --shadow-md: 0 4px 8px -2px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 12px 24px -6px rgba(0, 0, 0, 0.6);
   --overlay: rgba(0, 0, 0, 0.6);
+}
+
+/* 减弱动效：尊重用户系统偏好，关闭非必要动画/过渡（无障碍基线） */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

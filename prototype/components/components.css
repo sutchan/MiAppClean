@@ -120,8 +120,7 @@ body {
 
 /* ===== 搜索栏 SearchBar ===== */
 .search-row { margin-bottom: var(--sp-3); }
-.input { width: 100%; box-sizing: border-box; padding: 9px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text); font-size: var(--fs-sm); font-family: inherit; }
-.input:focus { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+.search-row .input { width: 100%; }
 
 /* ===== 设置面板 SettingsPanel（对话框变体） ===== */
 .settings-backdrop { position: fixed; inset: 0; background: var(--overlay); display: flex; align-items: center; justify-content: center; padding: var(--sp-4); z-index: var(--z-modal); }

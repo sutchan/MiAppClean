@@ -172,6 +172,4 @@ html { scroll-behavior: smooth; }
 .uninstall-warn-actions #uninstallWarnOk { background: var(--color-danger); color: var(--color-text-invert); border-color: var(--color-danger); }
 .uninstall-warn-actions #uninstallWarnOk:hover { filter: brightness(.94); }
 
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
-}
+/* 减弱动效统一由 /prototype/design-system/tokens.css 的 prefers-reduced-motion 块处理 */

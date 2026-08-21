@@ -1,5 +1,5 @@
 // MiAppClean 国际化词典（中 / 英）
-// 路径: app/i18n.dict.js  v1.15.2
+// 路径: app/i18n.dict.js  v1.15.3
 // 纯数据模块：仅导出 window.MiI18nDict，供 i18n.js 读取，无任何逻辑依赖。
 // 拆分自 i18n.js，使词典与运行逻辑各自独立、便于维护。
 
@@ -70,7 +70,6 @@ window.MiI18nDict = {
   },
 
   // —— 风险提示 ——
-  "notice.title": { "zh-CN": "风险提示", "en-US": "Risk Notice" },
   "notice.1": {
     "zh-CN": "操作前请务必备份设备数据！优先使用「禁用」模式（可 pm enable 恢复）。",
     "en-US": "Back up your device data before any operation! Prefer Disable mode (recoverable via pm enable)."
@@ -142,15 +141,10 @@ window.MiI18nDict = {
   "toast.cancelDanger": { "zh-CN": "已取消复制（高危操作）", "en-US": "Copy cancelled (high-risk)" },
   "toast.selectAll": { "zh-CN": "已全选推荐项（危险组件已排除）", "en-US": "All recommended selected (danger excluded)" },
   "toast.deselect": { "zh-CN": "已取消全部已选项", "en-US": "All selections cleared" },
-  "toast.keepDisable": { "zh-CN": "已取消卸载模式，保持「禁用」", "en-US": "Uninstall cancelled, kept Disable mode" },
 
   // —— 弹窗 ——
   "confirm.uninstallCopy": {
     "zh-CN": "警告：当前命令包含「卸载（uninstall）」，会真正移除系统应用且不可恢复，\n可能导致无法开机、失去 OTA 能力或功能异常。\n\n是否仍要复制这些命令？\n（建议优先使用「禁用」模式，可随时 pm enable 恢复）",
     "en-US": "Warning: commands include Uninstall, which truly removes system apps and is irreversible,\nand may cause boot failure, loss of OTA, or malfunction.\n\nStill copy these commands?\n(Prefer Disable mode, recoverable anytime via pm enable)"
-  },
-  "confirm.switchUninstall": {
-    "zh-CN": "危险操作确认：卸载（uninstall）会真正移除系统应用，不可恢复！\n可能导致设备无法开机、失去 OTA 更新能力或系统功能异常。\n\n确定要切换到卸载模式吗？\n（建议优先使用「禁用」模式，可随时 pm enable 恢复）",
-    "en-US": "Dangerous operation: Uninstall truly removes system apps and is irreversible!\nMay cause boot failure, loss of OTA updates, or malfunction.\n\nSwitch to Uninstall mode?\n(Prefer Disable mode, recoverable anytime via pm enable)"
   }
 };

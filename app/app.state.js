@@ -1,6 +1,6 @@
 // MiAppClean 应用原型 · 状态与数据层
 // 复用根目录 apk-data.js 的 APP_DATA 作为单一数据源（真实数据）
-// 路径: app/app.state.js  v1.15.2
+// 路径: app/app.state.js  v1.15.3
 
 (function () {
   "use strict";
@@ -133,11 +133,6 @@
     return false;
   }
 
-  // 勾选集合变更后持久化（受「记忆上次勾选」开关控制）
-  function syncRemember() {
-    if (window.MiSettings) window.MiSettings.saveChecked([...checkedPkgs]);
-  }
-
   // 对外暴露状态层，供 UI 层（app.ui.js）与渲染/生成模块消费
   window.MiState = {
     APP_DATA,
@@ -160,6 +155,5 @@
     getChecked,
     getModeSafe,
     hasDangerSelected,
-    syncRemember,
   };
 })();

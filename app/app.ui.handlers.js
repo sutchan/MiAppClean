@@ -1,5 +1,5 @@
 // MiAppClean 交互处理函数（纯行为，无事件绑定）
-// 路径: app/app.ui.handlers.js  v1.15.2
+// 路径: app/app.ui.handlers.js  v1.15.3
 // 职责：将 app.ui.js 中的交互处理函数抽离为纯模块，便于复用与测试。
 // 依赖：window.MiState / MiRender / MiGen / MiSettings / MiI18n / MiShare。
 // app.ui.js 仅负责 init 编排与 DOM 事件绑定，调用本模块的 exported handlers。
@@ -21,13 +21,10 @@
     }, 1800);
   }
 
-  // 风险筛选切换（灯具段控）
+  // 风险筛选切换（灯具段控；.active 高亮由 MiState.setRiskFilter 统一维护）
   function setRiskFilter(filter) {
     var state = window.MiState;
     state.setRiskFilter(filter);
-    document.querySelectorAll(".risk-legend [data-filter]").forEach(function (b) {
-      b.classList.toggle("active", b.dataset.filter === filter);
-    });
     var list = document.getElementById("catList");
     if (list && window.MiRender) window.MiRender.render(list, state.getDevice(), state.getRiskFilter());
     syncStat();
@@ -120,11 +117,6 @@
     toast(I("toast.deselect", null));
   }
 
-  // 取消全选（兼容别名）
-  function deselectAll() {
-    clearAll();
-  }
-
   // 卸载模式常驻警告条切换（mode=uninstall 时显示 #uninstallBanner 内联条）
   // 显隐统一走 CSS class `.hidden`（见 app.components.css `.warn-banner.hidden{display:none}`），
   // 与 HTML 初始 class 保持一致；此前混用 hidden 属性致警告条永不显示（class 未移除）。
@@ -136,32 +128,54 @@
     banner.classList.toggle("hidden", !show);
   }
 
-  // 关闭卸载确认弹层 #uninstallWarn（独立 alertdialog）
-  function closeUninstallWarn() {
+  // 关闭卸载确认弹层 #uninstallWarn（独立 alertdialog）；可选归还焦点
+  function closeUninstallWarn(returnFocus) {
     var warn = document.getElementById("uninstallWarn");
     if (!warn) return;
     warn.classList.remove("open");
     warn.setAttribute("hidden", "");
+    if (returnFocus && returnFocus.focus) returnFocus.focus();
   }
 
-  // 卸载模式确认：弹窗「继续」后执行业务回调
+  // 卸载模式确认：弹窗「继续」后执行 onConfirm，「取消」后执行 onCancel（可选）
   // 操作独立确认弹层 #uninstallWarn（含 #uninstallWarnOk / #uninstallWarnCancel），
   // 与步骤 2 内联的常驻警告条 #uninstallBanner 互不干扰。
-  function confirmUninstallWarn(onConfirm) {
+  // 打开时聚焦「取消」（默认安全动作），Esc 等效于取消；Tab 在弹窗内循环。
+  function confirmUninstallWarn(onConfirm, onCancel) {
     var warn = document.getElementById("uninstallWarn");
     if (!warn) { if (onConfirm) onConfirm(); return; }
+    var opener = document.activeElement; // 记录触发者，关闭后归还焦点
     warn.removeAttribute("hidden");
     warn.classList.add("open");
-    var ok = document.getElementById("uninstallWarnOk");
-    var cancel = document.getElementById("uninstallWarnCancel");
+    var okBtn = document.getElementById("uninstallWarnOk");
+    var cancelBtn = document.getElementById("uninstallWarnCancel");
+    var els = function () {
+      if (!warn) return [];
+      var l = warn.querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])");
+      return Array.prototype.filter.call(l, function (el) { return !el.disabled && el.offsetParent !== null; });
+    };
     function cleanup() {
-      if (ok) ok.removeEventListener("click", onOk);
-      if (cancel) cancel.removeEventListener("click", onCancel);
+      if (okBtn) okBtn.removeEventListener("click", onOk);
+      if (cancelBtn) cancelBtn.removeEventListener("click", onCancelClick);
+      if (warn) warn.removeEventListener("keydown", onKey);
     }
-    function onOk() { cleanup(); closeUninstallWarn(); if (onConfirm) onConfirm(); }
-    function onCancel() { cleanup(); closeUninstallWarn(); }
-    if (ok) ok.addEventListener("click", onOk);
-    if (cancel) cancel.addEventListener("click", onCancel);
+    function onOk() { cleanup(); closeUninstallWarn(opener); if (onConfirm) onConfirm(); }
+    function onCancelClick() { cleanup(); closeUninstallWarn(opener); if (onCancel) onCancel(); }
+    function onKey(e) {
+      if (e.key === "Escape") { e.preventDefault(); onCancelClick(); return; }
+      if (e.key === "Tab") {
+        var list = els();
+        if (list.length === 0) return;
+        var first = list[0], last = list[list.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    }
+    if (okBtn) okBtn.addEventListener("click", onOk);
+    if (cancelBtn) cancelBtn.addEventListener("click", onCancelClick);
+    if (warn) warn.addEventListener("keydown", onKey);
+    // 初始焦点落到「取消」（安全默认），避免误触高危「继续」
+    if (cancelBtn) cancelBtn.focus();
   }
 
   window.MiUiHandlers = {
@@ -172,7 +186,6 @@
     copyAll: copyAll,
     selectAll: selectAll,
     clearAll: clearAll,
-    deselectAll: deselectAll,
     toggleUninstallWarn: toggleUninstallWarn,
     closeUninstallWarn: closeUninstallWarn,
     confirmUninstallWarn: confirmUninstallWarn

@@ -1,5 +1,5 @@
 // MiAppClean 应用原型 · 交互与 UI 层（编排 + 事件绑定）
-// 路径: app/app.ui.js  v1.15.2
+// 路径: app/app.ui.js  v1.15.3
 // 职责：初始化装配、DOM 事件绑定、语言/主题刷新编排。
 // 文案刷新委托 MiUiLabels，交互处理委托 MiUiHandlers，二者均独立成模块。
 // 依赖顺序：apk-data → generate → render → settings → i18n → app.state → app.share → app.ui
@@ -53,19 +53,27 @@
     document.querySelectorAll('input[name="mode"]').forEach(function (r) {
       r.addEventListener("change", function () {
         if (!r.checked) return;
-        window.MiState.setMode(r.value);
         if (r.value === "uninstall") {
-          // 切换到卸载模式：弹窗二次确认，确认前临时回退禁用模式
+          // 切换到卸载模式：弹窗二次确认。确认后保持卸载模式并刷新；
+          // 取消则回退到「禁用」模式，避免未经确认就停留在高危模式。
+          var prevValue = window.MiState.getModeSafe();
           H().confirmUninstallWarn(function () {
+            window.MiState.setMode("uninstall");
             H().toggleUninstallWarn();
             H().generate();
+          }, function () {
+            // 取消：回退到之前的模式（通常为禁用）
+            window.MiState.setMode(prevValue === "uninstall" ? "disable" : prevValue);
+            var prevRadio = document.querySelector('input[name="mode"][value="' +
+              (prevValue === "uninstall" ? "disable" : prevValue) + '"]');
+            if (prevRadio) prevRadio.checked = true;
+            H().toggleUninstallWarn();
           });
-          // 用户取消时（change 已发生），保持卸载态但弹窗可再次触发
-          H().toggleUninstallWarn();
         } else {
+          window.MiState.setMode(r.value);
           H().toggleUninstallWarn();
+          H().generate();
         }
-        H().generate();
       });
     });
   }
@@ -95,7 +103,7 @@
     var clear = document.getElementById("clearBtn");
     if (clear) clear.addEventListener("click", function () { H().clearAll(); });
     var deselect = document.getElementById("deselectBtn");
-    if (deselect) deselect.addEventListener("click", function () { H().deselectAll(); });
+    if (deselect) deselect.addEventListener("click", function () { H().clearAll(); });
   }
 
   // 顶栏语言 / 主题快捷按钮（修复此前未绑定导致失效）

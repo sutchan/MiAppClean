@@ -1,36 +1,25 @@
 // MiAppClean 分类渲染模块（按设备/搜索过滤渲染可勾选应用列表）
-// 路径: app/render.js  v1.15.2
+// 路径: app/render.js  v1.15.3
 // 单一数据源：APP_DATA 由调用方传入，勾选状态由 checkedPkgs 集合维护。
 // 用法：先于 app.js 引入；对外暴露 window.MiRender。
 (function () {
   "use strict";
 
   // 渲染分类列表
-  // 支持两种签名，保证调用方迁移期间兼容：
-  //   新：render({ device, term, checkedPkgs, catListEl, appData, riskLabel, riskFilter })
-  //   旧：render(list, device, riskFilter) —— list 为设备分组数组
+  // 支持两种调用形态，保证调用方兼容：
+  //   形态A（DOM 元素，app.ui.js / handlers 使用）：render(catListEl, device, riskFilter)
+  //   形态B（配置对象）：render({ device, term, checkedPkgs, catListEl, appData, riskLabel, riskFilter })
   // riskFilter: "all" | "safe" | "caution" | "danger"
   function render(arg0, arg1, arg2) {
     let opts;
     if (arg0 && arg0.nodeType === 1) {
-      // 旧签名兼容：render(catListEl, device, riskFilter)
-      // 调用方（app.ui.js / handlers）传入的是 #catList DOM 元素，数据从 MiState.APP_DATA 取
+      // 形态A：render(catListEl, device, riskFilter)
+      // 数据从 MiState.APP_DATA 取
       opts = {
         catListEl: arg0,
         device: arg1,
         riskFilter: arg2,
         checkedPkgs: window.MiState ? window.MiState.checkedPkgs : new Set(),
-        appData: window.MiState ? window.MiState.APP_DATA : {},
-        riskLabel: window.MiState ? window.MiState.RISK_LABEL : null,
-      };
-    } else if (Array.isArray(arg0)) {
-      // 旧签名另一形态：render(list, device, riskFilter) —— list 为数据数组
-      opts = {
-        list: arg0,
-        device: arg1,
-        riskFilter: arg2,
-        checkedPkgs: window.MiState ? window.MiState.checkedPkgs : new Set(),
-        catListEl: document.querySelector("#catList"),
         appData: window.MiState ? window.MiState.APP_DATA : {},
         riskLabel: window.MiState ? window.MiState.RISK_LABEL : null,
       };

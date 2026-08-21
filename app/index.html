@@ -13,7 +13,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MiAppClean · 应用原型</title>
   <link rel="stylesheet" href="app.css" />
-  <script src="/prototype/theme.js"></script>
+  <!-- 首屏同步主题，避免深色模式闪烁；运行时由 settings.js 接管 -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("miac-theme");
+        if (t === "light" || t === "dark" || t === "auto") {
+          var resolved = t === "auto"
+            ? (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+            : t;
+          document.documentElement.setAttribute("data-theme", resolved);
+          document.documentElement.setAttribute("data-theme-choice", t);
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <!-- 单色图标精灵（symbol 定义，遵循 prototype/design-system/icon.html） -->
@@ -141,7 +155,7 @@
 
     <footer class="legal">
       <p data-i18n="legal.disclaimer">免责声明：本页面仅供学习与技术研究使用。因使用其中命令导致的设备损坏、数据丢失等后果，作者与贡献者不承担任何责任。</p>
-      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.15.2</span></p>
+      <p class="ver-line">MiAppClean 应用原型 · <span id="ver">v1.15.3</span></p>
     </footer>
   </div>
 

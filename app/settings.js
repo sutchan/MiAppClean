@@ -1,5 +1,5 @@
 // MiAppClean 设置与持久化模块
-// 路径: app/settings.js  v1.15.2
+// 路径: app/settings.js  v1.15.3
 // 职责：localStorage 持久化（主题 miac-theme / 默认模式 / 记忆勾选 / 复制提示），
 // 提供 get/set* API 与外部抽屉开关绑定；面板 DOM 构建委托给 settings.panel.js。
 // 与 design-system/spec.md「外观」要求对齐：三态主题 + miac-theme 键 + theme-color 同步。
@@ -7,12 +7,6 @@
   "use strict";
 
   var THEME_KEY = "miac-theme";
-  var DANGER_PATTERNS = ["system", "framework", "settings"];
-
-  function isDanger(pkg) {
-    var p = (pkg || "").toLowerCase();
-    return DANGER_PATTERNS.some(function (kw) { return p.indexOf(kw) !== -1; });
-  }
 
   // 读取已保存勾选：返回包名数组，供 app.state.js 用 new Set() 消费
   function loadChecked() {
@@ -120,33 +114,53 @@
   // 同时兼容 #settingsOverlay 上的 hidden 属性，避免初始化时残留可见。
   function bindDrawer() {
     var btn = document.getElementById("settingsBtn");
-    var drawer = document.getElementById("settingsDrawer");
     var close = document.getElementById("settingsClose");
     var overlay = document.getElementById("settingsOverlay");
+    var panel = document.getElementById("settingsDrawer");
+    var lastFocused = null;
 
+    // 收集面板内可聚焦元素，供焦点陷阱循环
+    function focusables() {
+      if (!panel) return [];
+      var list = panel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      return Array.prototype.filter.call(list, function (el) { return !el.disabled && el.offsetParent !== null; });
+    }
     function openPanel() {
       if (!overlay) return;
       if (window.MiSettingsPanel) window.MiSettingsPanel.buildPanel(document.getElementById("settingsPanel"));
       overlay.removeAttribute("hidden");
       overlay.classList.add("open");
+      lastFocused = document.activeElement;
+      // 初始焦点：若无已聚焦元素则聚焦关闭按钮
+      if (close) close.focus();
     }
-    function closePanel() {
+    function closePanel(returnFocus) {
       if (overlay) {
         overlay.classList.remove("open");
         overlay.setAttribute("hidden", "");
       }
+      if (returnFocus !== false && lastFocused && lastFocused.focus) lastFocused.focus();
     }
 
     if (btn) btn.addEventListener("click", openPanel);
-    if (close) close.addEventListener("click", closePanel);
-    if (overlay) overlay.addEventListener("click", closePanel);
+    if (close) close.addEventListener("click", function () { closePanel(); });
+    if (overlay) overlay.addEventListener("click", function (e) { if (e.target === overlay) closePanel(); });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closePanel();
+      if (e.key !== "Escape") return;
+      if (overlay && overlay.classList.contains("open")) { e.preventDefault(); closePanel(); }
+    });
+    // 焦点陷阱：Tab 在面板内循环，避免焦点逃逸到遮罩后的页面
+    if (panel) panel.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab") return;
+      var els = focusables();
+      if (els.length === 0) return;
+      var first = els[0], last = els[els.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     });
   }
 
   window.MiSettings = {
-    isDanger: isDanger,
     loadChecked: loadChecked,
     saveChecked: saveChecked,
     get: get,

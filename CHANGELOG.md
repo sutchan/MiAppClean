@@ -2,6 +2,30 @@
 
 本项目所有重要变更均记录于此文件。版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [1.15.3] - 2026-08-21
+
+### refactor
+- 清理冗余代码（只读审查，不改变任何行为）：
+  - `app.state.js`：删除零调用的死函数 `syncRemember` 及其导出。
+  - `settings.js`：删除零调用的 `isDanger()` 与 `DANGER_PATTERNS`（危险判定统一由
+    `app.state.js` 的 `RISK_MAP` 负责）。
+  - `app.ui.labels.js`：删除永不命中的 `.seg-label` 分段控件标签刷新死代码块
+    （设备/模式标签已由通用 `[data-i18n]` 循环处理）。
+  - `app.ui.handlers.js`：`setRiskFilter` 移除与 `MiState.setRiskFilter` 重复的
+    `.active` 类切换；删除 `clearAll` 的别名 `deselectAll`，`#deselectBtn` 直接绑定
+    `clearAll`。
+  - `i18n.dict.js`：删除无引用的死 key `notice.title`、`toast.keepDisable`、
+    `confirm.switchUninstall`。
+  - `render.js`：删除永不触发的 `Array.isArray` 旧签名分支。
+  - `app.components.css`：删除未使用的 `@keyframes toastIn`、`.settings-label`、
+    `.select`、`.settings-switch`。
+  - `app.css`：移除与 `app.base.css` 重复的 `tokens.css` 导入（仍由 `app.base.css`
+    最先导入，避免重复加载）。
+
+### docs
+- 同步全部被改文件头注与全局展示位版本至 `v1.15.3`（VERSION / README /
+  `index.html` JSON-LD softwareVersion / 根 `index.html` 与 `app/index.html` 页脚）。
+
 ## [1.15.2] - 2026-08-19
 
 ### fix

@@ -2,14 +2,6 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H2TWCM7S6K"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H2TWCM7S6K');
-  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>复合组件 · MiAppClean 组件库</title>
   <link rel="stylesheet" href="../design-system/doc.css" />
@@ -20,7 +12,7 @@
   <div class="doc">
     <nav class="doc-nav">
       <p class="doc-brand">Mi<span>App</span>Clean</p>
-      <p class="doc-sub">组件库 v1.0.0</p>
+      <p class="doc-sub">组件库 v1.15.2</p>
       <div class="doc-nav-group">
         <h4>导航</h4>
         <a href="../index.html">原型门户</a>
@@ -49,14 +41,14 @@
 
     <div class="comp-block">
       <h4>Dialog 对话框</h4>
-      <button class="btn btn-secondary" aria-haspopup="dialog" onclick="document.getElementById('dlg').style.display='flex'">打开对话框</button>
+      <button class="btn btn-secondary" aria-haspopup="dialog" onclick="openLayer('dlg')">打开对话框</button>
       <div class="dialog-backdrop" id="dlg" style="display:none" onclick="if(event.target===this)this.style.display='none'">
         <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-t">
           <h3 id="dlg-t">确认执行精简？</h3>
           <p>将对所选设备执行禁用操作，被禁用的应用可随时通过 <code>pm enable</code> 恢复。</p>
           <div class="dialog-actions">
-            <button class="btn btn-ghost" onclick="document.getElementById('dlg').style.display='none'">取消</button>
-            <button class="btn btn-primary" onclick="document.getElementById('dlg').style.display='none'">确认</button>
+            <button class="btn btn-ghost" onclick="closeLayer('dlg')">取消</button>
+            <button class="btn btn-primary" onclick="closeLayer('dlg')">确认</button>
           </div>
         </div>
       </div>
@@ -65,12 +57,12 @@
 
     <div class="comp-block">
       <h4>Drawer 抽屉</h4>
-      <button class="btn btn-secondary" aria-haspopup="dialog" onclick="document.getElementById('drw').style.display='block'">打开抽屉</button>
+      <button class="btn btn-secondary" aria-haspopup="dialog" onclick="openLayer('drw','drw-p')">打开抽屉</button>
       <div class="drawer-backdrop" id="drw" style="display:none" onclick="this.style.display='none'"></div>
       <div class="drawer" id="drw-p" role="dialog" aria-modal="true" aria-label="操作详情" style="display:none" onclick="event.stopPropagation()">
         <h3 style="margin:0 0 var(--sp-4)">操作详情</h3>
         <p class="card-desc">抽屉从右侧滑入，承载较多内容（如完整命令预览、设置项）。点击遮罩关闭。</p>
-        <button class="btn btn-primary" style="margin-top:var(--sp-4)" onclick="document.getElementById('drw').style.display='none';document.getElementById('drw-p').style.display='none'">关闭</button>
+        <button class="btn btn-primary" style="margin-top:var(--sp-4)" onclick="closeLayer('drw','drw-p')">关闭</button>
       </div>
       <p class="comp-note">移动端优先的二级页面容器</p>
     </div>
@@ -96,10 +88,38 @@ adb shell pm disable-user --user 0 com.xiaomi.gamecenter  # 谨慎：可能影�
     function showToast() {
       const t = document.createElement('div');
       t.className = 'toast';
+      t.setAttribute('role', 'status');
+      t.setAttribute('aria-live', 'polite');
       t.textContent = '已复制到剪贴板 ✓';
       document.body.appendChild(t);
       setTimeout(() => t.remove(), 2000);
     }
+
+    /* 对话框/抽屉：Esc 关闭 + 打开时聚焦首个按钮（键盘可达性） */
+    function openLayer(backdropId, panelId) {
+      const b = document.getElementById(backdropId);
+      if (b) b.style.display = panelId ? 'block' : 'flex';
+      if (panelId) {
+        const p = document.getElementById(panelId);
+        if (p) p.style.display = 'block';
+      }
+      const panel = panelId ? document.getElementById(panelId) : b;
+      const btn = panel && panel.querySelector('button');
+      if (btn) btn.focus();
+    }
+    function closeLayer(...ids) {
+      ids.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      ['dlg', 'drw', 'drw-p'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.style.display !== 'none') el.style.display = 'none';
+      });
+    });
   </script>
 </body>
 </html>

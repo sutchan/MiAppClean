@@ -2,14 +2,6 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H2TWCM7S6K"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-H2TWCM7S6K');
-  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MiAppClean 原型门户</title>
   <link rel="stylesheet" href="design-system/doc.css" />
@@ -19,7 +11,7 @@
     .hero { text-align: center; padding: var(--sp-10) var(--sp-4) var(--sp-8); }
     .hero .brand { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-2xl); font-weight: var(--fw-bold); letter-spacing: var(--ls-tight); margin: 0; }
     .hero .brand .brand-logo { width: 26px; height: 26px; }
-    .hero .brand span { color: var(--color-primary); }
+    .hero .brand span { color: var(--color-primary-text); }
     .hero p { color: var(--color-text-2); max-width: 56ch; margin: var(--sp-3) auto 0; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--sp-5); }
     .card { display: block; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--sp-6); text-decoration: none; color: inherit; transition: border-color var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard), transform var(--dur-base) var(--ease-standard); }
@@ -27,7 +19,7 @@
     .card .ico { font-size: 26px; margin-bottom: var(--sp-3); }
     .card h3 { margin: 0 0 var(--sp-2); font-size: var(--fs-lg); }
     .card p { margin: 0; color: var(--color-text-2); font-size: var(--fs-sm); }
-    .card .arrow { margin-top: var(--sp-4); font-size: var(--fs-sm); color: var(--color-primary); font-weight: var(--fw-medium); }
+    .card .arrow { margin-top: var(--sp-4); font-size: var(--fs-sm); color: var(--color-primary-text); font-weight: var(--fw-medium); }
     .section-title { font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: .08em; color: var(--color-text-3); margin: var(--sp-10) 0 var(--sp-4); }
   </style>
   <script src="theme.js"></script>
@@ -40,7 +32,7 @@
       <div class="doc-nav-group">
         <h4>导航</h4>
         <a href="index.html" class="active">原型门户</a>
-        <a href="/app/index.html">应用原型</a>
+        <a href="../app/index.html">应用原型</a>
         <a href="design-system/index.html">设计系统</a>
         <a href="components/index.html">组件库</a>
         <a href="interaction/index.html">交互标准</a>
@@ -54,7 +46,7 @@
 
       <div class="section-title">核心原型</div>
       <div class="grid">
-        <a class="card" href="/app/index.html">
+        <a class="card" href="../app/index.html">
           <div class="ico">🧪</div>
           <h3>应用原型</h3>
           <p>高保真可交互主界面，使用真实包名数据，对齐全部设计令牌与组件库。</p>

@@ -1,5 +1,5 @@
 // MiAppClean 文案刷新模块（i18n 切换 / 初始渲染时调用）
-// 路径: app/app.ui.labels.js  v1.15.2
+// 路径: app/app.ui.labels.js  v1.15.3
 // 职责：纯 DOM 静态文案刷新，按当前语言重写所有 data-i18n 元素的文本。
 // 拆分自 app.ui.js（refreshLabels 占比较高），使编排层保持精简（<200 行）。
 // 依赖：window.MiI18n（I 取用）、window.MiState（风险筛选状态）、window.MiSettingsPanel（面板重建）。
@@ -22,22 +22,6 @@
     document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
       var key = el.getAttribute("data-i18n-placeholder");
       el.setAttribute("placeholder", I(key, lang) || el.getAttribute("placeholder") || "");
-    });
-
-    // 设备类型（分段控件标签）
-    document.querySelectorAll('input[name="device"]').forEach(function (r) {
-      var lbl = r.parentElement;
-      if (lbl && lbl.querySelector(".seg-label")) {
-        lbl.querySelector(".seg-label").textContent = I("device." + r.value, lang);
-      }
-    });
-
-    // 操作模式（分段控件标签）
-    document.querySelectorAll('input[name="mode"]').forEach(function (r) {
-      var lbl = r.parentElement;
-      if (lbl && lbl.querySelector(".seg-label")) {
-        lbl.querySelector(".seg-label").textContent = I("mode." + r.value, lang);
-      }
     });
 
     // 风险图例筛选（同步文本 + 高亮态）
